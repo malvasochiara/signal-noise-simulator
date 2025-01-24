@@ -28,24 +28,21 @@ def signal_generator(max_components, duration=1, sampling_rate=250):
     Raises
     ------
     """
-    
+    # Randomly select the number of sine wave components to ensure variability 
+    # in the generated signal
     num_components = random.randint(1, max_components)
 
-    # Generate a random 
-    frequencies = np.random.randint(1, math.floor(sampling_rate / 2) + 1, size=num_components)
+    # Generate random frequencies for the sine waves. These are limited by 
+    # the Nyquist frequency (half the sampling rate) to avoid aliasing.
+    frequencies = np.random.randint(1, math.floor(sampling_rate / 2), size=num_components)
 
-    # Create a time array based on the duration and sampling rate.
-    # This provides the x-axis values for the sine waves, ensuring proper sampling of the signal.
+    # Create the time array based on the signal duration and sampling rate. 
+    # This ensures proper temporal resolution for the sine waves.
     time = np.linspace(0, duration, int(duration * sampling_rate), endpoint=False)
+    
+    # Sum the sine waves directly to form the final signal.
+    signal = sum(np.sin(2 * np.pi * freq * time) for freq in frequencies)
 
-    # Initialize the signal array as zeros to serve as a base for summing sine waves.
-    signal = np.zeros_like(time)
 
-    sine_waves = [np.sin(2 * np.pi * freq * time) for freq in frequencies]
-
-    # Use numpy.sum to combine all sine waves efficiently in one operation
-    signal = np.sum(sine_waves, axis=0)
-
-    # Return the components and the generated signal for further use or analysis.
     return frequencies, time, signal
 
