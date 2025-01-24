@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import numpy as np
-import random
 import math
 
 def signal_generator(max_components, duration=1, sampling_rate=250):
@@ -30,7 +29,7 @@ def signal_generator(max_components, duration=1, sampling_rate=250):
     """
     # Randomly select the number of sine wave components to ensure variability 
     # in the generated signal
-    num_components = random.randint(1, max_components)
+    num_components = np.random.randint(1, max_components)
 
     # Generate random frequencies for the sine waves. These are limited by 
     # the Nyquist frequency (half the sampling rate) to avoid aliasing.
