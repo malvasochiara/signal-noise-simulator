@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import numpy as np
+import pytest
 from signal_toolkit import signal_generator
 
 
@@ -90,3 +91,18 @@ def test_time_array():
     np.testing.assert_array_equal(
         time, expected_time, "Time array does not match expected values"
     )
+
+
+def test_invalid_frequencies_value():
+    """
+    Test that the signal_generator raises an error when a frequency smaller than or equal to zero
+    is provided in the frequencies array.
+    GIVEN: An array of frequencies containing at least a wrong value, valid signal duration and
+           sampling rate.
+    WHEN: The signal_generator function is called with these parameters.
+    THEN: A ValueError is raised with the appropriate message.
+    """
+    with pytest.raises(
+        ValueError, match="Frequencies should be positive and non-zero"
+    ):
+        signal_generator(np.array([10, -3]), duration=1, sampling_rate=250)

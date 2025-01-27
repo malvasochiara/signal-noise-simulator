@@ -3,7 +3,7 @@ import numpy as np
 import math
 
 
-def generate_random_frequencies(num_components, sampling_rate=250):
+def random_frequencies_generator(num_components, sampling_rate=250):
     """
     Generate random frequencies within the proper range to avoid aliasing
 
@@ -51,6 +51,8 @@ def signal_generator(frequencies, duration=1, sampling_rate=250):
     Raises
     ------
     """
+    if np.any(frequencies <= 0):
+        raise ValueError("Frequencies should be positive and non-zero")
 
     # Create the time array based on the signal duration and sampling rate
     # to ensure proper temporal resolution for the sine waves.
