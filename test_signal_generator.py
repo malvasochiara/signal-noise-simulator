@@ -100,3 +100,54 @@ def test_signal_amplitude():
     np.random.seed(42)
     _, _, signal = signal_generator(5, duration=1, sampling_rate=250)
     assert np.any(signal != 0), "Signal has zero amplitude"
+
+
+def test_time_is_ndarray():
+    """
+    Test that the 'time' variable is of type numpy.ndarray.
+
+    GIVEN: A valid maximum number of components, signal duration, and
+           sampling rate.
+    WHEN: The signal_generator function is called with these parameters.
+    THEN: The 'time' variable is of type numpy.ndarray.
+    """
+    # Fix the seed for reproducibility
+    np.random.seed(42)
+    _, time, _ = signal_generator(5, duration=1, sampling_rate=250)
+    assert isinstance(
+        time, np.ndarray
+    ), f"Time should be numpy.ndarray but got {type(time)}"
+
+
+def test_signal_is_ndarray():
+    """
+    Test that the 'signal' variable is of type numpy.ndarray.
+
+    GIVEN: A valid maximum number of components, signal duration, and
+           sampling rate.
+    WHEN: The signal_generator function is called with these parameters.
+    THEN: The 'signal' variable is of type numpy.ndarray.
+    """
+    # Fix the seed for reproducibility
+    np.random.seed(42)
+    _, _, signal = signal_generator(5, duration=1, sampling_rate=250)
+    assert isinstance(
+        signal, np.ndarray
+    ), f"Signal should be numpy.ndarray but got {type(signal)}"
+
+
+def test_frequencies_is_ndarray():
+    """
+    Test that the 'frequencies' variable is of type numpy.ndarray.
+
+    GIVEN: A valid maximum number of components, signal duration, and
+           sampling rate.
+    WHEN: The signal_generator function is called with these parameters.
+    THEN: The 'frequencies' variable is of type numpy.ndarray.
+    """
+    # Fix the seed for reproducibility
+    np.random.seed(42)
+    frequencies, _, _ = signal_generator(5, duration=1, sampling_rate=250)
+    assert isinstance(
+        frequencies, np.ndarray
+    ), f"Frequencies should be numpy.ndarray but got {type(frequencies)}"

@@ -28,6 +28,12 @@ The following tests have been implemented to ensure the correct functionality of
 -**`test_signal_amplitude`**:
     Tests that the generated signal has non-zero amplitude.
 
+-**`test_time_is_ndarray`**:
+    Ensures that the **`time`** output is of type **`numpy.ndarray`**.
+
+-**`test_frequencies_is_ndarray`**:
+    Ensures that the **`frequencies`** output is of type **`numpy.ndarray`**.
+
 These tests are designed to validate the typical use cases of the signal generation process, ensuring the correct functionality of the system.
 
 
