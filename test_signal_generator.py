@@ -106,3 +106,16 @@ def test_invalid_frequencies_value():
         ValueError, match="Frequencies should be positive and non-zero"
     ):
         signal_generator(np.array([10, -3]), duration=1, sampling_rate=250)
+
+
+def test_invalid_frequencies_type():
+    """
+    Test that the signal_generator raises an error when a not integer frequency
+    is provided in the frequencies array.
+    GIVEN: An array of frequencies containing at least a non-integer value, valid signal duration and
+           sampling rate.
+    WHEN: The signal_generator function is called with these parameters.
+    THEN: A ValueError is raised with the appropriate message.
+    """
+    with pytest.raises(TypeError, match="Frequencies should be integer"):
+        signal_generator(np.array([10, 0.6]), duration=1, sampling_rate=250)
