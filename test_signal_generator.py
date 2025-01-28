@@ -115,7 +115,9 @@ def test_invalid_frequencies_type():
     GIVEN: An array of frequencies containing at least a non-integer value, valid signal duration and
            sampling rate.
     WHEN: The signal_generator function is called with these parameters.
-    THEN: A ValueError is raised with the appropriate message.
+    THEN: A TypeError is raised with the appropriate message.
     """
     with pytest.raises(TypeError, match="Frequencies should be integer"):
-        signal_generator(np.array([10, 0.6]), duration=1, sampling_rate=250)
+        signal_generator(
+            np.array([10, "undici"]), duration=1, sampling_rate=250
+        )
