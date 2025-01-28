@@ -151,3 +151,19 @@ def test_invalid_duration_value():
         ValueError, match="Duration should be greater than or equal to 0"
     ):
         signal_generator(np.array([5, 10]), duration=-0.5, sampling_rate=250)
+
+
+def test_zero_duration():
+    """
+    Test that the signal_generator returns an empty array when duration = 0 s.
+    GIVEN: A valid array of frequencies, signal duration = 0 and a valid
+           sampling rate.
+    WHEN: The signal_generator function is called with these parameters.
+    THEN: signal is an empty array.
+    """
+    _, signal = signal_generator(
+        np.array([2, 10]), duration=0, sampling_rate=250
+    )
+    assert (
+        signal.size == 0
+    ), f"Expected an empty array, but got an array of size {signal.size}."
