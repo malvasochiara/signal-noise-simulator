@@ -121,3 +121,18 @@ def test_invalid_frequencies_type():
         signal_generator(
             np.array([10, "undici"]), duration=1, sampling_rate=250
         )
+
+
+def test_invalid_duration_type():
+    """
+    Test that the signal_generator raises an error when a not float duration
+    is provided in the frequencies array.
+    GIVEN: A valid array of frequencies, non-float signal duration and a valid
+           sampling rate.
+    WHEN: The signal_generator function is called with these parameters.
+    THEN: A TypeError is raised with the appropriate message.
+    """
+    with pytest.raises(
+        TypeError, match="Duration should be a number, either integer or float"
+    ):
+        signal_generator([10, 20], duration=True, sampling_rate=250)

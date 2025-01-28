@@ -54,6 +54,11 @@ def signal_generator(frequencies, duration=1, sampling_rate=250):
     if not all(isinstance(f, (int, np.integer)) for f in frequencies):
         raise TypeError("Frequencies should be integer")
 
+    if not isinstance(
+        duration, (int, float, np.integer, np.floating)
+    ) or isinstance(duration, bool):
+        raise TypeError("Duration should be a number, either integer or float")
+
     if np.any(frequencies <= 0):
         raise ValueError("Frequencies should be positive and non-zero")
 
