@@ -62,6 +62,9 @@ def signal_generator(frequencies, duration=1, sampling_rate=250):
     if np.any(frequencies <= 0):
         raise ValueError("Frequencies should be positive and non-zero")
 
+    if duration <= 0:
+        raise ValueError("Duration should be greater than or equal to 0")
+
     # Create the time array based on the signal duration and sampling rate
     # to ensure proper temporal resolution for the sine waves.
     time = np.linspace(
