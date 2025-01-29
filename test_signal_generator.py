@@ -135,7 +135,9 @@ def test_invalid_duration_type():
     with pytest.raises(
         TypeError, match="Duration should be a number, either integer or float"
     ):
-        signal_generator([10, 20], duration=True, sampling_rate=250)
+        signal_generator(
+            [10, 20], duration=np.array([5, 10]), sampling_rate=250
+        )
 
 
 def test_invalid_duration_value():
@@ -167,3 +169,21 @@ def test_zero_duration():
     assert (
         signal.size == 0
     ), f"Expected an empty array, but got an array of size {signal.size}."
+
+
+def test_invalid_sampling_rate_type():
+    """
+    Test that the signal_generator raises an error when a not float or integer sampling rate
+    is provided.
+    GIVEN: A valid array of frequencies and duration, a non float or integer
+           sampling rate.
+    WHEN: The signal_generator function is called with these parameters.
+    THEN: A TypeError is raised with the appropriate message.
+    """
+    with pytest.raises(
+        TypeError,
+        match="Sampling rate should be a number, either integer or float",
+    ):
+        signal_generator(
+            [10, 20], duration=2, sampling_rate="duecentocinquanta"
+        )
