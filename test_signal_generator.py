@@ -203,3 +203,18 @@ def test_invalid_sampling_rate_value():
         match="Sampling rate should be greater than or equal to 0",
     ):
         signal_generator(np.array([10, 20]), duration=2, sampling_rate=-250)
+
+
+def test_zero_sampling_rate():
+    """
+    Test that the signal_generator returns an empty array when sampling_rate = 0 Hz.
+    GIVEN: A valid array of frequencies and signal duration = 0, sampling_rate = 0.
+    WHEN: The signal_generator function is called with these parameters.
+    THEN: signal is an empty array.
+    """
+    _, signal = signal_generator(
+        np.array([2, 10]), duration=2, sampling_rate=0
+    )
+    assert (
+        signal.size == 0
+    ), f"Expected an empty array, but got an array of size {signal.size}."
