@@ -185,5 +185,21 @@ def test_invalid_sampling_rate_type():
         match="Sampling rate should be a number, either integer or float",
     ):
         signal_generator(
-            [10, 20], duration=2, sampling_rate="duecentocinquanta"
+            np.array([10, 20]), duration=2, sampling_rate="duecentocinquanta"
         )
+
+
+def test_invalid_sampling_rate_value():
+    """
+    Test that the signal_generator raises an error when a negative sampling rate
+    is provided.
+    GIVEN: A valid array of frequencies and duration, a negative
+           sampling rate.
+    WHEN: The signal_generator function is called with these parameters.
+    THEN: A ValueError is raised with the appropriate message.
+    """
+    with pytest.raises(
+        ValueError,
+        match="Sampling rate should be greater than or equal to 0",
+    ):
+        signal_generator(np.array([10, 20]), duration=2, sampling_rate=-250)
