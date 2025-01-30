@@ -4,6 +4,26 @@ import pytest
 from signal_toolkit import signal_generator
 
 
+def test_single_frequency():
+    """
+    Test that signal_generator correctly generates a single sinusoidal wave.
+    GIVEN: A valid array of frequencies containing just one value, a valid signal duration and
+           sampling rate.
+    WHEN: The signal_generator function is called with these parameters.
+    THEN: The generated signal is the expected sinusoidal wave.
+    """
+    time, signal = signal_generator(
+        np.array([10]), duration=1, sampling_rate=250
+    )
+    expected_signal = np.sin(2 * np.pi * 10 * time)
+    np.testing.assert_allclose(
+        signal,
+        expected_signal,
+        atol=1e-6,
+        err_msg="Single frequency signal mismatch",
+    )
+
+
 def test_signal_length():
     """
     Test that signal_generator returns a signal with length equal to
