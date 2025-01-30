@@ -218,3 +218,16 @@ def test_zero_sampling_rate():
     assert (
         signal.size == 0
     ), f"Expected an empty array, but got an array of size {signal.size}."
+
+
+def test_empty_frequencies():
+    """
+    Test that the signal_generator returns an empty array when frequencies is an empty array.
+    GIVEN: An empty array of frequencies, a valid signal duration and sampling_rate.
+    WHEN: The signal_generator function is called with these parameters.
+    THEN: signal is an empty array.
+    """
+    _, signal = signal_generator(np.array([]), duration=2, sampling_rate=350)
+    assert np.all(
+        signal == 0
+    ), "Expected an array of zeros, but found nonzero values."

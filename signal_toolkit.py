@@ -81,7 +81,16 @@ def signal_generator(frequencies, duration=1, sampling_rate=250):
         0, duration, int(duration * sampling_rate), endpoint=False
     )
 
-    # Sum the sine waves directly to form the final signal.
-    signal = sum(np.sin(2 * np.pi * freq * time) for freq in frequencies)
+    # Ensure the function always returns a signal array of the same length as time, even when the frequencies array is empty,
+    # to maintain consistency in the output format.
+    if frequencies.size == 0:
+        signal = np.zeros_like(time)
+    else:
+        signal = np.sum(
+            np.array(
+                [np.sin(2 * np.pi * freq * time) for freq in frequencies]
+            ),
+            axis=0,
+        )
 
     return time, signal
