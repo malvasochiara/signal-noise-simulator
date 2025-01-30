@@ -208,7 +208,7 @@ def test_invalid_sampling_rate_value():
 def test_zero_sampling_rate():
     """
     Test that the signal_generator returns an empty array when sampling_rate = 0 Hz.
-    GIVEN: A valid array of frequencies and signal duration = 0, sampling_rate = 0.
+    GIVEN: A valid array of frequencies and signal duration, sampling_rate = 0.
     WHEN: The signal_generator function is called with these parameters.
     THEN: signal is an empty array.
     """
