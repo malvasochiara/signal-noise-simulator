@@ -284,3 +284,37 @@ def test_frequencies_length_with_default_sampling_rate():
     assert (
         len(frequencies) == num_components
     ), f"Expected {num_components} frequencies, but got {len(frequencies)}."
+
+
+def test_frequencies_range_with_valid_sampling_rate():
+    """Test that the random_frequencies_generator returns an array of
+    frequencies within the appropriate range, from 1 to the Nyquist's
+    frequency, when called with a valid sampling_rate.
+
+    GIVEN: A valid num_components and sampling_rate.
+    WHEN: The signal_generator function is called with these parameters.
+    THEN: frequencies are all greater than or equal to 1 and smaller than sampling_rate/2.
+    """
+    num_components = 10
+    sampling_rate = 350
+    frequencies = random_frequencies_generator(num_components)
+    assert np.all(
+        (frequencies >= 1) & (frequencies < sampling_rate / 2)
+    ), "Frequencies should be between 1 and Nyquist's frequency"
+
+
+def test_frequencies_length_with_valid_sampling_rate():
+    """Test that the random_frequencies_generator returns an array of
+    frequencies with the appropriate length, when called with a valid
+    sampling_rate.
+
+    GIVEN: A valid num_components and sampling_rate.
+    WHEN: The signal_generator function is called with these parameters.
+    THEN: frequencies is an array of length equal to num_components.
+    """
+    num_components = 10
+    sampling_rate = 350
+    frequencies = random_frequencies_generator(num_components, sampling_rate)
+    assert (
+        len(frequencies) == num_components
+    ), f"Expected {num_components} frequencies, but got {len(frequencies)}."
