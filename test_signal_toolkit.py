@@ -5,8 +5,8 @@ from signal_toolkit import signal_generator, random_frequencies_generator
 
 
 def test_single_frequency():
-    """
-    Test that signal_generator correctly generates a single sinusoidal wave.
+    """Test that signal_generator correctly generates a single sinusoidal wave.
+
     GIVEN: A valid array of frequencies containing just one value, a valid signal duration and
            sampling rate.
     WHEN: The signal_generator function is called with these parameters.
@@ -25,8 +25,7 @@ def test_single_frequency():
 
 
 def test_signal_length():
-    """
-    Test that signal_generator returns a signal with length equal to
+    """Test that signal_generator returns a signal with length equal to
     duration * sampling_rate.
 
     GIVEN: A valid array of frequencies, signal duration, and
@@ -45,8 +44,7 @@ def test_signal_length():
 
 
 def test_signal_amplitude():
-    """
-    Test that the signal has non-zero amplitude.
+    """Test that the signal has non-zero amplitude.
 
     GIVEN: A valid array of frequencies, signal duration, and
            sampling rate.
@@ -61,8 +59,7 @@ def test_signal_amplitude():
 
 
 def test_signal_is_ndarray():
-    """
-    Test that the 'signal' variable is of type numpy.ndarray.
+    """Test that the 'signal' variable is of type numpy.ndarray.
 
     GIVEN: A valid array of frequencies, signal duration, and
            sampling rate.
@@ -78,8 +75,7 @@ def test_signal_is_ndarray():
 
 
 def test_time_is_ndarray():
-    """
-    Test that the 'time' variable is of type numpy.ndarray.
+    """Test that the 'time' variable is of type numpy.ndarray.
 
     GIVEN: A valid array of frequencies, signal duration, and
            sampling rate.
@@ -95,8 +91,7 @@ def test_time_is_ndarray():
 
 
 def test_time_array():
-    """
-    Test that the time array is generated correctly.
+    """Test that the time array is generated correctly.
 
     GIVEN: A valid array of frequencies, signal duration, and
            sampling rate.
@@ -114,9 +109,9 @@ def test_time_array():
 
 
 def test_negative_frequencies_value():
-    """
-    Test that the signal_generator raises an error when a frequency smaller than or equal to zero
-    is provided in the frequencies array.
+    """Test that the signal_generator raises an error when a frequency smaller
+    than or equal to zero is provided in the frequencies array.
+
     GIVEN: An array of frequencies containing at least a wrong value, valid signal duration and
            sampling rate.
     WHEN: The signal_generator function is called with these parameters.
@@ -129,9 +124,9 @@ def test_negative_frequencies_value():
 
 
 def test_invalid_frequencies_value():
-    """
-    Test that the signal_generator raises an error when a frequency greater than or equal to Nyquist's frequency'
-    is provided in the frequencies array.
+    """Test that the signal_generator raises an error when a frequency greater
+    than or equal to Nyquist's frequency' is provided in the frequencies array.
+
     GIVEN: An array of frequencies containing at least a wrong value, valid signal duration and
            sampling rate.
     WHEN: The signal_generator function is called with these parameters.
@@ -145,9 +140,9 @@ def test_invalid_frequencies_value():
 
 
 def test_invalid_frequencies_type():
-    """
-    Test that the signal_generator raises an error when a not integer frequency
-    is provided in the frequencies array.
+    """Test that the signal_generator raises an error when a not integer
+    frequency is provided in the frequencies array.
+
     GIVEN: An array of frequencies containing at least a non-integer value, valid signal duration and
            sampling rate.
     WHEN: The signal_generator function is called with these parameters.
@@ -160,9 +155,9 @@ def test_invalid_frequencies_type():
 
 
 def test_invalid_duration_type():
-    """
-    Test that the signal_generator raises an error when a not float duration
+    """Test that the signal_generator raises an error when a not float duration
     is provided.
+
     GIVEN: A valid array of frequencies, non-float signal duration and a valid
            sampling rate.
     WHEN: The signal_generator function is called with these parameters.
@@ -177,9 +172,9 @@ def test_invalid_duration_type():
 
 
 def test_invalid_duration_value():
-    """
-    Test that the signal_generator raises an error when a negative duration
+    """Test that the signal_generator raises an error when a negative duration
     is provided.
+
     GIVEN: A valid array of frequencies, a negative signal duration and a valid
            sampling rate.
     WHEN: The signal_generator function is called with these parameters.
@@ -192,8 +187,9 @@ def test_invalid_duration_value():
 
 
 def test_zero_duration():
-    """
-    Test that the signal_generator returns an empty array when duration = 0 s.
+    """Test that the signal_generator returns an empty array when duration = 0
+    s.
+
     GIVEN: A valid array of frequencies, signal duration = 0 and a valid
            sampling rate.
     WHEN: The signal_generator function is called with these parameters.
@@ -208,9 +204,9 @@ def test_zero_duration():
 
 
 def test_invalid_sampling_rate_type():
-    """
-    Test that the signal_generator raises an error when a not float or integer sampling rate
-    is provided.
+    """Test that the signal_generator raises an error when a not float or
+    integer sampling rate is provided.
+
     GIVEN: A valid array of frequencies and duration, a non float or integer
            sampling rate.
     WHEN: The signal_generator function is called with these parameters.
@@ -226,9 +222,9 @@ def test_invalid_sampling_rate_type():
 
 
 def test_invalid_sampling_rate_value():
-    """
-    Test that the signal_generator raises an error when a negative sampling rate
-    is provided.
+    """Test that the signal_generator raises an error when a negative sampling
+    rate is provided.
+
     GIVEN: A valid array of frequencies and duration, a negative
            sampling rate.
     WHEN: The signal_generator function is called with these parameters.
@@ -242,8 +238,9 @@ def test_invalid_sampling_rate_value():
 
 
 def test_empty_frequencies():
-    """
-    Test that the signal_generator returns an empty array when frequencies is an empty array.
+    """Test that the signal_generator returns an empty array when frequencies
+    is an empty array.
+
     GIVEN: An empty array of frequencies, a valid signal duration and sampling_rate.
     WHEN: The signal_generator function is called with these parameters.
     THEN: signal is an empty array.
@@ -258,8 +255,32 @@ def test_empty_frequencies():
 
 
 def test_frequencies_range_with_default_sampling_rate():
+    """Test that the random_frequencies_generator returns an array of
+    frequencies within the appropriate range, from 1 to the Nyquist's
+    frequency, when called with the default parameter.
+
+    GIVEN: A valid num_components.
+    WHEN: The signal_generator function is called with this parameter and the default value for sampling_rate.
+    THEN: frequencies are all greater than or equal to 1 and smaller than 125.
+    """
     num_components = 10
     frequencies = random_frequencies_generator(num_components)
     assert np.all(
         (frequencies >= 1) & (frequencies < 125)
     ), "Frequencies should be between 1 and 125 (for sampling_rate=250)"
+
+
+def test_frequencies_length_with_default_sampling_rate():
+    """Test that the random_frequencies_generator returns an array of
+    frequencies with the appropriate length, when called with the default
+    parameter.
+
+    GIVEN: A valid num_components.
+    WHEN: The signal_generator function is called with this parameter and the default value for sampling_rate.
+    THEN: frequencies is an array of length equal to num_components.
+    """
+    num_components = 10
+    frequencies = random_frequencies_generator(num_components)
+    assert (
+        len(frequencies) == num_components
+    ), f"Expected {num_components} frequencies, but got {len(frequencies)}."
