@@ -113,7 +113,7 @@ def test_time_array():
     )
 
 
-def test_invalid_frequencies_value():
+def test_negative_frequencies_value():
     """
     Test that the signal_generator raises an error when a frequency smaller than or equal to zero
     is provided in the frequencies array.
