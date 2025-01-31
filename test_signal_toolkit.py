@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import numpy as np
 import pytest
-from signal_toolkit import signal_generator
+from signal_toolkit import signal_generator, random_frequencies_generator
 
 
 def test_single_frequency():
@@ -252,3 +252,14 @@ def test_empty_frequencies():
     assert np.all(
         signal == 0
     ), "Expected an array of zeros, but found nonzero values."
+
+
+# tests for random_frequencies_generator
+
+
+def test_frequencies_range_with_default_sampling_rate():
+    num_components = 10
+    frequencies = random_frequencies_generator(num_components)
+    assert np.all(
+        (frequencies >= 1) & (frequencies < 125)
+    ), "Frequencies should be between 1 and 125 (for sampling_rate=250)"
