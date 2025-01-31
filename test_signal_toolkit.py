@@ -128,6 +128,22 @@ def test_negative_frequencies_value():
         signal_generator(np.array([10, -3]), duration=1, sampling_rate=250)
 
 
+def test_invalid_frequencies_value():
+    """
+    Test that the signal_generator raises an error when a frequency greater than or equal to Nyquist's frequency'
+    is provided in the frequencies array.
+    GIVEN: An array of frequencies containing at least a wrong value, valid signal duration and
+           sampling rate.
+    WHEN: The signal_generator function is called with these parameters.
+    THEN: A ValueError is raised with the appropriate message.
+    """
+    with pytest.raises(
+        ValueError,
+        match="Frequencies should be smaller than Nyquist's frequency, sampling_rate/2",
+    ):
+        signal_generator(np.array([10, 200]), duration=1, sampling_rate=250)
+
+
 def test_invalid_frequencies_type():
     """
     Test that the signal_generator raises an error when a not integer frequency
@@ -223,21 +239,6 @@ def test_invalid_sampling_rate_value():
         match="Sampling rate should be greater than or equal to 0",
     ):
         signal_generator(np.array([10, 20]), duration=2, sampling_rate=-250)
-
-
-def test_zero_sampling_rate():
-    """
-    Test that the signal_generator returns an empty array when sampling_rate = 0 Hz.
-    GIVEN: A valid array of frequencies and signal duration, sampling_rate = 0.
-    WHEN: The signal_generator function is called with these parameters.
-    THEN: signal is an empty array.
-    """
-    _, signal = signal_generator(
-        np.array([2, 10]), duration=2, sampling_rate=0
-    )
-    assert (
-        signal.size == 0
-    ), f"Expected an empty array, but got an array of size {signal.size}."
 
 
 def test_empty_frequencies():
