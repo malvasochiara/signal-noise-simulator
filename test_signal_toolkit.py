@@ -260,8 +260,8 @@ def test_frequencies_range_with_default_sampling_rate():
     frequencies within the appropriate range, from 1 to the Nyquist's
     frequency, when called with the default parameter.
 
-    GIVEN: A valid num_components.
-    WHEN: The signal_generator function is called with this parameter and the default value for sampling_rate.
+    GIVEN: A valid num_components and the default value for sampling_rate.
+    WHEN: The random_frequencies_generator function is called with these parameters.
     THEN: frequencies are all greater than or equal to 1 and smaller than 125.
     """
     random.seed(42)
@@ -277,8 +277,8 @@ def test_frequencies_length_with_default_sampling_rate():
     frequencies with the appropriate length, when called with the default
     parameter.
 
-    GIVEN: A valid num_components.
-    WHEN: The signal_generator function is called with this parameter and the default value for sampling_rate.
+    GIVEN: A valid num_components and the default value for sampling_rate.
+    WHEN: The random_frequencies_generator function is called with these parameters.
     THEN: frequencies is an array of length equal to num_components.
     """
     random.seed(42)
@@ -295,7 +295,7 @@ def test_frequencies_range_with_valid_sampling_rate():
     frequency, when called with a valid sampling_rate.
 
     GIVEN: A valid num_components and sampling_rate.
-    WHEN: The signal_generator function is called with these parameters.
+    WHEN: The random_frequencies_generator function is called with these parameters.
     THEN: frequencies are all greater than or equal to 1 and smaller than sampling_rate/2.
     """
     random.seed(42)
@@ -313,7 +313,7 @@ def test_frequencies_length_with_valid_sampling_rate():
     sampling_rate.
 
     GIVEN: A valid num_components and sampling_rate.
-    WHEN: The signal_generator function is called with these parameters.
+    WHEN: The random_frequencies_generator function is called with these parameters.
     THEN: frequencies is an array of length equal to num_components.
     """
     random.seed(42)
@@ -323,3 +323,4 @@ def test_frequencies_length_with_valid_sampling_rate():
     assert (
         len(frequencies) == num_components
     ), f"Expected {num_components} frequencies, but got {len(frequencies)}."
+
