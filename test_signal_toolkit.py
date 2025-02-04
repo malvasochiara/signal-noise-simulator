@@ -324,3 +324,18 @@ def test_frequencies_length_with_valid_sampling_rate():
         len(frequencies) == num_components
     ), f"Expected {num_components} frequencies, but got {len(frequencies)}."
 
+
+def test_invalid_numcomponents_type():
+    """Test that the random_frequencies_generator raises an error when a not integer
+    number of components is provided.
+
+    GIVEN: An invalid number of components, default sampling_rate
+    WHEN: The random_frequencies_generator function is called with these parameters.
+    THEN: A TypeError is raised with the appropriate message.
+    """
+    random.seed(42)
+    with pytest.raises(
+        TypeError,
+        match="num_components should be an integer number",
+    ):
+        random_frequencies_generator("cinque")

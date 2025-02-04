@@ -19,6 +19,10 @@ def random_frequencies_generator(num_components, sampling_rate=250):
     frequencies : numpy.ndarray
         Array of randomly chosen integer frequencies (in Hz).
     """
+    if not isinstance(num_components, (int, np.integer)) or isinstance(
+        num_components, bool
+    ):
+        raise TypeError("num_components should be an integer number")
     # Set the maximum value of frequencies to the Nyquist's frequency to avoid aliasing
     frequencies = np.random.randint(
         1, math.floor(sampling_rate / 2), size=num_components
