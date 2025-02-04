@@ -389,10 +389,13 @@ def test_invalid_sampling_rate_value_random_frequencies():
     """Test that the random_frequencies_generator raises an error when a negative
     sampling rate is provided.
 
-    GIVEN: A valid number of components, a negative sampling_rate
+    GIVEN: A valid number of components, a sampling_rate smaller than or equal to 0.
     WHEN: The random_frequencies_generator function is called with these parameters.
     THEN: A ValueError is raised.
     """
     random.seed(42)
-    with pytest.raises(ValueError):
-        random_frequencies_generator(8, -500)
+    with pytest.raises(
+        ValueError,
+        match="sampling_rate should be greater than 0",
+    ):
+        random_frequencies_generator(5, -100)
