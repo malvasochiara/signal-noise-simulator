@@ -339,3 +339,16 @@ def test_invalid_numcomponents_type():
         match="num_components should be an integer number",
     ):
         random_frequencies_generator("cinque")
+
+
+def test_invalid_numcomponets_value():
+    """Test that the random_frequencies_generator raises an error when a negative
+    number of components is provided.
+
+    GIVEN: A negative number of components, default sampling_rate
+    WHEN: The random_frequencies_generator function is called with these parameters.
+    THEN: A ValueError is raised.
+    """
+    random.seed(42)
+    with pytest.raises(ValueError):
+        random_frequencies_generator(-8)
