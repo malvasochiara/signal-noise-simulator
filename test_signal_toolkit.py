@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import numpy as np
 import pytest
+import random
 from signal_toolkit import signal_generator, random_frequencies_generator
 
 
@@ -263,6 +264,7 @@ def test_frequencies_range_with_default_sampling_rate():
     WHEN: The signal_generator function is called with this parameter and the default value for sampling_rate.
     THEN: frequencies are all greater than or equal to 1 and smaller than 125.
     """
+    random.seed(42)
     num_components = 10
     frequencies = random_frequencies_generator(num_components)
     assert np.all(
@@ -279,6 +281,7 @@ def test_frequencies_length_with_default_sampling_rate():
     WHEN: The signal_generator function is called with this parameter and the default value for sampling_rate.
     THEN: frequencies is an array of length equal to num_components.
     """
+    random.seed(42)
     num_components = 10
     frequencies = random_frequencies_generator(num_components)
     assert (
@@ -295,6 +298,7 @@ def test_frequencies_range_with_valid_sampling_rate():
     WHEN: The signal_generator function is called with these parameters.
     THEN: frequencies are all greater than or equal to 1 and smaller than sampling_rate/2.
     """
+    random.seed(42)
     num_components = 10
     sampling_rate = 350
     frequencies = random_frequencies_generator(num_components)
@@ -312,6 +316,7 @@ def test_frequencies_length_with_valid_sampling_rate():
     WHEN: The signal_generator function is called with these parameters.
     THEN: frequencies is an array of length equal to num_components.
     """
+    random.seed(42)
     num_components = 10
     sampling_rate = 350
     frequencies = random_frequencies_generator(num_components, sampling_rate)
