@@ -341,7 +341,7 @@ def test_invalid_numcomponents_type():
         random_frequencies_generator("cinque")
 
 
-def test_invalid_numcomponets_value():
+def test_invalid_numcomponents_value():
     """Test that the random_frequencies_generator raises an error when a negative
     number of components is provided.
 
@@ -352,3 +352,17 @@ def test_invalid_numcomponets_value():
     random.seed(42)
     with pytest.raises(ValueError):
         random_frequencies_generator(-8)
+
+def test_zero_numcomponents():
+    """Test that the random_frequencies_generator returns an empty array when 0
+    number of components is provided.
+
+    GIVEN: A negative number of components, default sampling_rate
+    WHEN: The random_frequencies_generator function is called with these parameters.
+    THEN: An empty array is returned.
+    """
+    random.seed(42)
+    frequencies = random_frequencies_generator(0)
+    assert (
+        len(frequencies) == 0
+    ), f"Expected an empty frequencies array, but got {len(frequencies)}."
