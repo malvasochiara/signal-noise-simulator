@@ -353,6 +353,7 @@ def test_invalid_numcomponents_value():
     with pytest.raises(ValueError):
         random_frequencies_generator(-8)
 
+
 def test_zero_numcomponents():
     """Test that the random_frequencies_generator returns an empty array when 0
     number of components is provided.
@@ -366,3 +367,19 @@ def test_zero_numcomponents():
     assert (
         len(frequencies) == 0
     ), f"Expected an empty frequencies array, but got {len(frequencies)}."
+
+
+def test_invalid_sampling_rate_type_random_frequencies():
+    """Test that the random_frequencies_generator raises an error when a not integer
+    sampling rate is provided.
+
+    GIVEN: A valid number of components, invalid sampling_rate
+    WHEN: The random_frequencies_generator function is called with these parameters.
+    THEN: A TypeError is raised with the appropriate message.
+    """
+    random.seed(42)
+    with pytest.raises(
+        TypeError,
+        match="sampling_rate should be an integer number",
+    ):
+        random_frequencies_generator(5, "duecentocinquanta")

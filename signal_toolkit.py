@@ -23,6 +23,11 @@ def random_frequencies_generator(num_components, sampling_rate=250):
         num_components, bool
     ):
         raise TypeError("num_components should be an integer number")
+
+    if not isinstance(sampling_rate, (int, np.integer)) or isinstance(
+        sampling_rate, bool
+    ):
+        raise TypeError("sampling_rate should be an integer number")
     # Set the maximum value of frequencies to the Nyquist's frequency to avoid aliasing
     frequencies = np.random.randint(
         1, math.floor(sampling_rate / 2), size=num_components
