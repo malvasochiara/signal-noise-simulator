@@ -264,7 +264,8 @@ def test_frequencies_range_with_default_sampling_rate():
     WHEN: The random_frequencies_generator function is called with these parameters.
     THEN: frequencies are all greater than or equal to 1 and smaller than 125.
     """
-    random.seed(42)
+    np.random.seed(42)
+
     num_components = 10
     frequencies = random_frequencies_generator(num_components)
     assert np.all(
@@ -281,7 +282,8 @@ def test_frequencies_length_with_default_sampling_rate():
     WHEN: The random_frequencies_generator function is called with these parameters.
     THEN: frequencies is an array of length equal to num_components.
     """
-    random.seed(42)
+    np.random.seed(42)
+
     num_components = 10
     frequencies = random_frequencies_generator(num_components)
     assert (
@@ -298,7 +300,8 @@ def test_frequencies_range_with_valid_sampling_rate():
     WHEN: The random_frequencies_generator function is called with these parameters.
     THEN: frequencies are all greater than or equal to 1 and smaller than sampling_rate/2.
     """
-    random.seed(42)
+    np.random.seed(42)
+
     num_components = 10
     sampling_rate = 350
     frequencies = random_frequencies_generator(num_components)
@@ -316,7 +319,8 @@ def test_frequencies_length_with_valid_sampling_rate():
     WHEN: The random_frequencies_generator function is called with these parameters.
     THEN: frequencies is an array of length equal to num_components.
     """
-    random.seed(42)
+    np.random.seed(42)
+
     num_components = 10
     sampling_rate = 350
     frequencies = random_frequencies_generator(num_components, sampling_rate)
@@ -333,7 +337,8 @@ def test_invalid_numcomponents_type():
     WHEN: The random_frequencies_generator function is called with these parameters.
     THEN: A TypeError is raised with the appropriate message.
     """
-    random.seed(42)
+    np.random.seed(42)
+
     with pytest.raises(
         TypeError,
         match="num_components should be an integer number",
@@ -349,7 +354,8 @@ def test_invalid_numcomponents_value():
     WHEN: The random_frequencies_generator function is called with these parameters.
     THEN: A ValueError is raised.
     """
-    random.seed(42)
+    np.random.seed(42)
+
     with pytest.raises(ValueError):
         random_frequencies_generator(-8)
 
@@ -362,7 +368,8 @@ def test_zero_numcomponents():
     WHEN: The random_frequencies_generator function is called with these parameters.
     THEN: An empty array is returned.
     """
-    random.seed(42)
+    np.random.seed(42)
+
     frequencies = random_frequencies_generator(0)
     assert (
         len(frequencies) == 0
@@ -377,7 +384,8 @@ def test_invalid_sampling_rate_type_random_frequencies():
     WHEN: The random_frequencies_generator function is called with these parameters.
     THEN: A TypeError is raised with the appropriate message.
     """
-    random.seed(42)
+    np.random.seed(42)
+
     with pytest.raises(
         TypeError,
         match="sampling_rate should be an integer number",
@@ -393,7 +401,8 @@ def test_invalid_sampling_rate_value_random_frequencies():
     WHEN: The random_frequencies_generator function is called with these parameters.
     THEN: A ValueError is raised.
     """
-    random.seed(42)
+    np.random.seed(42)
+
     with pytest.raises(
         ValueError,
         match="sampling_rate should be greater than 0",
