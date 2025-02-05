@@ -405,6 +405,6 @@ def test_invalid_sampling_rate_value_random_frequencies():
 
     with pytest.raises(
         ValueError,
-        match="sampling_rate should be greater than 0",
+        match="sampling_rate should be greater than or equal to 4",
     ):
-        random_frequencies_generator(5, -100)
+        random_frequencies_generator(5, 3)

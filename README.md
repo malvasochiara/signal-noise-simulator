@@ -9,7 +9,7 @@ This repository contains a Python-based implementation for generating sinusoidal
   
   **Parameters:**
   - `num_components` (int): Number of random frequencies to generate.
-  - `sampling_rate` (int, optional): Sampling rate in Hz (default is 250 Hz).
+  - `sampling_rate` (int, optional): Sampling rate in Hz Must be at least 4 Hz (default is 250 Hz).
   
   **Returns:**
   - `frequencies` (numpy.ndarray): Array of random integer frequencies in Hz.

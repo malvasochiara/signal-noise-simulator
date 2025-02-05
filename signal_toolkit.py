@@ -29,8 +29,8 @@ def random_frequencies_generator(num_components, sampling_rate=250):
     ):
         raise TypeError("sampling_rate should be an integer number")
 
-    if sampling_rate <= 0:
-        raise ValueError("sampling_rate should be greater than 0")
+    if sampling_rate <= 3:
+        raise ValueError("sampling_rate should be greater than or equal to 4")
 
     # Set the maximum value of frequencies to the Nyquist's frequency to avoid aliasing
     frequencies = np.random.randint(
