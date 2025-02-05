@@ -436,3 +436,16 @@ def test_minimal_valid_numcomponent():
     np.random.seed(42)
     frequencies = random_frequencies_generator(1, 100)
     assert len(frequencies) == 1, "Expected a single frequency."
+    
+    
+def test_large_number_of_components():
+    """Test that random_frequencies_generator can handle large input sizes efficiently.
+    GIVEN: num_components = 10^8, a valid sampling_rate.
+    WHEN: The random_frequencies_generator function is called with these parameters.
+    THEN: Frequencies is an array of length 10^8  
+    
+    """
+    np.random.seed(42)
+    frequencies = random_frequencies_generator(10**8, 500)
+    assert len(frequencies) == 10**8, f"Expected 10^8 frequencies, but got {len(frequencies)}"
+
