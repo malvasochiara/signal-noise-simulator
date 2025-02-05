@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 import numpy as np
 import pytest
-import random
-from signal_toolkit import signal_generator, random_frequencies_generator
+from signal_toolkit import (
+    signal_generator,
+    random_frequencies_generator,
+    compute_signal_power,
+)
 
 
 def test_single_frequency():
@@ -436,16 +439,58 @@ def test_minimal_valid_numcomponent():
     np.random.seed(42)
     frequencies = random_frequencies_generator(1, 100)
     assert len(frequencies) == 1, "Expected a single frequency."
-    
-    
+
+
 def test_large_number_of_components():
     """Test that random_frequencies_generator can handle large input sizes efficiently.
     GIVEN: num_components = 10^8, a valid sampling_rate.
     WHEN: The random_frequencies_generator function is called with these parameters.
-    THEN: Frequencies is an array of length 10^8  
-    
+    THEN: Frequencies is an array of length 10^8
+
     """
     np.random.seed(42)
     frequencies = random_frequencies_generator(10**8, 500)
-    assert len(frequencies) == 10**8, f"Expected 10^8 frequencies, but got {len(frequencies)}"
+    assert (
+        len(frequencies) == 10**8
+    ), f"Expected 10^8 frequencies, but got {len(frequencies)}"
 
+
+# Test for compute_signal_power
+
+
+def test_compute_signal_power_type():
+    """Test that compute_signal_power returns the correct output type when given a valid input.
+    GIVEN: A valid 1D numpy array.
+    WHEN: The compute_signal_power function is called with this parameter.
+    THEN: The return value is of type float
+
+    """
+    signal = np.array([1, 2, 3, 4, 5])
+    result = compute_signal_power(signal)
+    assert isinstance(
+        result, float
+    ), f"Expected output to be of type float, but got {type(result)}"
+
+
+def test_compute_signal_power_basic():
+    """Test that compute_signal_power returns the correct power when input signal is constant
+    GIVEN: A constant signal where all elements are equal (e.g., an array of ones).
+    WHEN: The compute_signal_power function is called with this parameter.
+    THEN: The RMS power is equal to the value of the constant signal.
+
+    """
+
+    signal = np.ones(100)
+    result = compute_signal_power(signal)
+    assert result == 1.0, f"Expected power to be 1.0, but got {result}"
+
+
+def test_compute_signal_power_invalid_signal_type():
+    """Test that compute_signal_power raises a TypeError when provided with an invalid input.
+    GIVEN: An invalid input (e.g., a string) instead of a numpy array representing a signal.
+    WHEN: The compute_signal_power function is called with this parameter.
+    THEN: A TypeError.
+
+    """
+    with pytest.raises(TypeError):
+        compute_signal_power("signal")

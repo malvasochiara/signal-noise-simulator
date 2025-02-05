@@ -24,6 +24,14 @@ This repository contains a Python-based implementation for generating sinusoidal
   - `time` (numpy.ndarray): Array of time points for the signal (in seconds).
   - `signal` (numpy.ndarray): Array representing the sum of the sinusoidal waves.
 
+- **`compute_signal_power`**: Computes the root mean square (RMS) power of a given signal.
+
+  **Parameters:**
+  - `signal` (numpy.ndarray): Input signal for which the RMS power will be calculated.
+
+  **Returns:**
+  - `power` (float): The root mean square (RMS) power of the signal.
+
 The generated signals can be used for further analysis, testing, or as inputs to other processing functions.
 
 ## Testing

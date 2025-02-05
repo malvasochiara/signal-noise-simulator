@@ -12,7 +12,7 @@ def random_frequencies_generator(num_components, sampling_rate=250):
     num_components : int
         Number of frequencies to generate.
     sampling_rate : int, optional
-        Sampling rate in Hz. Default is 250 Hz.
+        Sampling rate in Hz. Must be at least 4 Hz. Default is 250 Hz.
 
     Returns
     -------
@@ -112,3 +112,20 @@ def signal_generator(frequencies, duration=1, sampling_rate=250):
         )
 
     return time, signal
+
+
+def compute_signal_power(signal):
+    """
+    Compute the root mean square (RMS) power of the signal.
+
+    Parameters
+    ----------
+    signal : numpy.ndarray
+        Input signal for which the RMS power will be calculated.
+
+    Returns
+    -------
+    power : float
+        The root mean square (RMS) power of the signal.
+    """
+    return np.sqrt(np.mean(signal**2))
