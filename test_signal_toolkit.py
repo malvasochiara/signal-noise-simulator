@@ -494,3 +494,28 @@ def test_compute_signal_power_invalid_signal_type():
     """
     with pytest.raises(TypeError):
         compute_signal_power("signal")
+
+
+def test_compute_signal_power_single_element():
+    """Test that compute_signal_power returns the correct power for a single-element signal.
+    GIVEN: A signal with a single element (e.g., an array with one value).
+    WHEN: The compute_signal_power function is called with this parameter.
+    THEN: The RMS power is equal to the value of the signal.
+
+    """
+    signal = np.array([5])
+    assert compute_signal_power(signal) == 5.0, "Expected power to be 5.0"
+
+
+def test_compute_signal_power_large_signal():
+    """Test that compute_signal_power handles a large signal correctly.
+    GIVEN: A large random signal with a very large number of elements (e.g., 10^8 elements).
+    WHEN: The compute_signal_power function is called with this parameter.
+    THEN: The return value is of type float.
+
+    """
+    np.random.seed(42)
+    signal = np.random.rand(10**8)
+    assert isinstance(
+        compute_signal_power(signal), float
+    ), "Expected output to be a float"
