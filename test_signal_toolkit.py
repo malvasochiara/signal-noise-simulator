@@ -423,3 +423,16 @@ def test_minimal_valid_sampling_rate():
     assert np.all(
         np.isin(frequencies, [1, 2])
     ), "Expected frequency to be 1 or 2 when sampling_rate is 4."
+
+
+def test_minimal_valid_numcomponent():
+    """Test that random_frequencies_generator works when num_components is the minimum
+    allowed value.
+    GIVEN: num_components = 1, a valid sampling_rate.
+    WHEN: The random_frequencies_generator function is called with these parameters.
+    THEN: Frequencies is an array of length 1
+
+    """
+    np.random.seed(42)
+    frequencies = random_frequencies_generator(1, 100)
+    assert len(frequencies) == 1, "Expected a single frequency."
