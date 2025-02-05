@@ -407,4 +407,19 @@ def test_invalid_sampling_rate_value_random_frequencies():
         ValueError,
         match="sampling_rate should be greater than or equal to 4",
     ):
-        random_frequencies_generator(5, 3)
+        random_frequencies_generator(5, -17)
+
+
+def test_minimal_valid_sampling_rate():
+    """Test that random_frequencies_generator works correctly when sampling_rate is the minimum
+    allowed value.
+    GIVEN: A valid number of components, sampling_rate = 4.
+    WHEN: The random_frequencies_generator function is called with these parameters.
+    THEN: Frequencies is an array with only 1 and 2
+
+    """
+    np.random.seed(42)
+    frequencies = random_frequencies_generator(50, 4)
+    assert np.all(
+        np.isin(frequencies, [1, 2])
+    ), "Expected frequency to be 1 or 2 when sampling_rate is 4."
