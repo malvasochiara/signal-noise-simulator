@@ -486,10 +486,10 @@ def test_compute_signal_power_basic():
 
 
 def test_compute_signal_power_invalid_signal_type():
-    """Test that compute_signal_power raises a TypeError when provided with an invalid input.
+    """Test that compute_signal_power raises a TypeError when provided with an invalid input type.
     GIVEN: An invalid input (e.g., a string) instead of a numpy array representing a signal.
     WHEN: The compute_signal_power function is called with this parameter.
-    THEN: A TypeError.
+    THEN: A TypeError is raised.
 
     """
     with pytest.raises(TypeError):
@@ -519,3 +519,16 @@ def test_compute_signal_power_large_signal():
     assert isinstance(
         compute_signal_power(signal), float
     ), "Expected output to be a float"
+
+
+def test_compute_signal_power_invalid_signal_element():
+    """Test that compute_signal_power raises a TypeError when provided with an invalid element
+    in signal array.
+    GIVEN: A numpy array containing an invalid type.
+    WHEN: The compute_signal_power function is called with this parameter.
+    THEN: A TypeError is raised.
+
+    """
+    signal = np.array([1, 2, 3, None, 4, 5])
+    with pytest.raises(TypeError):
+        compute_signal_power(signal)
