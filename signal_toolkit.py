@@ -4,8 +4,7 @@ import math
 
 
 def random_frequencies_generator(num_components, sampling_rate=250):
-    """
-    Generate random frequencies within the proper range to avoid aliasing
+    """Generate random frequencies within the proper range to avoid aliasing.
 
     Parameters
     ----------
@@ -41,8 +40,7 @@ def random_frequencies_generator(num_components, sampling_rate=250):
 
 
 def signal_generator(frequencies, duration=1, sampling_rate=250):
-    """
-    Generate a signal composed of the sum of sinusoidal waves.
+    """Generate a signal composed of the sum of sinusoidal waves.
 
     Parameters
     ----------
@@ -115,8 +113,7 @@ def signal_generator(frequencies, duration=1, sampling_rate=250):
 
 
 def compute_signal_power(signal):
-    """
-    Compute the root mean square (RMS) power of the signal.
+    """Compute the root mean square (RMS) power of the signal.
 
     Parameters
     ----------
@@ -129,3 +126,24 @@ def compute_signal_power(signal):
         The root mean square (RMS) power of the signal.
     """
     return np.sqrt(np.mean(signal**2))
+
+
+def compute_white_noise_std(signal, snr_db):
+    """Compute the standard deviation of white Gaussian noise required to
+    achieve a specified SNR.
+
+    Parameters
+    ----------
+    signal : numpy.ndarray
+        Input signal for which the noise standard deviation will be computed.
+    snr_db : float
+        Desired signal-to-noise ratio (SNR) in decibels (dB).
+
+    Returns
+    -------
+    noise_std : float
+        The standard deviation of the white Gaussian noise needed to achieve the given SNR.
+    """
+
+    signal_rms = compute_signal_power(signal)
+    return signal_rms / (10 ** (snr_db / 10))

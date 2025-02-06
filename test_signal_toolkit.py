@@ -5,6 +5,7 @@ from signal_toolkit import (
     signal_generator,
     random_frequencies_generator,
     compute_signal_power,
+    compute_white_noise_std,
 )
 
 
@@ -333,8 +334,8 @@ def test_frequencies_length_with_valid_sampling_rate():
 
 
 def test_invalid_numcomponents_type():
-    """Test that the random_frequencies_generator raises an error when a not integer
-    number of components is provided.
+    """Test that the random_frequencies_generator raises an error when a not
+    integer number of components is provided.
 
     GIVEN: An invalid number of components, default sampling_rate
     WHEN: The random_frequencies_generator function is called with these parameters.
@@ -350,8 +351,8 @@ def test_invalid_numcomponents_type():
 
 
 def test_invalid_numcomponents_value():
-    """Test that the random_frequencies_generator raises an error when a negative
-    number of components is provided.
+    """Test that the random_frequencies_generator raises an error when a
+    negative number of components is provided.
 
     GIVEN: A negative number of components, default sampling_rate
     WHEN: The random_frequencies_generator function is called with these parameters.
@@ -380,8 +381,8 @@ def test_zero_numcomponents():
 
 
 def test_invalid_sampling_rate_type_random_frequencies():
-    """Test that the random_frequencies_generator raises an error when a not integer
-    sampling rate is provided.
+    """Test that the random_frequencies_generator raises an error when a not
+    integer sampling rate is provided.
 
     GIVEN: A valid number of components, invalid sampling_rate
     WHEN: The random_frequencies_generator function is called with these parameters.
@@ -397,8 +398,8 @@ def test_invalid_sampling_rate_type_random_frequencies():
 
 
 def test_invalid_sampling_rate_value_random_frequencies():
-    """Test that the random_frequencies_generator raises an error when a negative
-    sampling rate is provided.
+    """Test that the random_frequencies_generator raises an error when a
+    negative sampling rate is provided.
 
     GIVEN: A valid number of components, a sampling_rate smaller than or equal to 0.
     WHEN: The random_frequencies_generator function is called with these parameters.
@@ -414,12 +415,12 @@ def test_invalid_sampling_rate_value_random_frequencies():
 
 
 def test_minimal_valid_sampling_rate():
-    """Test that random_frequencies_generator works correctly when sampling_rate is the minimum
-    allowed value.
+    """Test that random_frequencies_generator works correctly when
+    sampling_rate is the minimum allowed value.
+
     GIVEN: A valid number of components, sampling_rate = 4.
     WHEN: The random_frequencies_generator function is called with these parameters.
     THEN: Frequencies is an array with only 1 and 2
-
     """
     np.random.seed(42)
     frequencies = random_frequencies_generator(50, 4)
@@ -429,12 +430,12 @@ def test_minimal_valid_sampling_rate():
 
 
 def test_minimal_valid_numcomponent():
-    """Test that random_frequencies_generator works when num_components is the minimum
-    allowed value.
+    """Test that random_frequencies_generator works when num_components is the
+    minimum allowed value.
+
     GIVEN: num_components = 1, a valid sampling_rate.
     WHEN: The random_frequencies_generator function is called with these parameters.
     THEN: Frequencies is an array of length 1
-
     """
     np.random.seed(42)
     frequencies = random_frequencies_generator(1, 100)
@@ -442,11 +443,12 @@ def test_minimal_valid_numcomponent():
 
 
 def test_large_number_of_components():
-    """Test that random_frequencies_generator can handle large input sizes efficiently.
+    """Test that random_frequencies_generator can handle large input sizes
+    efficiently.
+
     GIVEN: num_components = 10^8, a valid sampling_rate.
     WHEN: The random_frequencies_generator function is called with these parameters.
     THEN: Frequencies is an array of length 10^8
-
     """
     np.random.seed(42)
     frequencies = random_frequencies_generator(10**8, 500)
@@ -459,11 +461,12 @@ def test_large_number_of_components():
 
 
 def test_compute_signal_power_type():
-    """Test that compute_signal_power returns the correct output type when given a valid input.
+    """Test that compute_signal_power returns the correct output type when
+    given a valid input.
+
     GIVEN: A valid 1D numpy array.
     WHEN: The compute_signal_power function is called with this parameter.
     THEN: The return value is of type float
-
     """
     signal = np.array([1, 2, 3, 4, 5])
     result = compute_signal_power(signal)
@@ -486,22 +489,24 @@ def test_compute_signal_power_basic():
 
 
 def test_compute_signal_power_invalid_signal_type():
-    """Test that compute_signal_power raises a TypeError when provided with an invalid input type.
+    """Test that compute_signal_power raises a TypeError when provided with an
+    invalid input type.
+
     GIVEN: An invalid input (e.g., a string) instead of a numpy array representing a signal.
     WHEN: The compute_signal_power function is called with this parameter.
     THEN: A TypeError is raised.
-
     """
     with pytest.raises(TypeError):
         compute_signal_power("signal")
 
 
 def test_compute_signal_power_single_element():
-    """Test that compute_signal_power returns the correct power for a single-element signal.
+    """Test that compute_signal_power returns the correct power for a single-
+    element signal.
+
     GIVEN: A signal with a single element (e.g., an array with one value).
     WHEN: The compute_signal_power function is called with this parameter.
     THEN: The RMS power is equal to the value of the signal.
-
     """
     signal = np.array([5])
     assert compute_signal_power(signal) == 5.0, "Expected power to be 5.0"
@@ -509,10 +514,10 @@ def test_compute_signal_power_single_element():
 
 def test_compute_signal_power_large_signal():
     """Test that compute_signal_power handles a large signal correctly.
+
     GIVEN: A large random signal with a very large number of elements (e.g., 10^8 elements).
     WHEN: The compute_signal_power function is called with this parameter.
     THEN: The return value is of type float.
-
     """
     np.random.seed(42)
     signal = np.random.rand(10**8)
@@ -522,13 +527,97 @@ def test_compute_signal_power_large_signal():
 
 
 def test_compute_signal_power_invalid_signal_element():
-    """Test that compute_signal_power raises a TypeError when provided with an invalid element
-    in signal array.
+    """Test that compute_signal_power raises a TypeError when provided with an
+    invalid element in signal array.
+
     GIVEN: A numpy array containing an invalid type.
     WHEN: The compute_signal_power function is called with this parameter.
     THEN: A TypeError is raised.
-
     """
     signal = np.array([1, 2, 3, None, 4, 5])
     with pytest.raises(TypeError):
         compute_signal_power(signal)
+
+
+# Test for compute_white_noise_std
+
+
+def test_compute_white_noise_std_output_type():
+    """Test that compute_white_noise_std returns a float.
+
+    GIVEN: A valid signal and snr.
+    WHEN: The compute_signal_power function is called with these parameters.
+    THEN: The return value is of type float.
+    """
+    signal = np.arange(1, 50, 0.5)
+    noise_std = compute_white_noise_std(signal, 10)
+    assert isinstance(
+        noise_std, float
+    ), f"Expected float, got {type(noise_std)}"
+
+
+def test_compute_white_noise_std_zero_snr():
+    """Test that with 0 dB SNR, noise std equals signal RMS.
+
+    GIVEN: A valid signal and snr = 0.
+    WHEN: The compute_signal_power function is called with these parameters.
+    THEN: The return value is equal to the power of the input signal.
+    """
+    signal = np.arange(1, 20, 0.5)
+    expected_std = compute_signal_power(signal)
+    assert np.isclose(
+        compute_white_noise_std(signal, 0), expected_std
+    ), "Noise std should equal signal RMS for 0 dB SNR"
+
+
+def test_compute_white_noise_std_high_snr():
+    """Test that for high SNR, noise std approaches zero.
+
+    GIVEN: A valid signal and a high snr (e.g. = 1000).
+    WHEN: The compute_signal_power function is called with these parameters.
+    THEN: The return value is close to 0.
+    """
+    signal = np.arange(1, 20, 0.5)
+    assert (
+        compute_white_noise_std(signal, 1000) < 1e-6
+    ), "Noise std should be close to zero for high SNR"
+
+
+def test_compute_white_noise_std_low_snr():
+    """Test that for negative SNR, noise std is larger than signal RMS.
+
+    GIVEN: Valid signal and snr.
+    WHEN: The compute_signal_power function is called with these parameters.
+    THEN: The return value is greater than th signal_power.
+    """
+    signal = np.arange(1, 20, 0.5)
+    assert compute_white_noise_std(signal, -5) > compute_signal_power(
+        signal
+    ), "Noise std should be greater than signal RMS for negative SNR"
+
+
+def test_compute_white_noise_std_constant_signal():
+    """Test that for a constant signal, noise std is computed correctly.
+
+    GIVEN: A constant signal (e.g. an array of 1) and a valid snr.
+    WHEN: The compute_signal_power function is called with these parameters.
+    THEN: The return value is the expeted one.
+    """
+    signal = np.ones(50)
+    expected_std = 1 / (10 ** (10 / 10))
+    assert np.isclose(
+        compute_white_noise_std(signal, 10), expected_std
+    ), "Noise std incorrect for constant signal"
+
+
+def test_compute_white_noise_std_invalid_snr_type():
+    """Test that compute_white_noise_std raises a TypeError when provided with
+    an invalid snr type.
+
+    GIVEN: A valid signal and and invalide type for snr.
+    WHEN: The compute_signal_power function is called with these parameters.
+    THEN: A TypeError is raised.
+    """
+    signal = np.arange(1, 20, 0.5)
+    with pytest.raises(TypeError):
+        compute_white_noise_std(signal, "dieci")

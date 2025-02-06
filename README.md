@@ -32,6 +32,15 @@ This repository contains a Python-based implementation for generating sinusoidal
   **Returns:**
   - `power` (float): The root mean square (RMS) power of the signal.
 
+-**`compute_white_noise_std`**: Computes the standard deviation of white Gaussian noise required to achieve a specified signal-to-noise ratio (SNR).
+
+ **`Parameters`**:
+ -`signal` (numpy.ndarray): Input signal for which the noise standard deviation will be computed.
+ -`snr_db` (float): Desired signal-to-noise ratio (SNR) in decibels (dB).
+
+ **`Returns`**:
+ -`noise_std` (float): The standard deviation of the white Gaussian noise needed to achieve the given SNR.
+
 The generated signals can be used for further analysis, testing, or as inputs to other processing functions.
 
 ## Testing
@@ -41,4 +50,5 @@ To ensure the correct functionality of the **`signal_generator`** function, vari
 
 ## Work in Progress
 This repository is under active development. New features and improvements will be added incrementally.
- 
+
+
