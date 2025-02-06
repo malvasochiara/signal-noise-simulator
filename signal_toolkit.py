@@ -144,6 +144,9 @@ def compute_white_noise_std(signal, snr_db):
     noise_std : float
         The standard deviation of the white Gaussian noise needed to achieve the given SNR.
     """
-
+    if not isinstance(
+        snr_db, (int, float, np.integer, np.floating)
+    ) or isinstance(snr_db, bool):
+        raise TypeError("SNR should be a number, either integer or float")
     signal_rms = compute_signal_power(signal)
     return signal_rms / (10 ** (snr_db / 10))

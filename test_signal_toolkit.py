@@ -545,7 +545,7 @@ def test_compute_signal_power_invalid_signal_element():
 def test_compute_white_noise_std_output_type():
     """Test that compute_white_noise_std returns a float.
 
-    GIVEN: A valid signal and snr.
+    GIVEN: A valid signal and SNR.
     WHEN: The compute_signal_power function is called with these parameters.
     THEN: The return value is of type float.
     """
@@ -559,9 +559,9 @@ def test_compute_white_noise_std_output_type():
 def test_compute_white_noise_std_zero_snr():
     """Test that with 0 dB SNR, noise std equals signal RMS.
 
-    GIVEN: A valid signal and snr = 0.
-    WHEN: The compute_signal_power function is called with these parameters.
-    THEN: The return value is equal to the power of the input signal.
+    GIVEN: A valid signal and SNR = 0.
+    WHEN: The compute_white_noise_std function is called with these parameters.
+    THEN: The return value equals the RMS power of the input signal.
     """
     signal = np.arange(1, 20, 0.5)
     expected_std = compute_signal_power(signal)
@@ -573,9 +573,9 @@ def test_compute_white_noise_std_zero_snr():
 def test_compute_white_noise_std_high_snr():
     """Test that for high SNR, noise std approaches zero.
 
-    GIVEN: A valid signal and a high snr (e.g. = 1000).
-    WHEN: The compute_signal_power function is called with these parameters.
-    THEN: The return value is close to 0.
+    GIVEN: A valid signal and a high SNR (e.g., 1000 dB).
+    WHEN: The compute_white_noise_std function is called with these parameters.
+    THEN: The return value is close to zero.
     """
     signal = np.arange(1, 20, 0.5)
     assert (
@@ -583,12 +583,12 @@ def test_compute_white_noise_std_high_snr():
     ), "Noise std should be close to zero for high SNR"
 
 
-def test_compute_white_noise_std_low_snr():
+def test_compute_white_noise_std_negative_snr():
     """Test that for negative SNR, noise std is larger than signal RMS.
 
-    GIVEN: Valid signal and snr.
-    WHEN: The compute_signal_power function is called with these parameters.
-    THEN: The return value is greater than th signal_power.
+    GIVEN: A valid signal and a negative SNR.
+    WHEN: The compute_white_noise_std function is called with these parameters.
+    THEN: The return value is greater than the signal power.
     """
     signal = np.arange(1, 20, 0.5)
     assert compute_white_noise_std(signal, -5) > compute_signal_power(
@@ -599,9 +599,9 @@ def test_compute_white_noise_std_low_snr():
 def test_compute_white_noise_std_constant_signal():
     """Test that for a constant signal, noise std is computed correctly.
 
-    GIVEN: A constant signal (e.g. an array of 1) and a valid snr.
-    WHEN: The compute_signal_power function is called with these parameters.
-    THEN: The return value is the expeted one.
+    GIVEN: A constant signal (e.g., an array of ones) and a valid SNR.
+    WHEN: The compute_white_noise_std function is called with these parameters.
+    THEN: The return value is the expected noise standard deviation.
     """
     signal = np.ones(50)
     expected_std = 1 / (10 ** (10 / 10))
@@ -612,12 +612,15 @@ def test_compute_white_noise_std_constant_signal():
 
 def test_compute_white_noise_std_invalid_snr_type():
     """Test that compute_white_noise_std raises a TypeError when provided with
-    an invalid snr type.
+    an invalid SNR type.
 
-    GIVEN: A valid signal and and invalide type for snr.
-    WHEN: The compute_signal_power function is called with these parameters.
+    GIVEN: A valid signal and an invalid type for SNR.
+    WHEN: The compute_white_noise_std function is called with these parameters.
     THEN: A TypeError is raised.
     """
     signal = np.arange(1, 20, 0.5)
-    with pytest.raises(TypeError):
+    with pytest.raises(
+        TypeError,
+        match="SNR should be a number, either integer or float",
+    ):
         compute_white_noise_std(signal, "dieci")
