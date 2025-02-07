@@ -17,6 +17,13 @@ def generate_random_frequencies(num_components, sampling_rate=250):
     -------
     frequencies : numpy.ndarray
         Array of randomly chosen integer frequencies (in Hz).
+
+    Raises
+    ------
+    TypeError
+        If `num_components` or `sampling_rate` is not an integer.
+    ValueError
+        If `sampling_rate` is less than 4.
     """
     if not isinstance(num_components, (int, np.integer)) or isinstance(
         num_components, bool
@@ -60,6 +67,13 @@ def generate_sinusoidal_signal(frequencies, duration=1, sampling_rate=250):
         The resulting sinusoidal signal.
 
     Raises
+    ------
+    TypeError
+        If `frequencies` is not an array of integers.
+        If `duration` or `sampling_rate` is not a number.
+    ValueError
+        If any frequency is not positive or exceeds the Nyquist frequency.
+        If `duration` or `sampling_rate` is negative.
     ------
     """
     if not all(isinstance(f, (int, np.integer)) for f in frequencies):
@@ -124,6 +138,11 @@ def compute_signal_power(signal):
     -------
     power : float
         The root mean square (RMS) power of the signal.
+
+    Raises
+    ------
+    ValueError
+        If `signal` is an empty array.
     """
     if signal.size == 0:
         raise ValueError("Input signal must be a non-empty array.")
@@ -145,6 +164,13 @@ def compute_white_noise_std(signal, snr_db):
     -------
     noise_std : float
         The standard deviation of the white Gaussian noise needed to achieve the given SNR.
+
+    Raises
+    ------
+    TypeError
+        If `snr_db` is not a number.
+    ValueError
+        If `signal` is empty.
     """
     if not isinstance(
         snr_db, (int, float, np.integer, np.floating)
