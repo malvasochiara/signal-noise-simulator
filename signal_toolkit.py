@@ -3,7 +3,7 @@ import numpy as np
 import math
 
 
-def random_frequencies_generator(num_components, sampling_rate=250):
+def generate_random_frequencies(num_components, sampling_rate=250):
     """Generate random frequencies within the proper range to avoid aliasing.
 
     Parameters
@@ -39,7 +39,7 @@ def random_frequencies_generator(num_components, sampling_rate=250):
     return frequencies
 
 
-def signal_generator(frequencies, duration=1, sampling_rate=250):
+def generate_sinusoidal_signal(frequencies, duration=1, sampling_rate=250):
     """Generate a signal composed of the sum of sinusoidal waves.
 
     Parameters

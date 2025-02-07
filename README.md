@@ -4,7 +4,7 @@ This repository contains a Python-based implementation for generating sinusoidal
 
 ## Current Functionality
 
-- **`random_frequencies_generator`**: Generates an array of random frequencies within a valid range to avoid aliasing. The frequencies are integers randomly selected between 1 Hz and the Nyquist frequency (half the sampling rate).
+- **`generate_random_frequencies`**: Generates an array of random frequencies within a valid range to avoid aliasing. The frequencies are integers randomly selected between 1 Hz and the Nyquist frequency (half the sampling rate).
   
   **Parameters:**
   - `num_components` (int): Number of random frequencies to generate.
@@ -13,7 +13,7 @@ This repository contains a Python-based implementation for generating sinusoidal
   **Returns:**
   - `frequencies` (numpy.ndarray): Array of random integer frequencies in Hz.
 
-- **`signal_generator`**: Generates a signal by summing sinusoidal waves at specified frequencies. The frequencies passed as input can be either an array chosen by the user or generated randomly using the function **`random_frequencies_generator`**.  
+- **`generate_sinusoidal_signal`**: Generates a signal by summing sinusoidal waves at specified frequencies. The frequencies passed as input can be either an array chosen by the user or generated randomly using the function **`generate_random_frequencies`**.  
 
   **Parameters:**
   - `frequencies` (numpy.ndarray): Array of frequencies (in Hz) for the sine waves.
@@ -45,7 +45,7 @@ The generated signals can be used for further analysis, testing, or as inputs to
 
 ## Testing
 
-To ensure the correct functionality of the **`signal_generator`** function, various tests have been implemented. You can run the tests using **pytest** to verify that the function behaves as expected.
+To ensure the correct functionality of the functions, various tests have been implemented. You can run the tests using **pytest** to verify that the function behaves as expected.
 
 ## Work in Progress
 
