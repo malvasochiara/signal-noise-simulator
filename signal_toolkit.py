@@ -125,6 +125,8 @@ def compute_signal_power(signal):
     power : float
         The root mean square (RMS) power of the signal.
     """
+    if signal.size == 0:
+        raise ValueError("Input signal must be a non-empty array.")
     return np.sqrt(np.mean(signal**2))
 
 

@@ -497,7 +497,7 @@ def test_compute_signal_power_invalid_signal_type():
     THEN: A TypeError is raised.
     """
     with pytest.raises(TypeError):
-        compute_signal_power("signal")
+        compute_signal_power(np.array(["signal", True]))
 
 
 def test_compute_signal_power_single_element():
@@ -536,6 +536,21 @@ def test_compute_signal_power_invalid_signal_element():
     """
     signal = np.array([1, 2, 3, None, 4, 5])
     with pytest.raises(TypeError):
+        compute_signal_power(signal)
+
+
+def test_compute_signal_power_empty_signal():
+    """Test that compute_signal_power raises a ValueError when provided with an
+    empty array.
+
+    GIVEN: An empty numpy array.
+    WHEN: The compute_signal_power function is called with this parameter.
+    THEN: A ValueError is raised with the appropriate message.
+    """
+    signal = np.array([])
+    with pytest.raises(
+        ValueError, match="Input signal must be a non-empty array."
+    ):
         compute_signal_power(signal)
 
 
