@@ -46,35 +46,41 @@ def generate_random_frequencies(num_components, sampling_rate=250):
     return frequencies
 
 
-def generate_sinusoidal_signal(frequencies, duration=1, sampling_rate=250):
-    """Generate a signal composed of the sum of sinusoidal waves.
+def generate_periodic_signal(
+    frequencies, duration=1, sampling_rate=250, waveform_type="sin"
+):
+    """Generate a periodic signal composed of the sum of sinusoidal or square
+    waves.
 
     Parameters
     ----------
     frequencies : numpy.ndarray
-        Array of frequencies of the sine waves (in Hz).
+        Array of frequencies of the waves (in Hz).
     duration : float, optional
         Duration of the signal in seconds. Default is 1 second.
     sampling_rate : int, optional
         Sampling rate in Hz. Default is 250 Hz.
+    waveform_type : str, optional
+        Type of waveform to generate. Can be either 'sin' (default) for
+        sinusoidal waves or 'square' for square waves.
 
     Returns
     -------
-
     time : numpy.ndarray
         Array of time points (in seconds).
     signal : numpy.ndarray
-        The resulting sinusoidal signal.
+        The resulting periodic signal.
 
     Raises
     ------
     TypeError
         If `frequencies` is not an array of integers.
         If `duration` or `sampling_rate` is not a number.
+        If `waveform_type` is not a string.
     ValueError
         If any frequency is not positive or exceeds the Nyquist frequency.
         If `duration` or `sampling_rate` is negative.
-    ------
+        If `waveform_type` is not 'sin' or 'square'.
     """
     if not all(isinstance(f, (int, np.integer)) for f in frequencies):
         raise TypeError("Frequencies should be integer")
@@ -90,6 +96,12 @@ def generate_sinusoidal_signal(frequencies, duration=1, sampling_rate=250):
         raise TypeError(
             "Sampling rate should be a number, either integer or float"
         )
+
+    if not isinstance(waveform_type, str):
+        raise TypeError("Waveform type should be a string, sin or square.")
+
+    if waveform_type not in {"sin", "square"}:
+        raise ValueError("Waveform type should be sin or square.")
 
     if np.any(frequencies <= 0):
         raise ValueError("Frequencies should be positive and non-zero")
@@ -113,15 +125,24 @@ def generate_sinusoidal_signal(frequencies, duration=1, sampling_rate=250):
 
     # Ensure the function always returns a signal array of the same length as time, even when the frequencies array is empty,
     # to maintain consistency in the output format.
+
     if frequencies.size == 0:
         signal = np.zeros_like(time)
     else:
-        signal = np.sum(
-            np.array(
-                [np.sin(2 * np.pi * freq * time) for freq in frequencies]
-            ),
-            axis=0,
-        )
+        # Generate the signal based on the chosen waveform type
+        if waveform_type == "sin":
+            signal = np.sum(
+                [np.sin(2 * np.pi * freq * time) for freq in frequencies],
+                axis=0,
+            )
+        else:  # waveform_type == "square"
+            signal = np.sum(
+                [
+                    np.sign(np.sin(2 * np.pi * freq * time))
+                    for freq in frequencies
+                ],
+                axis=0,
+            )
 
     return time, signal
 

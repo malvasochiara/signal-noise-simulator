@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 import numpy as np
 import pytest
+import re
 from signal_toolkit import (
-    generate_sinusoidal_signal,
+    generate_periodic_signal,
     generate_random_frequencies,
     compute_signal_power,
     compute_white_noise_std,
@@ -10,16 +11,16 @@ from signal_toolkit import (
 )
 
 
-def test_single_frequency():
-    """Test that generate_sinusoidal_signal     correctly generates a single
+def test_generate_periodic_signal_single_frequency():
+    """Test that generate_periodic_signal     correctly generates a single
     sinusoidal wave.
 
     GIVEN: A valid array of frequencies containing just one value, a valid signal duration and
-           sampling rate.
-    WHEN: The generate_sinusoidal_signal         function is called with these parameters.
+           sampling rate, default waveform_type.
+    WHEN: The generate_periodic_signal         function is called with these parameters.
     THEN: The generated signal is the expected sinusoidal wave.
     """
-    time, signal = generate_sinusoidal_signal(
+    time, signal = generate_periodic_signal(
         np.array([10]), duration=1, sampling_rate=250
     )
     expected_signal = np.sin(2 * np.pi * 10 * time)
@@ -31,17 +32,17 @@ def test_single_frequency():
     )
 
 
-def test_signal_length():
-    """Test that generate_sinusoidal_signal     returns a signal with length
+def test_generate_periodic_signal_signal_length():
+    """Test that generate_periodic_signal     returns a signal with length
     equal to duration * sampling_rate.
 
     GIVEN: A valid array of frequencies, signal duration, and
-           sampling rate.
-    WHEN: The generate_sinusoidal_signal         function is called with these parameters.
+           sampling rate, default waveform_type.
+    WHEN: The generate_periodic_signal         function is called with these parameters.
     THEN: The length of the signal is correct (duration * sampling_rate).
     """
 
-    _, signal = generate_sinusoidal_signal(
+    _, signal = generate_periodic_signal(
         np.array([2, 10]), duration=2, sampling_rate=250
     )
     expected_length = 2 * 250  # duration * sampling rate
@@ -50,30 +51,30 @@ def test_signal_length():
     ), f"Signal length should be {expected_length}, but got {len(signal)}"
 
 
-def test_signal_amplitude():
+def test_generate_periodic_signal_signal_amplitude():
     """Test that the signal has non-zero amplitude.
 
-    GIVEN: A valid array of frequencies, signal duration, and
-           sampling rate.
-    WHEN: The generate_sinusoidal_signal         function is called with these parameters.
+    GIVEN: A valid array of frequencies, signal duration,
+           sampling rate, and default waveform_type.
+    WHEN: The generate_periodic_signal         function is called with these parameters.
     THEN: The signal has non-zero amplitude.
     """
 
-    _, signal = generate_sinusoidal_signal(
+    _, signal = generate_periodic_signal(
         np.array([2, 10]), duration=1, sampling_rate=250
     )
     assert np.any(signal != 0), "Signal has zero amplitude"
 
 
-def test_signal_is_ndarray():
+def test_generate_periodic_signal_signal_is_ndarray():
     """Test that the 'signal' variable is of type numpy.ndarray.
 
-    GIVEN: A valid array of frequencies, signal duration, and
-           sampling rate.
-    WHEN: The generate_sinusoidal_signal         function is called with these parameters.
+    GIVEN: A valid array of frequencies, signal duration,
+           sampling rate, and default waveform_type.
+    WHEN: The generate_periodic_signal         function is called with these parameters.
     THEN: The 'signal' variable is of type numpy.ndarray.
     """
-    _, signal = generate_sinusoidal_signal(
+    _, signal = generate_periodic_signal(
         np.array([2, 10]), duration=1, sampling_rate=250
     )
     assert isinstance(
@@ -81,15 +82,15 @@ def test_signal_is_ndarray():
     ), f"Signal should be numpy.ndarray but got {type(signal)}"
 
 
-def test_time_is_ndarray():
+def test_generate_periodic_signal_time_is_ndarray():
     """Test that the 'time' variable is of type numpy.ndarray.
 
-    GIVEN: A valid array of frequencies, signal duration, and
-           sampling rate.
-    WHEN: The generate_sinusoidal_signal         function is called with these parameters.
+    GIVEN: A valid array of frequencies, signal duration,
+           sampling rate and default waveform_type.
+    WHEN: The generate_periodic_signal         function is called with these parameters.
     THEN: The 'time' variable is of type numpy.ndarray.
     """
-    time, _ = generate_sinusoidal_signal(
+    time, _ = generate_periodic_signal(
         np.array([2, 10]), duration=1, sampling_rate=250
     )
     assert isinstance(
@@ -97,16 +98,16 @@ def test_time_is_ndarray():
     ), f"Time should be numpy.ndarray but got {type(time)}"
 
 
-def test_time_array():
+def test_generate_periodic_signal_time_array():
     """Test that the time array is generated correctly.
 
-    GIVEN: A valid array of frequencies, signal duration, and
-           sampling rate.
-    WHEN: The generate_sinusoidal_signal         function is called with these parameters.
+    GIVEN: A valid array of frequencies, signal duration,
+           sampling rate and default waveform_type.
+    WHEN: The generate_periodic_signal         function is called with these parameters.
     THEN: The time array contains the correct points.
     """
 
-    time, _ = generate_sinusoidal_signal(
+    time, _ = generate_periodic_signal(
         np.array([2, 10]), duration=2, sampling_rate=250
     )
     expected_time = np.linspace(0, 2, 250 * 2, endpoint=False)
@@ -115,102 +116,101 @@ def test_time_array():
     )
 
 
-def test_negative_frequencies_value():
-    """Test that the generate_sinusoidal_signal         raises an error when a
-    frequency smaller than or equal to zero is provided in the frequencies
-    array.
+def test_generate_periodic_signal_negative_frequencies_value():
+    """Test that the generate_periodic_signal raises an error when a frequency
+    smaller than or equal to zero is provided in the frequencies array.
 
     GIVEN: An array of frequencies containing at least a wrong value, valid signal duration and
-           sampling rate.
-    WHEN: The generate_sinusoidal_signal         function is called with these parameters.
+           sampling rate, default waveform_type.
+    WHEN: The generate_periodic_signal         function is called with these parameters.
     THEN: A ValueError is raised with the appropriate message.
     """
     with pytest.raises(
         ValueError, match="Frequencies should be positive and non-zero"
     ):
-        generate_sinusoidal_signal(
+        generate_periodic_signal(
             np.array([10, -3]), duration=1, sampling_rate=250
         )
 
 
-def test_invalid_frequencies_value():
-    """Test that the generate_sinusoidal_signal         raises an error when a
-    frequency greater than or equal to Nyquist's frequency' is provided in the
+def test_generate_periodic_signal_invalid_frequencies_value():
+    """Test that the generate_periodic_signal raises an error when a frequency
+    greater than or equal to Nyquist's frequency' is provided in the
     frequencies array.
 
     GIVEN: An array of frequencies containing at least a wrong value, valid signal duration and
-           sampling rate.
-    WHEN: The generate_sinusoidal_signal         function is called with these parameters.
+           sampling rate, default waveform_type.
+    WHEN: The generate_periodic_signal         function is called with these parameters.
     THEN: A ValueError is raised with the appropriate message.
     """
     with pytest.raises(
         ValueError,
         match="Frequencies should be smaller than Nyquist's frequency, sampling_rate/2",
     ):
-        generate_sinusoidal_signal(
+        generate_periodic_signal(
             np.array([10, 200]), duration=1, sampling_rate=250
         )
 
 
-def test_invalid_frequencies_type():
-    """Test that the generate_sinusoidal_signal         raises an error when a
+def test_generate_periodic_signal_invalid_frequencies_type():
+    """Test that the generate_periodic_signal         raises an error when a
     not integer frequency is provided in the frequencies array.
 
     GIVEN: An array of frequencies containing at least a non-integer value, valid signal duration and
-           sampling rate.
-    WHEN: The generate_sinusoidal_signal         function is called with these parameters.
+           sampling rate, default waveform_type.
+    WHEN: The generate_periodic_signal         function is called with these parameters.
     THEN: A TypeError is raised with the appropriate message.
     """
     with pytest.raises(TypeError, match="Frequencies should be integer"):
-        generate_sinusoidal_signal(
+        generate_periodic_signal(
             np.array([10, "undici"]), duration=1, sampling_rate=250
         )
 
 
-def test_invalid_duration_type():
-    """Test that the generate_sinusoidal_signal         raises an error when a
+def test_generate_periodic_signal_invalid_duration_type():
+    """Test that the generate_periodic_signal         raises an error when a
     not float duration is provided.
 
-    GIVEN: A valid array of frequencies, non-float signal duration and a valid
-           sampling rate.
-    WHEN: The generate_sinusoidal_signal         function is called with these parameters.
+    GIVEN: A valid array of frequencies, non-float signal duration, a valid
+           sampling rate and default waveform_type.
+    WHEN: The generate_periodic_signal         function is called with these parameters.
     THEN: A TypeError is raised with the appropriate message.
     """
     with pytest.raises(
         TypeError, match="Duration should be a number, either integer or float"
     ):
-        generate_sinusoidal_signal(
+        generate_periodic_signal(
             [10, 20], duration=np.array([5, 10]), sampling_rate=250
         )
 
 
-def test_invalid_duration_value():
-    """Test that the generate_sinusoidal_signal         raises an error when a
+def test_generate_periodic_signal_invalid_duration_value():
+    """Test that the generate_periodic_signal         raises an error when a
     negative duration is provided.
 
-    GIVEN: A valid array of frequencies, a negative signal duration and a valid
-           sampling rate.
-    WHEN: The generate_sinusoidal_signal         function is called with these parameters.
+    GIVEN: A valid array of frequencies, a negative signal duration, a valid
+           sampling rate and default waveform_type.
+    WHEN: The generate_periodic_signal         function is called with these parameters.
     THEN: A ValueError is raised with the appropriate message.
     """
     with pytest.raises(
         ValueError, match="Duration should be greater than or equal to 0"
     ):
-        generate_sinusoidal_signal(
+        generate_periodic_signal(
             np.array([5, 10]), duration=-0.5, sampling_rate=250
         )
 
 
-def test_zero_duration():
-    """Test that the generate_sinusoidal_signal         returns an empty array
+def test_generate_periodic_signal_zero_duration():
+    """Test that the generate_periodic_signal         returns an empty array
     when duration = 0 s.
 
-    GIVEN: A valid array of frequencies, signal duration = 0 and a valid
-           sampling rate.
-    WHEN: The generate_sinusoidal_signal         function is called with these parameters.
+    GIVEN: A valid array of frequencies, signal duration = 0, a valid
+           sampling rate and default waveform_type.
+    WHEN: The generate_periodic_signal         function is called with these parameters.
     THEN: signal is an empty array.
     """
-    _, signal = generate_sinusoidal_signal(
+    _, signal = generate_periodic_signal(
         np.array([2, 10]), duration=0, sampling_rate=250
     )
     assert (
@@ -218,56 +218,178 @@ def test_zero_duration():
     ), f"Expected an empty array, but got an array of size {signal.size}."
 
 
-def test_invalid_sampling_rate_type():
-    """Test that the generate_sinusoidal_signal         raises an error when a
+def test_generate_periodic_signal_invalid_sampling_rate_type():
+    """Test that the generate_periodic_signal         raises an error when a
     not float or integer sampling rate is provided.
 
     GIVEN: A valid array of frequencies and duration, a non float or integer
-           sampling rate.
-    WHEN: The generate_sinusoidal_signal         function is called with these parameters.
+           sampling rate, default waveform_type.
+    WHEN: The generate_periodic_signal         function is called with these parameters.
     THEN: A TypeError is raised with the appropriate message.
     """
     with pytest.raises(
         TypeError,
         match="Sampling rate should be a number, either integer or float",
     ):
-        generate_sinusoidal_signal(
+        generate_periodic_signal(
             np.array([10, 20]), duration=2, sampling_rate="duecentocinquanta"
         )
 
 
-def test_invalid_sampling_rate_value():
-    """Test that the generate_sinusoidal_signal         raises an error when a
+def test_generate_periodic_signal_invalid_sampling_rate_value():
+    """Test that the generate_periodic_signal         raises an error when a
     negative sampling rate is provided.
 
     GIVEN: A valid array of frequencies and duration, a negative
-           sampling rate.
-    WHEN: The generate_sinusoidal_signal         function is called with these parameters.
+           sampling rate and default waveform_type.
+    WHEN: The generate_periodic_signal         function is called with these parameters.
     THEN: A ValueError is raised with the appropriate message.
     """
     with pytest.raises(
         ValueError,
         match="Sampling rate should be greater than or equal to 0",
     ):
-        generate_sinusoidal_signal(
+        generate_periodic_signal(
             np.array([10, 20]), duration=2, sampling_rate=-250
         )
 
 
-def test_empty_frequencies():
-    """Test that the generate_sinusoidal_signal         returns an empty array
-    when frequencies is an empty array.
+def test_generate_periodic_signal_empty_frequencies():
+    """Test that the generate_periodic_signal returns an empty array when
+    frequencies is an empty array.
 
-    GIVEN: An empty array of frequencies, a valid signal duration and sampling_rate.
-    WHEN: The generate_sinusoidal_signal         function is called with these parameters.
+    GIVEN: An empty array of frequencies, a valid signal duration and sampling_rate, default waveform_type.
+    WHEN: The generate_periodic_signal function is called with these parameters.
     THEN: signal is an empty array.
     """
-    _, signal = generate_sinusoidal_signal(
+    _, signal = generate_periodic_signal(
         np.array([]), duration=2, sampling_rate=350
     )
     assert np.all(
         signal == 0
     ), "Expected an array of zeros, but found nonzero values."
+
+
+def test_generate_periodic_signal_invalid_waveform_type():
+    """Test that the generate_periodic_signal raises a TypeError when a non-
+    string waveform_type is provided.
+
+    GIVEN: A valid array of frequencies, duration, and sampling rate,
+           a non-string waveform_type.
+    WHEN: The generate_periodic_signal function is called with these parameters.
+    THEN: A TypeError is raised with the appropriate message.
+    """
+    with pytest.raises(
+        TypeError,
+        match="Waveform type should be a string, sin or square.",
+    ):
+        generate_periodic_signal(
+            np.array([10, 20]),
+            duration=2,
+            sampling_rate=500,
+            waveform_type=180,
+        )
+
+
+def test_generate_periodic_signal_invalid_waveform_value():
+    """Test that the generate_periodic_signal raises a ValueError when an
+    invalid waveform_type is provided.
+
+    GIVEN: A valid array of frequencies, duration, and sampling rate,
+           an invalid waveform_type.
+    WHEN: The generate_periodic_signal function is called with these parameters.
+    THEN: A ValueError is raised with the appropriate message.
+    """
+    with pytest.raises(
+        ValueError,
+        match="Waveform type should be sin or square.",
+    ):
+        generate_periodic_signal(
+            np.array([10, 20]),
+            duration=2,
+            sampling_rate=500,
+            waveform_type="triangular",
+        )
+
+
+def test_generate_periodic_signal_signal_square_length():
+    """Test that generate_periodic_signal     returns a signal with length
+    equal to duration * sampling_rate when selecting square waves.
+
+    GIVEN: A valid array of frequencies, signal duration, and
+           sampling rate, and waveform_type = square.
+    WHEN: The generate_periodic_signal function is called with these parameters.
+    THEN: The length of the signal is correct (duration * sampling_rate).
+    """
+
+    _, signal = generate_periodic_signal(
+        np.array([2, 10]),
+        duration=2,
+        sampling_rate=250,
+        waveform_type="square",
+    )
+    expected_length = 2 * 250  # duration * sampling rate
+    assert (
+        len(signal) == expected_length
+    ), f"Signal length should be {expected_length}, but got {len(signal)}"
+
+
+def test_generate_periodic_signal_signal_square_amplitude():
+    """Test that the signal has non-zero amplitude when selceting square waves.
+
+    GIVEN: A valid array of frequencies, signal duration,
+           sampling rate, and waveform_type = square.
+    WHEN: The generate_periodic_signal         function is called with these parameters.
+    THEN: The signal has non-zero amplitude.
+    """
+
+    _, signal = generate_periodic_signal(
+        np.array([2, 10]),
+        duration=1,
+        sampling_rate=250,
+        waveform_type="square",
+    )
+    assert np.any(signal != 0), "Signal has zero amplitude"
+
+
+def test_generate_periodic_signal_square_signal_is_ndarray():
+    """Test that the 'signal' variable is of type numpy.ndarray when selceting
+    square waves.
+
+    GIVEN: A valid array of frequencies, signal duration,
+           sampling rate, and waveform_type = square.
+    WHEN: The generate_periodic_signal         function is called with these parameters.
+    THEN: The 'signal' variable is of type numpy.ndarray.
+    """
+    _, signal = generate_periodic_signal(
+        np.array([2, 10]),
+        duration=1,
+        sampling_rate=250,
+        waveform_type="square",
+    )
+    assert isinstance(
+        signal, np.ndarray
+    ), f"Signal should be numpy.ndarray but got {type(signal)}"
+
+
+def test_generate_periodic_signal_square_time_is_ndarray():
+    """Test that the 'time' variable is of type numpy.ndarray when selceting
+    square waves.
+
+    GIVEN: A valid array of frequencies, signal duration,
+           sampling rate and waveform_type = square.
+    WHEN: The generate_periodic_signal         function is called with these parameters.
+    THEN: The 'time' variable is of type numpy.ndarray.
+    """
+    time, _ = generate_periodic_signal(
+        np.array([2, 10]),
+        duration=1,
+        sampling_rate=250,
+        waveform_type="square",
+    )
+    assert isinstance(
+        time, np.ndarray
+    ), f"Time should be numpy.ndarray but got {type(time)}"
 
 
 # tests for generate_random_frequencies

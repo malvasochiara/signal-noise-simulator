@@ -16,17 +16,22 @@ Generates an array of random frequencies within a valid range to avoid aliasing.
 
 ---
 
-### `generate_sinusoidal_signal`
-Generates a signal by summing sinusoidal waves at specified frequencies. The frequencies passed as input can be either an array chosen by the user or generated randomly using the function [`generate_random_frequencies`](#generate_random_frequencies).
+### `generate_periodic_signal`
+Generates a periodic signal composed of the sum of sinusoidal or square waves. The function allows users to specify the waveform type.
 
 **Parameters:**
-- `frequencies` (`numpy.ndarray`): Array of frequencies (in Hz) for the sine waves.
+- `frequencies` (`numpy.ndarray`): Array of frequencies (in Hz) for the waves.
 - `duration` (float, optional): Duration of the signal in seconds (default is 1 second).
 - `sampling_rate` (int, optional): Sampling rate in Hz (default is 250 Hz).
+- `waveform_type` (str, optional): Type of waveform to generate. Can be either `'sin'` (default) for sinusoidal waves or `'square'` for square waves.
 
 **Returns:**
 - `time` (`numpy.ndarray`): Array of time points for the signal (in seconds).
-- `signal` (`numpy.ndarray`): Array representing the sum of the sinusoidal waves.
+- `signal` (`numpy.ndarray`): Array representing the sum of the generated waves.
+
+**Raises:**
+- `TypeError`: If the input parameters are not of the correct type.
+- `ValueError`: If any frequency is not positive or exceeds the Nyquist frequency, or if `waveform_type` is not `'sin'` or `'square'`.
 
 ---
 
