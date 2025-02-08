@@ -70,6 +70,18 @@ Generates white Gaussian noise with a specified SNR relative to a given signal.
 
 ---
 
+### `add_white_noise`
+Adds white Gaussian noise to a given signal with a specified SNR.
+
+**Parameters:**
+- `signal` (`numpy.ndarray` or `int`): Input signal to which noise will be added. If a scalar (int or float) is provided, it is treated as an array of length 1.
+- `snr_db` (float): Desired signal-to-noise ratio (SNR) in decibels (dB).
+
+**Returns:**
+- `noisy_signal` (`numpy.ndarray`): The input signal with added white Gaussian noise. The output is an array of the same length as the input signal, whether scalar or array.
+
+---
+
 The generated signals can be used for further analysis, testing, or as inputs to other processing functions.
 
 ## Testing

@@ -228,3 +228,25 @@ def generate_white_noise(signal, snr_db):
     noise_std = compute_white_noise_std(signal, snr_db)
     noise = np.random.normal(0, noise_std, len(signal))
     return noise
+
+
+def add_white_noise(signal, snr_db):
+    """Add white Gaussian noise to a given signal with a specified SNR.
+
+    Parameters
+    ----------
+    signal : numpy.ndarray or int
+        Input signal to which noise will be added. If a scalar (int or float)
+        is provided, it is treated as an array of length 1.
+    snr_db : float
+        Desired signal-to-noise ratio (SNR) in decibels (dB).
+
+    Returns
+    -------
+    noisy_signal : numpy.ndarray
+        The input signal with added white Gaussian noise. The output is an array
+        of the same length as the input signal, whether scalar or array.
+    """
+
+    noisy_signal = signal + generate_white_noise(signal, snr_db)
+    return noisy_signal

@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 import numpy as np
 import pytest
-import re
 from signal_toolkit import (
     generate_periodic_signal,
     generate_random_frequencies,
     compute_signal_power,
     compute_white_noise_std,
     generate_white_noise,
+    add_white_noise,
 )
 
 
@@ -940,3 +940,83 @@ def test_generate_white_noise_zero_signal():
     assert np.all(
         noise == 0
     ), "Expected noise to be all zeros when signal is all zeros"
+
+
+# Tests for add_white_noise
+
+
+def test_add_white_noise_noisy_signal_size():
+    """Test that the noisy signal has the same length as the input signal.
+
+    GIVEN: A valid input signal and SNR.
+    WHEN: The add_white_noise function is called with these parameters.
+    THEN: The output noisy signal is of type numpy.ndarray.
+    """
+    signal = np.linspace(-5, 25, 70)
+    snr_db = 10
+    noisy_signal = add_white_noise(signal, snr_db)
+    assert len(noisy_signal) == len(signal), (
+        f"Expected noisy signal length {len(signal)}, "
+        f"but got {len(noisy_signal)}"
+    )
+
+
+def test_add_white_noise_noisy_signal_type():
+    """Test that the noisy signal has the same type as the input signal.
+
+    GIVEN: A valid input signal and SNR.
+    WHEN: The add_white_noise function is called with  these parameters.
+    THEN: The output noisy signal is of type numpy.ndarray.
+    """
+    signal = np.linspace(-5, 25, 70)
+    snr_db = 10
+    noisy_signal = add_white_noise(signal, snr_db)
+    assert isinstance(noisy_signal, np.ndarray), "Noisy signal type mismatch"
+
+
+def test_add_white_noise_scalar():
+    """Test that the function handles scalar signals correctly.
+
+    GIVEN: A scalar input signal and a valid SNR.
+    WHEN: The add_white_noise function is called with  these parameters.
+    THEN: The noisy signal has length 1.
+    """
+    signal = 5
+    snr_db = 20
+    noisy_signal = add_white_noise(signal, snr_db)
+    assert (
+        len(noisy_signal) == 1
+    ), "Noisy signal length should be 1 for scalar input"
+
+
+def test_add_white_noise_all_zeros():
+    """Test that an all-zero input signal returns an all-zero noisy signal.
+
+    GIVEN: An all-zero input signal and a valid SNR.
+    WHEN: The add_white_noise function is called withthese parameters.
+    THEN: The output noisy signal consists entirely of zeros.
+    """
+    np.random.seed(42)
+    signal = np.zeros(10)
+    snr_db = 20
+    noisy_signal = add_white_noise(signal, snr_db)
+    assert np.all(
+        noisy_signal == 0
+    ), "Noisy signal should be all zeros when input signal is all zeros"
+
+
+def test_add_white_noise_high_snr():
+    """Test that a very high SNR returns the input signal, within a certain
+    tolerance.
+
+    GIVEN: A valid input signal and a very high SNR.
+    WHEN: The add_white_noise function is called.
+    THEN: The output noisy signal is nearly identical to the input signal.
+    """
+    np.random.seed(42)
+    signal = signal = np.linspace(-5, 25, 90)
+    snr_db = 1000
+    noisy_signal = add_white_noise(signal, snr_db)
+    assert np.all(
+        np.isclose(noisy_signal, signal, atol=0.1)
+    ), "Noisy signal should be almost identical to input signal"
