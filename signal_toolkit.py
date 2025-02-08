@@ -178,3 +178,32 @@ def compute_white_noise_std(signal, snr_db):
         raise TypeError("SNR should be a number, either integer or float")
     signal_rms = compute_signal_power(signal)
     return signal_rms / (10 ** (snr_db / 10))
+
+
+def generate_white_noise(signal, snr_db):
+    """Generate white Gaussian noise with a specified SNR relative to a given
+    signal.
+
+    Parameters
+    ----------
+    signal : numpy.ndarray or int
+        Input signal to determine the noise level. If a scalar (int or float)
+        is provided, it is treated as an array of length 1. If an array is
+        provided, its length determines the length of the generated noise.
+    snr_db : float
+        Desired signal-to-noise ratio (SNR) in decibels (dB).
+
+    Returns
+    -------
+    noise : numpy.ndarray
+        White Gaussian noise with the computed standard deviation needed to
+        achieve the given SNR relative to the input signal. The output is an array
+        of the same length as the input signal, whether scalar or array.
+    """
+    # Check if signal is a scalar and convert to array if so
+    if np.isscalar(signal):
+        signal = np.array([signal])
+
+    noise_std = compute_white_noise_std(signal, snr_db)
+    noise = np.random.normal(0, noise_std, len(signal))
+    return noise
