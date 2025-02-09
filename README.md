@@ -24,6 +24,7 @@ You can install them using:
 
 ```bash
 python -m pip install -r requirements.txt
+```
 
 ## Current Functionality
 
