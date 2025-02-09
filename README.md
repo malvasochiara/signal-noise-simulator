@@ -2,6 +2,29 @@
 
 This repository contains a Python-based implementation for generating sinusoidal signals.
 
+## Installation
+
+To use this repository, first clone it with:
+
+```bash
+git clone https://github.com/malvasochiara/signal-noise-simulator.git
+cd signal-noise-simulator
+```
+
+## Dependencies
+
+This project requires **Python ≥ 3.8** and the following Python packages:
+
+- `numpy==1.23.5`
+- `matplotlib==3.10.0`
+- `pytest==8.3.4`
+- `pytest-cov==6.0.0`
+
+You can install them using:
+
+```bash
+python -m pip install -r requirements.txt
+
 ## Current Functionality
 
 ### `generate_random_frequencies`
