@@ -114,20 +114,20 @@ The generated signals can be used for further analysis, testing, or as inputs to
 
 ## signal_builder.py
 
-The `signal_builder.py`  generates periodic signals by combining sinusoidal or square waves with either random frequencies or user-defined frequencies. The signal can be configured through command-line arguments, and the script will return the generated signal and corresponding time values. An option to plot the generated signal is also available.
+The `signal_builder.py`  generates periodic signals by combining sinusoidal or square waves with either random frequencies or user-defined frequencies. The signal can be configured through command-line arguments, and the script will return the generated signal and corresponding time values. An option to plot the generated signal is also available. Additionally, noise can be added to the signal, and a signal-to-noise ratio (SNR) can be specified for the added noise.
 
 ### Usage
 
 To use the script from the command line, you can run the following command:
 
 ```bash
-python signal_builder.py --duration 1.0 --sampling_rate 200 --num_components 10 --plot
+python signal_builder.py --duration 1.0 --sampling_rate 200 --num_components 10 --snr 10 --plot
 ```
 
 Alternatively, you can provide a custom list of frequencies:
 
 ```bash
-python signal_builder.py --duration 1.0 --sampling_rate 200 --frequencies 10,20,30 --plot
+python signal_builder.py --duration 1.0 --sampling_rate 200 --frequencies 10,20,30 --snr 10 --plot
 ```
 In this case, the `--num_components` argument will be ignored if `--frequencies` is provided.
 
@@ -136,6 +136,7 @@ In this case, the `--num_components` argument will be ignored if `--frequencies`
 - `--sampling_rate`: Sampling rate of the signal in Hz (e.g., 200 for 200 Hz).
 - `--num_components`: Number of sinusoidal or square wave components to combine (e.g., 10).
 - `--frequencies`: Comma-separated list of frequencies in Hz (e.g., '10,20,30'). If provided, the `--num_components` argument will be ignored.
+- `--snr`: Signal-to-noise ratio (SNR) in dB (e.g., 10 for a 10 dB SNR). If omitted, the signal will be generated without noise.
 - `--plot`: Option to plot the generated signal (add this flag to see the plot).
 
 ### Accessing Help

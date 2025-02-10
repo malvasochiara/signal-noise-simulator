@@ -5,6 +5,7 @@ import numpy as np
 from signal_toolkit import (
     generate_random_frequencies,
     generate_periodic_signal,
+    add_white_noise,
 )
 
 
@@ -19,7 +20,7 @@ def parse_arguments():
         waveform type, plotting option, and optionally user-defined frequencies.
     """
     parser = argparse.ArgumentParser(
-        description="Generate and plot a periodic signal."
+        description="Generate and plot a periodic signal with optional noise."
     )
 
     parser.add_argument(
@@ -56,21 +57,26 @@ def parse_arguments():
         type=str,
         help="Comma-separated list of frequencies in Hz (e.g., '10,20,30'). If provided, --num_components is ignored.",
     )
+    parser.add_argument(
+        "--snr",
+        type=float,
+        help="Signal-to-noise ratio in dB. If provided, noise will be added to the signal.",
+    )
 
     return parser.parse_args()
 
 
-
-
 def generate_and_plot_signal():
-    """Generate a periodic signal and optionally plot it based on user-defined
-    parameters."""
+    """Generate a periodic signal, add noise if necessary, and optionally plot
+    it."""
     args = parse_arguments()
 
     if args.frequencies:
         frequencies = np.array([int(f) for f in args.frequencies.split(",")])
     else:
-        frequencies = generate_random_frequencies(args.num_components, args.sampling_rate)
+        frequencies = generate_random_frequencies(
+            args.num_components, args.sampling_rate
+        )
 
     print("Frequencies used:", np.sort(frequencies))
 
@@ -78,18 +84,40 @@ def generate_and_plot_signal():
         frequencies, args.duration, args.sampling_rate, args.waveform_type
     )
 
-    if args.plot:
+    if args.snr is not None:
+
+        noisy_signal = add_white_noise(signal, args.snr)
+
         plt.figure(figsize=(10, 6))
+        plt.subplot(2, 1, 1)
         plt.plot(time, signal)
-        plt.title("Periodic Signal")
+        plt.title("Clean Signal")
         plt.xlabel("Time [s]")
         plt.ylabel("Amplitude")
         plt.grid(True)
-        plt.show()
-        plt.pause(3)
-        plt.close()
 
-    return time, signal
+        plt.subplot(2, 1, 2)
+        plt.plot(time, noisy_signal)
+        plt.title(f"Noisy Signal (SNR = {args.snr} dB)")
+        plt.xlabel("Time [s]")
+        plt.ylabel("Amplitude")
+        plt.grid(True)
+
+        plt.tight_layout()
+        plt.show()
+
+        return time, signal, noisy_signal
+    else:
+        if args.plot:
+            plt.figure(figsize=(10, 6))
+            plt.plot(time, signal)
+            plt.title("Periodic Signal")
+            plt.xlabel("Time [s]")
+            plt.ylabel("Amplitude")
+            plt.grid(True)
+            plt.show()
+
+        return time, signal
 
 
 if __name__ == "__main__":
