@@ -114,7 +114,7 @@ The generated signals can be used for further analysis, testing, or as inputs to
 
 ## signal_builder.py
 
-The `signal_builder.py` script generates periodic signals by combining sinusoidal or square waves with random frequencies. It also includes an option to plot the generated signal. The signal can be configured through command-line arguments, and the script will return the generated signal and corresponding time values.
+The `signal_builder.py`  generates periodic signals by combining sinusoidal or square waves with either random frequencies or user-defined frequencies. The signal can be configured through command-line arguments, and the script will return the generated signal and corresponding time values. An option to plot the generated signal is also available.
 
 ### Usage
 
@@ -124,10 +124,18 @@ To use the script from the command line, you can run the following command:
 python signal_builder.py --duration 1.0 --sampling_rate 200 --num_components 10 --plot
 ```
 
+Alternatively, you can provide a custom list of frequencies:
+
+```bash
+python signal_builder.py --duration 1.0 --sampling_rate 200 --frequencies 10,20,30 --plot
+```
+In this case, the `--num_components` argument will be ignored if `--frequencies` is provided.
+
 **Arguments:**
 - `--duration`: Duration of the signal in seconds (e.g., 1.0 for 1 second).
 - `--sampling_rate`: Sampling rate of the signal in Hz (e.g., 200 for 200 Hz).
 - `--num_components`: Number of sinusoidal or square wave components to combine (e.g., 10).
+- `--frequencies`: Comma-separated list of frequencies in Hz (e.g., '10,20,30'). If provided, the `--num_components` argument will be ignored.
 - `--plot`: Option to plot the generated signal (add this flag to see the plot).
 
 ### Accessing Help
