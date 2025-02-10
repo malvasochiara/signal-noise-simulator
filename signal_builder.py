@@ -64,13 +64,13 @@ def parse_arguments():
         type=float,
         help="Signal-to-noise ratio in dB. If provided, noise will be added to the signal.",
     )
-    
+
     parser.add_argument(
-    "--save",
-    nargs="?",
-    const=".",  
-    type=str,
-    help="Path to save the signal and time data as a CSV file. If no path is provided, the file will be saved in the current directory.",
+        "--save",
+        nargs="?",
+        const=".",
+        type=str,
+        help="Path to save the signal and time data as a CSV file. If no path is provided, the file will be saved in the current directory.",
     )
     return parser.parse_args()
 
@@ -119,8 +119,13 @@ def generate_and_plot_signal():
             # Default to current directory if no path is provided
             save_path = args.save
             if not os.path.exists(save_path):
-                os.makedirs(save_path)  # Create the directory if it doesn't exist
-            csv_filename = os.path.join(save_path, "signal_data.csv")
+                os.makedirs(
+                    save_path
+                )  # Create the directory if it doesn't exist
+            csv_filename = os.path.join(
+                save_path,
+                f"signal_{args.waveform_type}_{args.sampling_rate}Hz_{args.snr}db.csv",
+            )
 
             with open(csv_filename, mode="w", newline="") as file:
                 writer = csv.writer(file)
@@ -143,8 +148,13 @@ def generate_and_plot_signal():
         if args.save:
             save_path = args.save
             if not os.path.exists(save_path):
-                os.makedirs(save_path)  # Create the directory if it doesn't exist
-            csv_filename = os.path.join(save_path, "signal_data.csv")
+                os.makedirs(
+                    save_path
+                )  # Create the directory if it doesn't exist
+            csv_filename = os.path.join(
+                save_path,
+                f"signal_{args.waveform_type}_{args.sampling_rate}Hz.csv",
+            )
 
             with open(csv_filename, mode="w", newline="") as file:
                 writer = csv.writer(file)
