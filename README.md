@@ -114,7 +114,7 @@ The generated signals can be used for further analysis, testing, or as inputs to
 
 ## signal_builder.py
 
-The `signal_builder.py`  generates periodic signals by combining sinusoidal or square waves with either random frequencies or user-defined frequencies. The signal can be configured through command-line arguments, and the script will return the generated signal and corresponding time values. An option to plot the generated signal is also available. Additionally, noise can be added to the signal, and a signal-to-noise ratio (SNR) can be specified for the added noise.
+The `signal_builder.py`  generates periodic signals by combining sinusoidal or square waves with either random frequencies or user-defined frequencies. The signal can be configured through command-line arguments, and the script will return the generated signal and corresponding time values. An option to plot the generated signal is also available. Additionally, noise can be added to the signal, and a signal-to-noise ratio (SNR) can be specified for the added noise. The generated signal and time data can be saved to a CSV file. The user can specify a directory where the file should be saved, or it will default to the current directory. If a SNR is provided, both clean and noisy signals will be saved.
 
 ### Usage
 
@@ -131,6 +131,14 @@ python signal_builder.py --duration 1.0 --sampling_rate 200 --frequencies 10,20,
 ```
 In this case, the `--num_components` argument will be ignored if `--frequencies` is provided.
 
+To save the generated signal, use the `--save` argument:
+```bash
+python script.py --num_components 5 --duration 1.0 --sampling_rate 250 --save
+```
+By default, this saves the file in the current directory (./signal_data.csv). To specify a different directory:
+```bash
+python script.py --num_components 5 --duration 1.0 --sampling_rate 250 --save /path/to/directory
+```
 **Arguments:**
 - `--duration`: Duration of the signal in seconds (e.g., 1.0 for 1 second).
 - `--sampling_rate`: Sampling rate of the signal in Hz (e.g., 200 for 200 Hz).
@@ -138,6 +146,7 @@ In this case, the `--num_components` argument will be ignored if `--frequencies`
 - `--frequencies`: Comma-separated list of frequencies in Hz (e.g., '10,20,30'). If provided, the `--num_components` argument will be ignored.
 - `--snr`: Signal-to-noise ratio (SNR) in dB (e.g., 10 for a 10 dB SNR). If omitted, the signal will be generated without noise.
 - `--plot`: Option to plot the generated signal (add this flag to see the plot).
+-  `--save`: Option to save signal and time data as a CSV file. If no path is provided, the file will be saved in the current directory.
 
 ### Accessing Help
 To get a description of all available parameters and options, you can access the help documentation by running:

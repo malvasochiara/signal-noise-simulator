@@ -2,6 +2,8 @@
 import argparse
 import matplotlib.pyplot as plt
 import numpy as np
+import os
+import csv
 from signal_toolkit import (
     generate_random_frequencies,
     generate_periodic_signal,
@@ -62,7 +64,14 @@ def parse_arguments():
         type=float,
         help="Signal-to-noise ratio in dB. If provided, noise will be added to the signal.",
     )
-
+    
+    parser.add_argument(
+    "--save",
+    nargs="?",
+    const=".",  
+    type=str,
+    help="Path to save the signal and time data as a CSV file. If no path is provided, the file will be saved in the current directory.",
+    )
     return parser.parse_args()
 
 
@@ -85,7 +94,6 @@ def generate_and_plot_signal():
     )
 
     if args.snr is not None:
-
         noisy_signal = add_white_noise(signal, args.snr)
 
         plt.figure(figsize=(10, 6))
@@ -106,6 +114,20 @@ def generate_and_plot_signal():
         plt.tight_layout()
         plt.show()
 
+        # Save CSV if option is provided
+        if args.save:
+            # Default to current directory if no path is provided
+            save_path = args.save
+            if not os.path.exists(save_path):
+                os.makedirs(save_path)  # Create the directory if it doesn't exist
+            csv_filename = os.path.join(save_path, "signal_data.csv")
+
+            with open(csv_filename, mode="w", newline="") as file:
+                writer = csv.writer(file)
+                writer.writerow(["Time", "Signal", "Noisy Signal"])
+                for t, s, ns in zip(time, signal, noisy_signal):
+                    writer.writerow([t, s, ns])
+
         return time, signal, noisy_signal
     else:
         if args.plot:
@@ -116,6 +138,19 @@ def generate_and_plot_signal():
             plt.ylabel("Amplitude")
             plt.grid(True)
             plt.show()
+
+        # Save CSV if option is provided
+        if args.save:
+            save_path = args.save
+            if not os.path.exists(save_path):
+                os.makedirs(save_path)  # Create the directory if it doesn't exist
+            csv_filename = os.path.join(save_path, "signal_data.csv")
+
+            with open(csv_filename, mode="w", newline="") as file:
+                writer = csv.writer(file)
+                writer.writerow(["Time", "Signal"])
+                for t, s in zip(time, signal):
+                    writer.writerow([t, s])
 
         return time, signal
 
