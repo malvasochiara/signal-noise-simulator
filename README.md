@@ -27,7 +27,11 @@ python -m pip install -r requirements.txt
 ```
 
 ## Scripts overview
+
 ### signal_toolkit.py
+
+The `signal_toolkit.py` script contains a set of functions for generating signals and adding noise. Below is an overview of the available functions:
+
 #### `generate_random_frequencies`
 Generates an array of random frequencies within a valid range to avoid aliasing. The frequencies are integers randomly selected between 1 Hz and the Nyquist frequency (half the sampling rate).
 
@@ -104,31 +108,33 @@ Adds white Gaussian noise to a given signal with a specified SNR.
 **Returns:**
 - `noisy_signal` (`numpy.ndarray`): The input signal with added white Gaussian noise. The output is an array of the same length as the input signal, whether scalar or array.
 
+The generated signals can be used for further analysis, testing, or as inputs to other processing functions.
+
 ---
 
-The generated signals can be used for further analysis, testing, or as inputs to other processing functions.
----
 ## signal_builder.py
 
-The `signal_builder` script generates periodic signals by combining sinusoidal or square waves with random frequencies. It also includes an option to plot the generated signal. The signal can be configured through command-line arguments, and the script will return the generated signal and corresponding time values.
+The `signal_builder.py` script generates periodic signals by combining sinusoidal or square waves with random frequencies. It also includes an option to plot the generated signal. The signal can be configured through command-line arguments, and the script will return the generated signal and corresponding time values.
 
 ### Usage
 
 To use the script from the command line, you can run the following command:
 
 ```bash
-python generate_signal.py --duration 1.0 --sampling_rate 200 --num_components 10 --plot
-Arguments
---duration: Duration of the signal in seconds (e.g., 1.0 for 1 second).
---sampling_rate: Sampling rate of the signal in Hz (e.g., 200 for 200 Hz).
---num_components: Number of sinusoidal or square wave components to combine (e.g., 10).
---plot: Option to plot the generated signal (add this flag to see the plot).
+python signal_builder.py --duration 1.0 --sampling_rate 200 --num_components 10 --plot
 ```
+
+**Arguments:**
+- `--duration`: Duration of the signal in seconds (e.g., 1.0 for 1 second).
+- `--sampling_rate`: Sampling rate of the signal in Hz (e.g., 200 for 200 Hz).
+- `--num_components`: Number of sinusoidal or square wave components to combine (e.g., 10).
+- `--plot`: Option to plot the generated signal (add this flag to see the plot).
+
 ### Accessing Help
 To get a description of all available parameters and options, you can access the help documentation by running:
 
 ```bash
-python generate_signal.py --help
+python signal_builder.py --help
 ```
 
 ## Testing
