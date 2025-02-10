@@ -26,9 +26,9 @@ You can install them using:
 python -m pip install -r requirements.txt
 ```
 
-## Current Functionality
-
-### `generate_random_frequencies`
+## Scripts overview
+### signal_toolkit.py
+#### `generate_random_frequencies`
 Generates an array of random frequencies within a valid range to avoid aliasing. The frequencies are integers randomly selected between 1 Hz and the Nyquist frequency (half the sampling rate).
 
 **Parameters:**
@@ -40,7 +40,7 @@ Generates an array of random frequencies within a valid range to avoid aliasing.
 
 ---
 
-### `generate_periodic_signal`
+#### `generate_periodic_signal`
 Generates a periodic signal composed of the sum of sinusoidal or square waves. The function allows users to specify the waveform type.
 
 **Parameters:**
@@ -59,7 +59,7 @@ Generates a periodic signal composed of the sum of sinusoidal or square waves. T
 
 ---
 
-### `compute_signal_power`
+#### `compute_signal_power`
 Computes the root mean square (RMS) power of a given signal.
 
 **Parameters:**
@@ -70,7 +70,7 @@ Computes the root mean square (RMS) power of a given signal.
 
 ---
 
-### `compute_white_noise_std`
+#### `compute_white_noise_std`
 Computes the standard deviation of white Gaussian noise required to achieve a specified signal-to-noise ratio (SNR).
 
 **Parameters:**
@@ -82,7 +82,7 @@ Computes the standard deviation of white Gaussian noise required to achieve a sp
 
 ---
 
-### `generate_white_noise`
+#### `generate_white_noise`
 Generates white Gaussian noise with a specified SNR relative to a given signal.
 
 **Parameters:**
@@ -94,7 +94,7 @@ Generates white Gaussian noise with a specified SNR relative to a given signal.
 
 ---
 
-### `add_white_noise`
+#### `add_white_noise`
 Adds white Gaussian noise to a given signal with a specified SNR.
 
 **Parameters:**
@@ -107,6 +107,29 @@ Adds white Gaussian noise to a given signal with a specified SNR.
 ---
 
 The generated signals can be used for further analysis, testing, or as inputs to other processing functions.
+---
+## signal_builder.py
+
+The `signal_builder` script generates periodic signals by combining sinusoidal or square waves with random frequencies. It also includes an option to plot the generated signal. The signal can be configured through command-line arguments, and the script will return the generated signal and corresponding time values.
+
+### Usage
+
+To use the script from the command line, you can run the following command:
+
+```bash
+python generate_signal.py --duration 1.0 --sampling_rate 200 --num_components 10 --plot
+Arguments
+--duration: Duration of the signal in seconds (e.g., 1.0 for 1 second).
+--sampling_rate: Sampling rate of the signal in Hz (e.g., 200 for 200 Hz).
+--num_components: Number of sinusoidal or square wave components to combine (e.g., 10).
+--plot: Option to plot the generated signal (add this flag to see the plot).
+```
+### Accessing Help
+To get a description of all available parameters and options, you can access the help documentation by running:
+
+```bash
+python generate_signal.py --help
+```
 
 ## Testing
 
