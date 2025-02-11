@@ -250,3 +250,48 @@ def add_white_noise(signal, snr_db):
 
     noisy_signal = signal + generate_white_noise(signal, snr_db)
     return noisy_signal
+
+
+def compute_fft(signal, sampling_rate=250):
+    """Compute the full Fast Fourier Transform (FFT) of a real-valued signal.
+
+    This function calculates the two-sided Fourier Transform of a real-valued
+    input signal, returning both positive and negative frequency components
+    along with their corresponding complex Fourier coefficients.
+
+    Parameters
+    ----------
+    signal : numpy.ndarray
+        Input signal, assumed to be a 1D array of real values.
+    sampling_rate : int or float, optional
+        Sampling rate of the signal in Hz (default is 250 Hz).
+
+    Returns
+    -------
+    fft_coefficients : numpy.ndarray
+        The full FFT of the input signal. The output is complex-valued,
+        representing both magnitude and phase.
+    frequency_bins : numpy.ndarray
+        Array of frequency values corresponding to the FFT output, ranging
+        from negative to positive frequencies (centered at zero).
+    """
+    if not all(
+        isinstance(s, (int, float, np.integer, np.floating)) for s in signal
+    ):
+        raise TypeError(
+            "Signal should be an array of numbers, either integer or float"
+        )
+
+    if not isinstance(
+        sampling_rate, (int, float, np.integer, np.floating)
+    ) or isinstance(sampling_rate, bool):
+        raise TypeError(
+            "Sampling rate should be a number, either integer or float"
+        )
+
+    if sampling_rate <= 0:
+        raise ValueError("Sampling rate should be greater than or equal to 0")
+
+    fft_coefficients = np.fft.fft(signal)
+    frequency_bins = np.fft.fftfreq(len(signal), d=1 / sampling_rate)
+    return fft_coefficients, frequency_bins

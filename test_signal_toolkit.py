@@ -8,6 +8,7 @@ from signal_toolkit import (
     compute_white_noise_std,
     generate_white_noise,
     add_white_noise,
+    compute_fft,
 )
 
 
@@ -1020,3 +1021,112 @@ def test_add_white_noise_high_snr():
     assert np.all(
         np.isclose(noisy_signal, signal, atol=0.1)
     ), "Noisy signal should be almost identical to input signal"
+
+
+# Tests for compute_fft
+
+
+def test_compute_fft_frequency_bins_length():
+    """Test that the length of frequency_bins matches the length of the signal.
+
+    GIVEN: Valid input signal and sampling rate.
+    WHEN: The compute_fft function is called with these parameters.
+    THEN: The output frequency_bins array has the same length as the input signal.
+    """
+    sampling_rate = 250
+    signal = np.ones(50)
+    _, frequency_bins = compute_fft(signal, sampling_rate)
+    assert len(frequency_bins) == len(
+        signal
+    ), "Expected frequency_bins to be an array of length {len(signal)}, but got {len(frequency_bins)} "
+
+
+def test_compute_fft_coefficients_length():
+    """Test that the length of fft_coefficients matches the length of the
+    signal.
+
+    GIVEN: Valid input signal and sampling rate.
+    WHEN: The compute_fft function is called with these parameters.
+    THEN: The output fft_coefficients array has the same length as the input signal.
+    """
+    sampling_rate = 350
+    signal = np.ones(50)
+    fft_coefficients, _ = compute_fft(signal, sampling_rate)
+    assert len(fft_coefficients) == len(
+        signal
+    ), "Expected fft_coefficients to be an array of length {len(signal)}, but got {len(fft_coefficients)} "
+
+
+def test_compute_fft_invalid_sampling_rate_type():
+    """Test that the compute_fft raises an error when a not float or integer
+    sampling rate is provided.
+
+    GIVEN: Valid input signal, a non float or integer sampling rate.
+    WHEN: The compute_fft function is called with these parameters.
+    THEN: A TypeError is raised with the appropriate message.
+    """
+    signal = np.ones(50)
+    with pytest.raises(
+        TypeError,
+        match="Sampling rate should be a number, either integer or float",
+    ):
+        compute_fft(signal, sampling_rate="duecentocinquanta")
+
+
+def test_compute_fft_invalid_sampling_rate_value():
+    """Test that the compute_fft raises an error when a negative sampling rate
+    is provided.
+
+    GIVEN: Valid input signal, a negative sampling rate.
+    WHEN: The compute_fft function is called with these parameters.
+    THEN: A ValueError is raised with the appropriate message.
+    """
+    signal = np.ones(50)
+    with pytest.raises(
+        ValueError,
+        match="Sampling rate should be greater than or equal to 0",
+    ):
+        compute_fft(signal, sampling_rate=-250)
+
+
+def test_compute_fft_invalid_signal_type():
+    """Test that the compute_fft raises an error when a not integer or float
+    element is provided in the signal array.
+
+    GIVEN: An array containing at least a non-integer or float value, valid sampling rate.
+    WHEN: The compute_fft function is called with these parameters.
+    THEN: A TypeError is raised with the appropriate message.
+    """
+    signal = np.array([1, 2, 3, 4, "cinque", 6])
+    with pytest.raises(
+        TypeError,
+        match="Signal should be an array of numbers, either integer or float",
+    ):
+        compute_fft(signal, 350)
+
+
+def test_compute_fft_empty_signal():
+    """Test that the compute_fft raises an error when an empty signal is
+    provided.
+
+    GIVEN: An empty array, valid sampling rate.
+    WHEN: The compute_fft function is called with these parameters.
+    THEN: A ValueError is raised with the appropriate message.
+    """
+    signal = np.array([])
+    with pytest.raises(ValueError):
+        compute_fft(signal, 350)
+
+
+def test_compute_fft_zero_signal():
+    """Test that a zero signal returns a zero FFT.
+
+    GIVEN: A signal consisting of all zeros and a valid sampling rate.
+    WHEN: The compute_fft function is called with these parameters.
+    THEN: The output fft_coefficients array should contain only zeros.
+    """
+    signal = np.zeros(50)
+    fft_coefficients, _ = compute_fft(signal, 300)
+    assert np.allclose(
+        fft_coefficients, 0
+    ), f"Expected all zero FFT, but got {fft_coefficients}"

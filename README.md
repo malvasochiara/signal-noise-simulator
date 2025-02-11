@@ -1,6 +1,6 @@
 # signal-noise-simulator
 
-This repository contains a Python-based implementation for generating sinusoidal signals.
+This repository contains a Python-based implementation for generating periodic signals.
 
 ## Installation
 
@@ -111,6 +111,25 @@ Adds white Gaussian noise to a given signal with a specified SNR.
 The generated signals can be used for further analysis, testing, or as inputs to other processing functions.
 
 ---
+
+#### `compute_fft`
+
+Computes the full Fast Fourier Transform (FFT) of a real-valued signal.
+
+
+**Parameters:**
+
+- `signal` (`numpy.ndarray`): Input signal, assumed to be a 1D array of real values.
+
+- `sampling_rate` (`int` or `float`, optional): Sampling rate of the signal in Hz (default is 250 Hz).
+
+**Returns:**
+
+- `fft_coefficients` (`numpy.ndarray`): The full FFT of the input signal. The output is complex-valued, representing both magnitude and phase.
+
+- `frequency_bins` (`numpy.ndarray`): Array of frequency values corresponding to the FFT output, ranging from negative to positive frequencies (centered at zero).
+---
+
 
 ## signal_builder.py
 
