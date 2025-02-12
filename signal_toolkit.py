@@ -295,3 +295,42 @@ def compute_fft(signal, sampling_rate=250):
     fft_coefficients = np.fft.fft(signal)
     frequency_bins = np.fft.fftfreq(len(signal), d=1 / sampling_rate)
     return fft_coefficients, frequency_bins
+
+
+def compute_ifft_and_return_real(spectrum):
+    """Compute the inverse Fast Fourier Transform (IFFT) and return the real
+    part.
+
+    This function calculates the inverse Fourier Transform of a given spectrum
+    and returns only the real part of the resulting time-domain signal. The
+    IFFT is computed based on the provided spectrum.
+
+    Parameters
+    ----------
+    spectrum : numpy.ndarray
+        The input spectrum, assumed to be complex-valued, representing the
+        frequency-domain coefficients of the signal.
+
+    Returns
+    -------
+    real_signal : numpy.ndarray
+        The real part of the time-domain signal obtained by applying the IFFT
+        to the input spectrum. The output is a 1D array of real values,
+        representing the reconstructed signal.
+
+    Raises
+    ------
+    TypeError
+        If `spectrum` is not a NumPy array.
+    ValueError
+    If `spectrum` does not contain complex values.
+    """
+    if not isinstance(spectrum, np.ndarray):
+        raise TypeError("Input spectrum must be a NumPy array.")
+
+    if not np.issubdtype(spectrum.dtype, np.complexfloating):
+        raise ValueError(
+            "Input spectrum must be a complex-valued NumPy array."
+        )
+
+    return np.fft.ifft(spectrum).real

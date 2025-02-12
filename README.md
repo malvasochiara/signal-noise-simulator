@@ -129,6 +129,17 @@ Computes the full Fast Fourier Transform (FFT) of a real-valued signal.
 
 - `frequency_bins` (`numpy.ndarray`): Array of frequency values corresponding to the FFT output, ranging from negative to positive frequencies (centered at zero).
 ---
+#### `compute_ifft_and_return_real`
+Computes the inverse Fast Fourier Transform (IFFT) of a given spectrum and returns only the real part of the resulting time-domain signal.
+
+**Parameters:**
+
+- `spectrum (numpy.ndarray)`: The input spectrum, assumed to be complex-valued, representing the frequency-domain coefficients of the signal.
+
+**Returns:**
+
+- `real_signal (numpy.ndarray)`: The real part of the time-domain signal obtained by applying the IFFT to the input spectrum.
+---
 
 
 ## signal_builder.py
