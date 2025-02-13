@@ -164,6 +164,8 @@ def compute_signal_power(signal):
     ------
     ValueError
         If `signal` is an empty array.
+    TypeError
+        If 'signal' is not a numeric array.
     """
     if signal.size == 0:
         raise ValueError("Input signal must be a non-empty array.")
@@ -335,6 +337,8 @@ def compute_ifft_and_return_real(spectrum):
 
     return np.fft.ifft(spectrum).real
 
+
 def apply_spectral_slope(spectrum, frequencies, slope):
-    """Modifica lo spettro del rumore bianco aggiungendo una pendenza lineare."""
+    """Modifica lo spettro del rumore bianco aggiungendo una pendenza
+    lineare."""
     return spectrum + slope * frequencies
