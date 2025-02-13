@@ -12,9 +12,212 @@ from signal_toolkit import (
     compute_ifft_and_return_real,
 )
 
+# tests for generate_random_frequencies
+
+
+def test_frequencies_range_with_default_sampling_rate():
+    """Test that the generate_random_frequencies returns an array of
+    frequencies within the appropriate range, from 1 to the Nyquist's
+    frequency, when called with the default parameter.
+
+    GIVEN: A valid num_components and the default value for sampling_rate.
+    WHEN: The generate_random_frequencies        function is called with these parameters.
+    THEN: frequencies are all greater than or equal to 1 and smaller than 125.
+    """
+    np.random.seed(42)
+
+    num_components = 10
+    frequencies = generate_random_frequencies(num_components)
+    assert np.all(
+        (frequencies >= 1) & (frequencies < 125)
+    ), "Frequencies should be between 1 and 125 (for sampling_rate=250)"
+
+
+def test_frequencies_length_with_default_sampling_rate():
+    """Test that the generate_random_frequencies        returns an array of
+    frequencies with the appropriate length, when called with the default
+    parameter.
+
+    GIVEN: A valid num_components and the default value for sampling_rate.
+    WHEN: The generate_random_frequencies        function is called with these parameters.
+    THEN: frequencies is an array of length equal to num_components.
+    """
+    np.random.seed(42)
+
+    num_components = 10
+    frequencies = generate_random_frequencies(num_components)
+    assert (
+        len(frequencies) == num_components
+    ), f"Expected {num_components} frequencies, but got {len(frequencies)}."
+
+
+def test_frequencies_range_with_valid_sampling_rate():
+    """Test that the generate_random_frequencies        returns an array of
+    frequencies within the appropriate range, from 1 to the Nyquist's
+    frequency, when called with a valid sampling_rate.
+
+    GIVEN: A valid num_components and sampling_rate.
+    WHEN: The generate_random_frequencies        function is called with these parameters.
+    THEN: frequencies are all greater than or equal to 1 and smaller than sampling_rate/2.
+    """
+    np.random.seed(42)
+
+    num_components = 10
+    sampling_rate = 350
+    frequencies = generate_random_frequencies(num_components)
+    assert np.all(
+        (frequencies >= 1) & (frequencies < sampling_rate / 2)
+    ), "Frequencies should be between 1 and Nyquist's frequency"
+
+
+def test_frequencies_length_with_valid_sampling_rate():
+    """Test that the generate_random_frequencies        returns an array of
+    frequencies with the appropriate length, when called with a valid
+    sampling_rate.
+
+    GIVEN: A valid num_components and sampling_rate.
+    WHEN: The generate_random_frequencies        function is called with these parameters.
+    THEN: frequencies is an array of length equal to num_components.
+    """
+    np.random.seed(42)
+
+    num_components = 10
+    sampling_rate = 350
+    frequencies = generate_random_frequencies(num_components, sampling_rate)
+    assert (
+        len(frequencies) == num_components
+    ), f"Expected {num_components} frequencies, but got {len(frequencies)}."
+
+
+def test_invalid_numcomponents_type():
+    """Test that the generate_random_frequencies raises an error when a not
+    integer number of components is provided.
+
+    GIVEN: An invalid number of components, default sampling_rate
+    WHEN: The generate_random_frequencies        function is called with these parameters.
+    THEN: A TypeError is raised with the appropriate message.
+    """
+    np.random.seed(42)
+
+    with pytest.raises(
+        TypeError,
+        match="num_components should be an integer number",
+    ):
+        generate_random_frequencies("cinque")
+
+
+def test_invalid_numcomponents_value():
+    """Test that the generate_random_frequencies raises an error when a
+    negative number of components is provided.
+
+    GIVEN: A negative number of components, default sampling_rate
+    WHEN: The generate_random_frequencies        function is called with these parameters.
+    THEN: A ValueError is raised.
+    """
+    np.random.seed(42)
+
+    with pytest.raises(ValueError):
+        generate_random_frequencies(-8)
+
+
+def test_zero_numcomponents():
+    """Test that the generate_random_frequencies        returns an empty array
+    when 0 number of components is provided.
+
+    GIVEN: A negative number of components, default sampling_rate
+    WHEN: The generate_random_frequencies        function is called with these parameters.
+    THEN: An empty array is returned.
+    """
+    np.random.seed(42)
+
+    frequencies = generate_random_frequencies(0)
+    assert (
+        len(frequencies) == 0
+    ), f"Expected an empty frequencies array, but got {len(frequencies)}."
+
+
+def test_invalid_sampling_rate_type_random_frequencies():
+    """Test that the generate_random_frequencies        raises an error when a
+    not integer sampling rate is provided.
+
+    GIVEN: A valid number of components, invalid sampling_rate
+    WHEN: The generate_random_frequencies        function is called with these parameters.
+    THEN: A TypeError is raised with the appropriate message.
+    """
+    np.random.seed(42)
+
+    with pytest.raises(
+        TypeError,
+        match="sampling_rate should be an integer number",
+    ):
+        generate_random_frequencies(5, "duecentocinquanta")
+
+
+def test_invalid_sampling_rate_value_random_frequencies():
+    """Test that the generate_random_frequencies        raises an error when a
+    negative sampling rate is provided.
+
+    GIVEN: A valid number of components, a sampling_rate smaller than or equal to 0.
+    WHEN: The generate_random_frequencies        function is called with these parameters.
+    THEN: A ValueError is raised.
+    """
+    np.random.seed(42)
+
+    with pytest.raises(
+        ValueError,
+        match="sampling_rate should be greater than or equal to 4",
+    ):
+        generate_random_frequencies(5, -17)
+
+
+def test_minimal_valid_sampling_rate():
+    """Test that generate_random_frequencies    works correctly when
+    sampling_rate is the minimum allowed value.
+
+    GIVEN: A valid number of components, sampling_rate = 4.
+    WHEN: The generate_random_frequencies        function is called with these parameters.
+    THEN: Frequencies is an array with only 1 and 2
+    """
+    np.random.seed(42)
+    frequencies = generate_random_frequencies(50, 4)
+    assert np.all(
+        np.isin(frequencies, [1, 2])
+    ), "Expected frequency to be 1 or 2 when sampling_rate is 4."
+
+
+def test_minimal_valid_numcomponent():
+    """Test that generate_random_frequencies    works when num_components is
+    the minimum allowed value.
+
+    GIVEN: num_components = 1, a valid sampling_rate.
+    WHEN: The generate_random_frequencies        function is called with these parameters.
+    THEN: Frequencies is an array of length 1
+    """
+    np.random.seed(42)
+    frequencies = generate_random_frequencies(1, 100)
+    assert len(frequencies) == 1, "Expected a single frequency."
+
+
+def test_large_number_of_components():
+    """Test that generate_random_frequencies    can handle large input sizes
+    efficiently.
+
+    GIVEN: num_components = 10^8, a valid sampling_rate.
+    WHEN: The generate_random_frequencies        function is called with these parameters.
+    THEN: Frequencies is an array of length 10^8
+    """
+    np.random.seed(42)
+    frequencies = generate_random_frequencies(10**8, 500)
+    assert (
+        len(frequencies) == 10**8
+    ), f"Expected 10^8 frequencies, but got {len(frequencies)}"
+
+
+# Tests for generate_periodic_signal
+
 
 def test_generate_periodic_signal_single_frequency():
-    """Test that generate_periodic_signal     correctly generates a single
+    """Test that generate_periodic_signal correctly generates a single
     sinusoidal wave.
 
     GIVEN: A valid array of frequencies containing just one value, a valid signal duration and
@@ -392,207 +595,6 @@ def test_generate_periodic_signal_square_time_is_ndarray():
     assert isinstance(
         time, np.ndarray
     ), f"Time should be numpy.ndarray but got {type(time)}"
-
-
-# tests for generate_random_frequencies
-
-
-def test_frequencies_range_with_default_sampling_rate():
-    """Test that the generate_random_frequencies        returns an array of
-    frequencies within the appropriate range, from 1 to the Nyquist's
-    frequency, when called with the default parameter.
-
-    GIVEN: A valid num_components and the default value for sampling_rate.
-    WHEN: The generate_random_frequencies        function is called with these parameters.
-    THEN: frequencies are all greater than or equal to 1 and smaller than 125.
-    """
-    np.random.seed(42)
-
-    num_components = 10
-    frequencies = generate_random_frequencies(num_components)
-    assert np.all(
-        (frequencies >= 1) & (frequencies < 125)
-    ), "Frequencies should be between 1 and 125 (for sampling_rate=250)"
-
-
-def test_frequencies_length_with_default_sampling_rate():
-    """Test that the generate_random_frequencies        returns an array of
-    frequencies with the appropriate length, when called with the default
-    parameter.
-
-    GIVEN: A valid num_components and the default value for sampling_rate.
-    WHEN: The generate_random_frequencies        function is called with these parameters.
-    THEN: frequencies is an array of length equal to num_components.
-    """
-    np.random.seed(42)
-
-    num_components = 10
-    frequencies = generate_random_frequencies(num_components)
-    assert (
-        len(frequencies) == num_components
-    ), f"Expected {num_components} frequencies, but got {len(frequencies)}."
-
-
-def test_frequencies_range_with_valid_sampling_rate():
-    """Test that the generate_random_frequencies        returns an array of
-    frequencies within the appropriate range, from 1 to the Nyquist's
-    frequency, when called with a valid sampling_rate.
-
-    GIVEN: A valid num_components and sampling_rate.
-    WHEN: The generate_random_frequencies        function is called with these parameters.
-    THEN: frequencies are all greater than or equal to 1 and smaller than sampling_rate/2.
-    """
-    np.random.seed(42)
-
-    num_components = 10
-    sampling_rate = 350
-    frequencies = generate_random_frequencies(num_components)
-    assert np.all(
-        (frequencies >= 1) & (frequencies < sampling_rate / 2)
-    ), "Frequencies should be between 1 and Nyquist's frequency"
-
-
-def test_frequencies_length_with_valid_sampling_rate():
-    """Test that the generate_random_frequencies        returns an array of
-    frequencies with the appropriate length, when called with a valid
-    sampling_rate.
-
-    GIVEN: A valid num_components and sampling_rate.
-    WHEN: The generate_random_frequencies        function is called with these parameters.
-    THEN: frequencies is an array of length equal to num_components.
-    """
-    np.random.seed(42)
-
-    num_components = 10
-    sampling_rate = 350
-    frequencies = generate_random_frequencies(num_components, sampling_rate)
-    assert (
-        len(frequencies) == num_components
-    ), f"Expected {num_components} frequencies, but got {len(frequencies)}."
-
-
-def test_invalid_numcomponents_type():
-    """Test that the generate_random_frequencies        raises an error when a
-    not integer number of components is provided.
-
-    GIVEN: An invalid number of components, default sampling_rate
-    WHEN: The generate_random_frequencies        function is called with these parameters.
-    THEN: A TypeError is raised with the appropriate message.
-    """
-    np.random.seed(42)
-
-    with pytest.raises(
-        TypeError,
-        match="num_components should be an integer number",
-    ):
-        generate_random_frequencies("cinque")
-
-
-def test_invalid_numcomponents_value():
-    """Test that the generate_random_frequencies        raises an error when a
-    negative number of components is provided.
-
-    GIVEN: A negative number of components, default sampling_rate
-    WHEN: The generate_random_frequencies        function is called with these parameters.
-    THEN: A ValueError is raised.
-    """
-    np.random.seed(42)
-
-    with pytest.raises(ValueError):
-        generate_random_frequencies(-8)
-
-
-def test_zero_numcomponents():
-    """Test that the generate_random_frequencies        returns an empty array
-    when 0 number of components is provided.
-
-    GIVEN: A negative number of components, default sampling_rate
-    WHEN: The generate_random_frequencies        function is called with these parameters.
-    THEN: An empty array is returned.
-    """
-    np.random.seed(42)
-
-    frequencies = generate_random_frequencies(0)
-    assert (
-        len(frequencies) == 0
-    ), f"Expected an empty frequencies array, but got {len(frequencies)}."
-
-
-def test_invalid_sampling_rate_type_random_frequencies():
-    """Test that the generate_random_frequencies        raises an error when a
-    not integer sampling rate is provided.
-
-    GIVEN: A valid number of components, invalid sampling_rate
-    WHEN: The generate_random_frequencies        function is called with these parameters.
-    THEN: A TypeError is raised with the appropriate message.
-    """
-    np.random.seed(42)
-
-    with pytest.raises(
-        TypeError,
-        match="sampling_rate should be an integer number",
-    ):
-        generate_random_frequencies(5, "duecentocinquanta")
-
-
-def test_invalid_sampling_rate_value_random_frequencies():
-    """Test that the generate_random_frequencies        raises an error when a
-    negative sampling rate is provided.
-
-    GIVEN: A valid number of components, a sampling_rate smaller than or equal to 0.
-    WHEN: The generate_random_frequencies        function is called with these parameters.
-    THEN: A ValueError is raised.
-    """
-    np.random.seed(42)
-
-    with pytest.raises(
-        ValueError,
-        match="sampling_rate should be greater than or equal to 4",
-    ):
-        generate_random_frequencies(5, -17)
-
-
-def test_minimal_valid_sampling_rate():
-    """Test that generate_random_frequencies    works correctly when
-    sampling_rate is the minimum allowed value.
-
-    GIVEN: A valid number of components, sampling_rate = 4.
-    WHEN: The generate_random_frequencies        function is called with these parameters.
-    THEN: Frequencies is an array with only 1 and 2
-    """
-    np.random.seed(42)
-    frequencies = generate_random_frequencies(50, 4)
-    assert np.all(
-        np.isin(frequencies, [1, 2])
-    ), "Expected frequency to be 1 or 2 when sampling_rate is 4."
-
-
-def test_minimal_valid_numcomponent():
-    """Test that generate_random_frequencies    works when num_components is
-    the minimum allowed value.
-
-    GIVEN: num_components = 1, a valid sampling_rate.
-    WHEN: The generate_random_frequencies        function is called with these parameters.
-    THEN: Frequencies is an array of length 1
-    """
-    np.random.seed(42)
-    frequencies = generate_random_frequencies(1, 100)
-    assert len(frequencies) == 1, "Expected a single frequency."
-
-
-def test_large_number_of_components():
-    """Test that generate_random_frequencies    can handle large input sizes
-    efficiently.
-
-    GIVEN: num_components = 10^8, a valid sampling_rate.
-    WHEN: The generate_random_frequencies        function is called with these parameters.
-    THEN: Frequencies is an array of length 10^8
-    """
-    np.random.seed(42)
-    frequencies = generate_random_frequencies(10**8, 500)
-    assert (
-        len(frequencies) == 10**8
-    ), f"Expected 10^8 frequencies, but got {len(frequencies)}"
 
 
 # Test for compute_signal_power

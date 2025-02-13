@@ -23,7 +23,7 @@ def generate_random_frequencies(num_components, sampling_rate=250):
     TypeError
         If `num_components` or `sampling_rate` is not an integer.
     ValueError
-        If `sampling_rate` is less than 4.
+        If `sampling_rate` is less than 4 or if `num_components` is negative
     """
     if not isinstance(num_components, (int, np.integer)) or isinstance(
         num_components, bool
@@ -334,3 +334,7 @@ def compute_ifft_and_return_real(spectrum):
         )
 
     return np.fft.ifft(spectrum).real
+
+def apply_spectral_slope(spectrum, frequencies, slope):
+    """Modifica lo spettro del rumore bianco aggiungendo una pendenza lineare."""
+    return spectrum + slope * frequencies
