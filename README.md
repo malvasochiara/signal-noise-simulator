@@ -148,6 +148,7 @@ Applies a linear spectral slope to a signal in the frequency domain.
 - `signal (numpy.ndarray)`: Input time-domain signal, assumed to be a 1D array of real values.
 - `slope (float)`: Slope value that defines the linear modification applied to the spectrum. Must be non-negative.
 - `sampling_rate (int, optional)`: Sampling rate of the signal in Hz (default is 250 Hz).
+
 **Returns:**
 
 - `modified_spectrum (numpy.ndarray)`: The modified frequency-domain representation of the signal after applying the linear spectral slope. The output is complex-valued.
