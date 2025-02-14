@@ -154,6 +154,29 @@ Applies a linear spectral slope to a signal in the frequency domain.
 - `modified_spectrum (numpy.ndarray)`: The modified frequency-domain representation of the signal after applying the linear spectral slope. The output is complex-valued.
 ---
 
+#### `add_colored_noise`
+
+Adds colored noise to a signal based on a given spectral slope.
+
+This function generates white noise at a specified signal-to-noise ratio (SNR), applies a spectral slope to shape its frequency content, and then adds the resulting colored noise to the input signal.
+
+**Note**: The output signal is complex-valued due to the spectral transformation. Discarding the imaginary part can alter the spectral characteristics of the noise.
+
+**Parameters:**
+
+- `signal (numpy.ndarray)`: Input time-domain signal, assumed to be a 1D array of real values.
+
+- `snr_db (float)`: Desired signal-to-noise ratio (SNR) in decibels, defining the power level of the noise relative to the signal.
+
+- `slope (float)`: Slope value that defines the spectral modification applied to the noise.
+
+- `sampling_rate (int)`: Sampling rate of the signal in Hz.
+
+**Returns:**
+
+- `noisy_signal` (numpy.ndarray): The input signal with added colored noise. The output is a 1D array of real values.
+
+---
 
 ## signal_builder.py
 

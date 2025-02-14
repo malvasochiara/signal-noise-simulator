@@ -11,6 +11,7 @@ from signal_toolkit import (
     compute_fft,
     compute_ifft,
     apply_spectral_slope,
+    add_colored_noise,
 )
 
 # tests for generate_random_frequencies
@@ -1286,3 +1287,89 @@ def test_apply_spectral_slope_negative_slope():
         ValueError, match="Slope should be greater than or equal to 0"
     ):
         apply_spectral_slope(signal, -1.0, 500)
+
+
+# Tests for add_colored_noise
+
+
+def test_add_colored_noise_output_shape():
+    """Test that add_colored_noise output has the correct shape.
+
+    GIVEN: A valid input signal, reasonable snr_db, slope, and sampling_rate.
+    WHEN: The add_colored_noise function is called with these parameters.
+    THEN: The output has the same shape as the input signal.
+    """
+    signal = np.ones(100)
+    snr_db = 10.0
+    slope = 1.0
+    sampling_rate = 250
+
+    output = add_colored_noise(signal, snr_db, slope, sampling_rate)
+
+    assert (
+        output.shape == signal.shape
+    ), "Output should have the same shape as input signal"
+
+
+def test_add_colored_noise_zero_signal():
+    """Test that add_colored_noise correctly generates only colored noise when
+    the input is zero.
+
+    GIVEN: An input signal of all zeros, valid snr, slope and sampling_rate.
+    WHEN: The add_colored_noise function is called with these parameters.
+    THEN: The output is not all zeros.
+    """
+    signal = np.zeros(100)
+    snr_db = 10.0
+    slope = 1.0
+    sampling_rate = 250
+
+    output = add_colored_noise(signal, snr_db, slope, sampling_rate)
+
+    assert not np.allclose(
+        output, signal
+    ), "Output should not be all zeros when input is zero"
+
+
+def test_add_colored_noise_low_snr():
+    """Test that add_colored_noise with a low SNR results in a noise-dominated
+    output.
+
+    GIVEN: A valid input signal, a very low SNR value, valid slope and sampling rate.
+    WHEN: The add_colored_noise function is called with these parameters.
+    THEN: The noise power is greater than the signal power.
+    """
+    signal = np.ones(100)
+    snr_db = -10.0
+    slope = 1.0
+    sampling_rate = 250
+
+    output = add_colored_noise(signal, snr_db, slope, sampling_rate)
+    noise_only = output - signal
+
+    assert np.linalg.norm(np.abs(noise_only)) > np.linalg.norm(
+        signal
+    ), "Noise should dominate at very low SNR"
+
+
+def test_add_colored_noise_slope_effect():
+    """Test that changing the slope affects the noise spectrum.
+
+    GIVEN: A valid input signal, different slope values, valid SNR and sampling_rate.
+    WHEN: The add_colored_noise function is called two times with different slopes.
+    THEN: The output noise is different for different slopes.
+    """
+    signal = np.ones(100)
+    snr_db = 10.0
+    sampling_rate = 250
+
+    output_slope_1 = add_colored_noise(
+        signal, snr_db, slope=1.0, sampling_rate=sampling_rate
+    )
+    output_slope_2 = add_colored_noise(
+        signal, snr_db, slope=2.0, sampling_rate=sampling_rate
+    )
+
+    assert not np.allclose(
+        output_slope_1, output_slope_2
+    ), "Different slopes should generate different noise patterns"
