@@ -183,7 +183,6 @@ This function generates white noise at a specified signal-to-noise ratio (SNR), 
 The `utils.py` file contains utility functions for saving generated data and handling file paths.
 
 **Main Functions**
-- `parse_arguments()`: Parses and processes command-line arguments for signal generation and plotting. It handles parameters such as the number of components, duration, sampling rate, waveform type, noise addition, and saving options.
 
 - `plot_clean_signal(time, signal)`: Plots a clean, noise-free periodic signal over time.
 

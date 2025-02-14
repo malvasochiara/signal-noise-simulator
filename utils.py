@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-
-import argparse
 import matplotlib.pyplot as plt
 import numpy as np
 import os
@@ -10,70 +8,6 @@ from signal_toolkit import (
     generate_periodic_signal,
     add_white_noise,
 )
-
-
-def parse_arguments():
-    """Parse and handle command-line arguments for signal generation and
-    plotting.
-
-    Returns
-    -------
-    argparse.Namespace
-        Parsed arguments including number of components, duration, sampling rate,
-        waveform type, plotting option, and optionally user-defined frequencies.
-    """
-    parser = argparse.ArgumentParser(
-        description="Generate and plot a periodic signal with optional noise."
-    )
-
-    parser.add_argument(
-        "--num_components",
-        type=int,
-        default=5,
-        help="Number of signal components (default: 5). Ignored if --frequencies is provided.",
-    )
-    parser.add_argument(
-        "--duration",
-        type=float,
-        default=1.0,
-        help="Signal duration in seconds (default: 1.0 s).",
-    )
-    parser.add_argument(
-        "--sampling_rate",
-        type=int,
-        default=250,
-        help="Sampling frequency in Hz (default: 250).",
-    )
-    parser.add_argument(
-        "--waveform_type",
-        choices=["sin", "square"],
-        default="sin",
-        help="Waveform type ('sin' for sinusoidal wave, 'square' for square wave; default: 'sin').",
-    )
-    parser.add_argument(
-        "--plot",
-        action="store_true",
-        help="If set, the generated signal will be plotted.",
-    )
-    parser.add_argument(
-        "--frequencies",
-        type=str,
-        help="Comma-separated list of frequencies in Hz (e.g., '10,20,30'). If provided, --num_components is ignored.",
-    )
-    parser.add_argument(
-        "--snr",
-        type=float,
-        help="Signal-to-noise ratio in dB. If provided, noise will be added to the signal.",
-    )
-
-    parser.add_argument(
-        "--save",
-        nargs="?",
-        const=".",
-        type=str,
-        help="Path to save the signal and time data as a CSV file. If no path is provided, the file will be saved in the current directory.",
-    )
-    return parser.parse_args()
 
 
 def plot_clean_signal(time, signal):
@@ -205,7 +139,7 @@ def save_signal_to_csv(
                 writer.writerow([t, s])
 
 
-def generate_and_plot_signal():
+def generate_and_plot_signal(args):
     """Generate and process a periodic signal.
 
     This function generates a periodic signal based on user-defined parameters,
@@ -213,8 +147,16 @@ def generate_and_plot_signal():
 
     Parameters
     ----------
-    None
-        The function retrieves arguments from the command line.
+    args : argparse.Namespace
+        Parsed command-line arguments containing signal parameters such as:
+        - `num_components` (int): Number of signal components (ignored if `frequencies` is provided).
+        - `duration` (float): Signal duration in seconds.
+        - `sampling_rate` (int): Sampling frequency in Hz.
+        - `waveform_type` (str): Type of waveform ('sin' or 'square').
+        - `frequencies` (str, optional): Comma-separated list of frequencies in Hz.
+        - `snr` (float, optional): Signal-to-noise ratio in dB; if provided, noise is added.
+        - `plot` (bool): If True, the generated signal is plotted.
+        - `save` (str, optional): Directory path to save the signal as a CSV file.
 
     Returns
     -------
@@ -223,14 +165,12 @@ def generate_and_plot_signal():
 
     Notes
     -----
-    - The function uses `parse_arguments()` to handle input parameters.
-    - If frequencies are provided via `--frequencies`, they are used directly;
-      otherwise, random frequencies are generated.
-    - If `--snr` is specified, white noise is added to the signal.
-    - If `--plot` is set, the function plots the signal.
-    - If `--save` is set, the function saves the signal data to a CSV file.
+    - If `frequencies` is provided, those values are used directly.
+    - Otherwise, `num_components` random frequencies are generated.
+    - If `snr` is specified, white noise is added to the signal.
+    - If `plot` is set, the function plots the signal.
+    - If `save` is set, the function saves the signal data to a CSV file.
     """
-    args = parse_arguments()
 
     if args.frequencies:
         frequencies = np.array([int(f) for f in args.frequencies.split(",")])
