@@ -7,6 +7,7 @@ from signal_toolkit import (
     generate_random_frequencies,
     generate_periodic_signal,
     add_white_noise,
+    add_colored_noise,
 )
 
 
@@ -85,6 +86,7 @@ def save_signal_to_csv(
     waveform_type="sin",
     sampling_rate=250,
     snr=None,
+    noise_type="white",
 ):
     """Save signal data to a CSV file.
 
@@ -107,6 +109,8 @@ def save_signal_to_csv(
         Sampling rate in Hz (default: 250 Hz).
     snr : float, optional
         Signal-to-noise ratio in dB. If None, no noisy signal is saved (default: None).
+    noise_type : str, optional
+        Type of noise added to the signal ('white' or 'colored'; default: 'white').
 
     Returns
     -------
@@ -117,14 +121,15 @@ def save_signal_to_csv(
     -----
     - If the directory specified in `save_path` does not exist, it will be created.
     - The filename follows the format:
-      `signal_<waveform_type>_<sampling_rate>Hz[_<snr>db].csv`
+      `signal_<waveform_type>_<sampling_rate>Hz[_<noise_type>_<snr>db].csv`
     """
+
     if not os.path.exists(save_path):
         os.makedirs(save_path)
 
     filename = f"signal_{waveform_type}_{sampling_rate}Hz"
     if snr is not None:
-        filename += f"_{snr}db"
+        filename += f"_{noise_type}_{snr}db"
     filename += ".csv"
 
     with open(os.path.join(save_path, filename), mode="w", newline="") as file:
@@ -155,6 +160,8 @@ def generate_and_plot_signal(args):
         - `waveform_type` (str): Type of waveform ('sin' or 'square').
         - `frequencies` (str, optional): Comma-separated list of frequencies in Hz.
         - `snr` (float, optional): Signal-to-noise ratio in dB; if provided, noise is added.
+        - `noise_type` (str, optional): Type of noise to add ('white' for white noise or 'colored' for colored noise).
+        - `slope` (float, optional): Spectral slope for colored noise; ignored if white noise is selected.
         - `plot` (bool): If True, the generated signal is plotted.
         - `save` (str, optional): Directory path to save the signal as a CSV file.
 
@@ -167,9 +174,9 @@ def generate_and_plot_signal(args):
     -----
     - If `frequencies` is provided, those values are used directly.
     - Otherwise, `num_components` random frequencies are generated.
-    - If `snr` is specified, white noise is added to the signal.
+    - If `snr` is specified, white noise or colored noise is added to the signal based on the `noise_type` argument.
     - If `plot` is set, the function plots the signal.
-    - If `save` is set, the function saves the signal data to a CSV file.
+    - If `save` is set, the function saves the signal data to a CSV file, including both clean and noisy signals if noise is added.
     """
 
     if args.frequencies:
@@ -187,7 +194,12 @@ def generate_and_plot_signal(args):
 
     noisy_signal = None
     if args.snr is not None:
-        noisy_signal = add_white_noise(signal, args.snr)
+        if args.noise_type == "white":
+            noisy_signal = add_white_noise(signal, args.snr)
+        elif args.noise_type == "colored":
+            noisy_signal = add_colored_noise(
+                signal, args.snr, args.slope, args.sampling_rate
+            )
         plot_noisy_signal(time, signal, noisy_signal, args.snr)
     elif args.plot:
         plot_clean_signal(time, signal)
@@ -201,4 +213,5 @@ def generate_and_plot_signal(args):
             args.waveform_type,
             args.sampling_rate,
             args.snr,
+            args.noise_type,
         )

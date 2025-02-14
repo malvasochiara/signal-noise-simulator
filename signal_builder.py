@@ -48,6 +48,27 @@ if __name__ == "__main__":
         help="Signal-to-noise ratio in dB. If provided, noise will be added to the signal.",
     )
     parser.add_argument(
+        "--noise_type",
+        choices=["white", "colored"],
+        default="white",
+        help=(
+            "Type of noise to add when --snr is specified. Choices: 'white' (Gaussian "
+            "white noise) or 'colored' (frequency-dependent noise that increases linearly). "
+            "Default is 'white'. Ignored if --snr is not provided."
+        ),
+    )
+    parser.add_argument(
+        "--slope",
+        type=float,
+        default=0.5,
+        help=(
+            "Slope of the colored noise spectrum. Controls how noise power increases "
+            "with frequency. Default is 0.5. Ignored if --snr is not provided or if "
+            "noise type is 'white'."
+        ),
+    )
+
+    parser.add_argument(
         "--save",
         nargs="?",
         const=".",
