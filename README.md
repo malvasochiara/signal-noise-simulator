@@ -178,6 +178,25 @@ This function generates white noise at a specified signal-to-noise ratio (SNR), 
 
 ---
 
+### utils.py
+
+The `utils.py` file contains utility functions for saving generated data and handling file paths.
+
+**Main Functions**
+- `parse_arguments()`: Parses and processes command-line arguments for signal generation and plotting. It handles parameters such as the number of components, duration, sampling rate, waveform type, noise addition, and saving options.
+
+- `plot_clean_signal(time, signal)`: Plots a clean, noise-free periodic signal over time.
+
+- `plot_noisy_signal(time, signal, noisy_signal, snr)`: Plots both the clean and noisy versions of a signal, allowing for comparison when noise is added based on the given signal-to-noise ratio (SNR).
+
+- `save_signal_to_csv(time, signal, noisy_signal=None, save_path='.', waveform_type='sin', sampling_rate=250, snr=None)`: Saves the generated signal (and optionally the noisy version) to a CSV file, automatically creating the directory if needed. The filename encodes signal properties such as waveform type, sampling rate, and SNR level.
+
+- `generate_and_plot_signal()`: Manages the full process of signal generation, noise addition, plotting, and saving. It retrieves arguments, generates the signal based on user preferences, and performs the required operations accordingly.
+
+These functions are used in signal_builder.py to manage data saving in a flexible and automated way.
+
+---
+
 ## signal_builder.py
 
 The `signal_builder.py`  generates periodic signals by combining sinusoidal or square waves with either random frequencies or user-defined frequencies. The signal can be configured through command-line arguments, and the script will return the generated signal and corresponding time values. An option to plot the generated signal is also available. Additionally, noise can be added to the signal, and a signal-to-noise ratio (SNR) can be specified for the added noise. The generated signal and time data can be saved to a CSV file. The user can specify a directory where the file should be saved, or it will default to the current directory. If a SNR is provided, both clean and noisy signals will be saved.
