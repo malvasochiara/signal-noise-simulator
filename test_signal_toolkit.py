@@ -9,7 +9,7 @@ from signal_toolkit import (
     generate_white_noise,
     add_white_noise,
     compute_fft,
-    compute_ifft_and_return_real,
+    compute_ifft,
 )
 
 # tests for generate_random_frequencies
@@ -1135,56 +1135,56 @@ def test_compute_fft_zero_signal():
     ), f"Expected all zero FFT, but got {fft_coefficients}"
 
 
-# Tests for compute_iift_and_return_real
+# Tests for compute_iift
 
 
-def test_compute_ifft_real_output():
-    """Test that the output of compute_ifft_and_return_real is real-valued.
+def test_compute_ifft_complex_output():
+    """Test that the output of compute_ifft is real-valued.
 
     GIVEN: A valid complex spectrum.
-    WHEN: The compute_ifft_and_return_real function is called with this parameter.
-    THEN: The output is real-valued (no imaginary components).
+    WHEN: The compute_ifft function is called with this parameter.
+    THEN: The output is complex-valued.
     """
     spectrum = np.array([1 + 2j, 3 + 4j, 5 + 6j])
-    output = compute_ifft_and_return_real(spectrum)
-    assert np.isrealobj(output), "Output should be real-valued."
+    output = compute_ifft(spectrum)
+    assert np.iscomplexobj(output), "Output should be complex-valued."
 
 
 def test_compute_ifft_length():
     """Test that the length of the output matches the input spectrum length.
 
     GIVEN: A valid complex spectrum.
-    WHEN: The compute_ifft_and_return_real function is called with this parameter.
+    WHEN: The compute_ifft function is called with this parameter.
     THEN: The output signal has the same length as the input spectrum.
     """
     spectrum = np.array([1 + 2j, 3 + 4j, 5 + 6j])
-    output = compute_ifft_and_return_real(spectrum)
+    output = compute_ifft(spectrum)
     assert len(output) == len(
         spectrum
     ), "Output length does not match input length."
 
 
 def test_compute_ifft_invalid_spectrum_type():
-    """Test that the compute_ifft_and_return_real raises a TypeError when an
-    invalid spectrum type is provided.
+    """Test that the compute_ifft raises a TypeError when an invalid spectrum
+    type is provided.
 
     GIVEN: An invalid spectrum type (e.g. string instead of a complex numpy array).
-    WHEN: The compute_ifft_and_return_real function is called with this parameter.
+    WHEN: The compute_ifft function is called with this parameter.
     THEN: A TypeError is raised with the appropriate message.
     """
     spectrum = "invalid_input"
     with pytest.raises(
         TypeError, match="Input spectrum must be a NumPy array."
     ):
-        compute_ifft_and_return_real(spectrum)
+        compute_ifft(spectrum)
 
 
 def test_compute_ifft_invalid_spectrum_value():
-    """Test that the compute_ifft_and_return_real raises a TypeError when an
-    invalid spectrum type is provided.
+    """Test that the compute_ifft raises a TypeError when an invalid spectrum
+    type is provided.
 
     GIVEN: An invalid spectrum type (e.g. string instead of a complex numpy array).
-    WHEN: The compute_ifft_and_return_real function is called with this parameter.
+    WHEN: The compute_ifft function is called with this parameter.
     THEN: A ValueError is raised with the appropriate message.
     """
     spectrum = np.array([1, 3, 5, 7, 9])
@@ -1192,29 +1192,29 @@ def test_compute_ifft_invalid_spectrum_value():
         ValueError,
         match="Input spectrum must be a complex-valued NumPy array.",
     ):
-        compute_ifft_and_return_real(spectrum)
+        compute_ifft(spectrum)
 
 
 def test_compute_ifft_empty_spectrum():
-    """Test that the compute_ifft_and_return_real raises an error when an empty
-    spectrum is provided.
+    """Test that the compute_ifft raises an error when an empty spectrum is
+    provided.
 
     GIVEN: An empty array representing the spectrum.
-    WHEN: The compute_ifft_and_return_real function is called with this parameter.
+    WHEN: The compute_ifft function is called with this parameter.
     THEN: A ValueError is raised.
     """
     spectrum = np.array([])
     with pytest.raises(ValueError):
-        compute_ifft_and_return_real(spectrum)
+        compute_ifft(spectrum)
 
 
 def test_compute_ifft_zero_spectrum():
     """Test that a zero spectrum returns a zero signal.
 
     GIVEN: A spectrum consisting of all zeros (complex values).
-    WHEN: The compute_ifft_and_return_real function is called with this parameter.
+    WHEN: The compute_ifft function is called with this parameter.
     THEN: The output signal should be an array of zeros.
     """
     spectrum = np.array([0 + 0j, 0 + 0j, 0 + 0j, 0 + 0j])
-    signal = compute_ifft_and_return_real(spectrum)
+    signal = compute_ifft(spectrum)
     assert np.allclose(signal, 0), f"Expected all zeros, but got {signal}"

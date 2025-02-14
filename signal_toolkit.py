@@ -299,12 +299,11 @@ def compute_fft(signal, sampling_rate=250):
     return fft_coefficients, frequency_bins
 
 
-def compute_ifft_and_return_real(spectrum):
-    """Compute the inverse Fast Fourier Transform (IFFT) and return the real
-    part.
+def compute_ifft(spectrum):
+    """Compute the inverse Fast Fourier Transform (IFFT).
 
     This function calculates the inverse Fourier Transform of a given spectrum
-    and returns only the real part of the resulting time-domain signal. The
+    and returns the resulting time-domain signal. The
     IFFT is computed based on the provided spectrum.
 
     Parameters
@@ -315,9 +314,9 @@ def compute_ifft_and_return_real(spectrum):
 
     Returns
     -------
-    real_signal : numpy.ndarray
-        The real part of the time-domain signal obtained by applying the IFFT
-        to the input spectrum. The output is a 1D array of real values,
+    signal : numpy.ndarray
+        The complex time-domain signal obtained by applying the IFFT
+        to the input spectrum. The output is a 1D array of complex values,
         representing the reconstructed signal.
 
     Raises
@@ -335,10 +334,4 @@ def compute_ifft_and_return_real(spectrum):
             "Input spectrum must be a complex-valued NumPy array."
         )
 
-    return np.fft.ifft(spectrum).real
-
-
-def apply_spectral_slope(spectrum, frequencies, slope):
-    """Modifica lo spettro del rumore bianco aggiungendo una pendenza
-    lineare."""
-    return spectrum + slope * frequencies
+    return np.fft.ifft(spectrum)
