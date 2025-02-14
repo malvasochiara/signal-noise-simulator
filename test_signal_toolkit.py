@@ -10,6 +10,7 @@ from signal_toolkit import (
     add_white_noise,
     compute_fft,
     compute_ifft,
+    apply_spectral_slope,
 )
 
 # tests for generate_random_frequencies
@@ -1218,3 +1219,70 @@ def test_compute_ifft_zero_spectrum():
     spectrum = np.array([0 + 0j, 0 + 0j, 0 + 0j, 0 + 0j])
     signal = compute_ifft(spectrum)
     assert np.allclose(signal, 0), f"Expected all zeros, but got {signal}"
+
+
+# Tests for apply spectral slope
+
+
+def test_apply_spectral_slope_output_size():
+    """Test that apply_spectral_slope returns an output of the correct size.
+
+    GIVEN: A valid input signal and a positive slope, default sampling rate.
+    WHEN: The apply_spectral_slope function is called with these parameters.
+    THEN: The output spectrum has the same shape as the input signal.
+    """
+    signal = np.ones(100)
+    slope = 1.0
+    modified_spectrum = apply_spectral_slope(signal, slope)
+    assert (
+        modified_spectrum.shape == signal.shape
+    ), "Output size should match input size"
+
+
+def test_apply_spectral_slope_zero_slope():
+    """Test that apply_spectral_slope returns the original spectrum when slope
+    is zero.
+
+    GIVEN: A valid input signal, slope = 0 and default sampling_rate.
+    WHEN: The apply_spectral_slope function is called with the parameters.
+    THEN: The output spectrum is identical to the original FFT of the signal.
+    """
+    signal = np.ones(100)
+    slope = 0.0
+    fft_original, _ = compute_fft(signal)
+    modified_spectrum = apply_spectral_slope(signal, slope)
+    np.testing.assert_array_almost_equal(
+        modified_spectrum,
+        fft_original,
+        err_msg="With slope=0, output should match original spectrum",
+    )
+
+
+def test_apply_spectral_slope_invalid_slope_type():
+    """Test that apply_spectral_slope raises a TypeError for invalid slope
+    types.
+
+    GIVEN: A valid input signal, an invalid slope (non-numeric type) and a valid sampling rate.
+    WHEN: The apply_spectral_slope function is called with these parameters.
+    THEN: A TypeError is raised with the appropriate message.
+    """
+    signal = np.array([1, 2, 3, 4, 5, 6])
+    with pytest.raises(
+        TypeError, match="Slope should be a number, either integer or float"
+    ):
+        apply_spectral_slope(signal, "one", 350)
+
+
+def test_apply_spectral_slope_negative_slope():
+    """Test that apply_spectral_slope raises a ValueError when slope is
+    negative.
+
+    GIVEN: A valid input signal, a negative slope and a valid sampling rate.
+    WHEN: The apply_spectral_slope function is called with these parameters.
+    THEN: A ValueError is raised with the appropriate message.
+    """
+    signal = np.array([1, 2, 3, 4, 5, 6])
+    with pytest.raises(
+        ValueError, match="Slope should be greater than or equal to 0"
+    ):
+        apply_spectral_slope(signal, -1.0, 500)

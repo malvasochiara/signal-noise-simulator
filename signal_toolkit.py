@@ -335,3 +335,46 @@ def compute_ifft(spectrum):
         )
 
     return np.fft.ifft(spectrum)
+
+
+def apply_spectral_slope(signal, slope, sampling_rate=250):
+    """Apply a linear spectral slope to a signal in the frequency domain.
+
+    This function computes the Fourier Transform of the input signal,
+    then modifies its spectrum by adding a linear slope based on the
+    corresponding frequency bins.
+
+        Parameters
+    ----------
+    signal : numpy.ndarray
+        Input time-domain signal, assumed to be a 1D array of real values.
+    slope : float
+        Slope value that defines the linear modification applied to the spectrum.
+    sampling_rate : int, optional
+        Sampling rate of the signal in Hz (default is 250 Hz).
+
+    Returns
+    -------
+    modified_spectrum : numpy.ndarray
+        The modified frequency-domain representation of the signal after
+        applying the linear spectral slope. The output is complex-valued.
+
+    Raises
+    -------
+    Raises:
+
+    TypeError
+        If slope is not a numeric type (integer or float).
+    ValueError
+        If slope is negative.
+    """
+    if not isinstance(
+        slope, (int, float, np.integer, np.floating)
+    ) or isinstance(slope, bool):
+        raise TypeError("Slope should be a number, either integer or float")
+
+    if slope < 0:
+        raise ValueError("Slope should be greater than or equal to 0")
+
+    fft_coefficients, frequency_bins = compute_fft(signal, sampling_rate)
+    return fft_coefficients + slope * frequency_bins
