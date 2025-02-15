@@ -3,7 +3,49 @@
 import argparse
 from utils import generate_and_plot_signal
 
-if __name__ == "__main__":
+def main():
+    """
+    Main function to parse command-line arguments and generate a periodic signal.
+
+    This script uses the argparse library to collect parameters from the command line, 
+    such as signal components, duration, sampling rate, waveform type, and optional 
+    noise settings (SNR, noise type, slope). It then calls the `generate_and_plot_signal` 
+    function to generate and optionally plot the periodic signal and/or save the signal data 
+    to a CSV file.
+
+    Command-line arguments include:
+    
+    Parameters
+    ----------
+    num_components : int, optional
+        Number of signal components (default is 5). Ignored if `frequencies` is provided.
+    duration : float, optional
+        Signal duration in seconds (default is 1.0).
+    sampling_rate : int, optional
+        Sampling frequency in Hz (default is 250).
+    waveform_type : {'sin', 'square'}, optional
+        Type of waveform ('sin' for sinusoidal wave, 'square' for square wave; default is 'sin').
+    frequencies : str, optional
+        Comma-separated list of frequencies in Hz (e.g., '10,20,30'). If provided, `num_components` is ignored.
+    snr : float, optional
+        Signal-to-noise ratio in dB. If provided, noise will be added to the signal.
+    noise_type : {'white', 'colored'}, optional
+        Type of noise to add when `snr` is specified. Choices are 'white' (Gaussian white noise) or 'colored' 
+        (frequency-dependent noise that increases linearly). Default is 'white'. Ignored if `snr` is not provided.
+    slope : float, optional
+        Spectral slope for colored noise. Controls how noise power increases with frequency. Default is 0.5. 
+        Ignored if `snr` is not provided or if `noise_type` is 'white'.
+    plot : bool, optional
+        If set, the generated signal will be plotted.
+    save : str, optional
+        Path to save the signal and time data as a CSV file. If no path is provided, the file will be saved in 
+        the current directory.
+
+    Returns
+    -------
+    None
+        The function does not return any value.
+    """
     parser = argparse.ArgumentParser(
         description="Generate and plot a periodic signal with optional noise."
     )
@@ -51,7 +93,7 @@ if __name__ == "__main__":
         "--noise_type",
         choices=["white", "colored"],
         default="white",
-        help=(
+        help=( 
             "Type of noise to add when --snr is specified. Choices: 'white' (Gaussian "
             "white noise) or 'colored' (frequency-dependent noise that increases linearly). "
             "Default is 'white'. Ignored if --snr is not provided."
@@ -61,7 +103,7 @@ if __name__ == "__main__":
         "--slope",
         type=float,
         default=0.5,
-        help=(
+        help=( 
             "Slope of the colored noise spectrum. Controls how noise power increases "
             "with frequency. Default is 0.5. Ignored if --snr is not provided or if "
             "noise type is 'white'."
