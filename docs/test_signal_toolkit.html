@@ -1,0 +1,1030 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>test_signal_toolkit module &mdash; Signal-noise Simulator 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=2709fde1"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="utils module" href="utils.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Signal-noise Simulator
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="signal_builder.html">signal_builder module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signal_toolkit.html">signal_toolkit module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">utils module</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">test_signal_toolkit module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_add_colored_noise_low_snr"><code class="docutils literal notranslate"><span class="pre">test_add_colored_noise_low_snr()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_add_colored_noise_output_shape"><code class="docutils literal notranslate"><span class="pre">test_add_colored_noise_output_shape()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_add_colored_noise_slope_effect"><code class="docutils literal notranslate"><span class="pre">test_add_colored_noise_slope_effect()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_add_colored_noise_zero_signal"><code class="docutils literal notranslate"><span class="pre">test_add_colored_noise_zero_signal()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_add_white_noise_all_zeros"><code class="docutils literal notranslate"><span class="pre">test_add_white_noise_all_zeros()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_add_white_noise_high_snr"><code class="docutils literal notranslate"><span class="pre">test_add_white_noise_high_snr()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_add_white_noise_noisy_signal_size"><code class="docutils literal notranslate"><span class="pre">test_add_white_noise_noisy_signal_size()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_add_white_noise_noisy_signal_type"><code class="docutils literal notranslate"><span class="pre">test_add_white_noise_noisy_signal_type()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_add_white_noise_scalar"><code class="docutils literal notranslate"><span class="pre">test_add_white_noise_scalar()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_apply_spectral_slope_invalid_slope_type"><code class="docutils literal notranslate"><span class="pre">test_apply_spectral_slope_invalid_slope_type()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_apply_spectral_slope_negative_slope"><code class="docutils literal notranslate"><span class="pre">test_apply_spectral_slope_negative_slope()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_apply_spectral_slope_output_size"><code class="docutils literal notranslate"><span class="pre">test_apply_spectral_slope_output_size()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_apply_spectral_slope_zero_slope"><code class="docutils literal notranslate"><span class="pre">test_apply_spectral_slope_zero_slope()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_compute_fft_coefficients_length"><code class="docutils literal notranslate"><span class="pre">test_compute_fft_coefficients_length()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_compute_fft_empty_signal"><code class="docutils literal notranslate"><span class="pre">test_compute_fft_empty_signal()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_compute_fft_frequency_bins_length"><code class="docutils literal notranslate"><span class="pre">test_compute_fft_frequency_bins_length()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_compute_fft_invalid_sampling_rate_type"><code class="docutils literal notranslate"><span class="pre">test_compute_fft_invalid_sampling_rate_type()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_compute_fft_invalid_sampling_rate_value"><code class="docutils literal notranslate"><span class="pre">test_compute_fft_invalid_sampling_rate_value()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_compute_fft_invalid_signal_type"><code class="docutils literal notranslate"><span class="pre">test_compute_fft_invalid_signal_type()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_compute_fft_zero_signal"><code class="docutils literal notranslate"><span class="pre">test_compute_fft_zero_signal()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_compute_ifft_complex_output"><code class="docutils literal notranslate"><span class="pre">test_compute_ifft_complex_output()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_compute_ifft_empty_spectrum"><code class="docutils literal notranslate"><span class="pre">test_compute_ifft_empty_spectrum()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_compute_ifft_invalid_spectrum_type"><code class="docutils literal notranslate"><span class="pre">test_compute_ifft_invalid_spectrum_type()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_compute_ifft_invalid_spectrum_value"><code class="docutils literal notranslate"><span class="pre">test_compute_ifft_invalid_spectrum_value()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_compute_ifft_length"><code class="docutils literal notranslate"><span class="pre">test_compute_ifft_length()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_compute_ifft_zero_spectrum"><code class="docutils literal notranslate"><span class="pre">test_compute_ifft_zero_spectrum()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_compute_signal_power_basic"><code class="docutils literal notranslate"><span class="pre">test_compute_signal_power_basic()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_compute_signal_power_empty_signal"><code class="docutils literal notranslate"><span class="pre">test_compute_signal_power_empty_signal()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_compute_signal_power_invalid_signal_element"><code class="docutils literal notranslate"><span class="pre">test_compute_signal_power_invalid_signal_element()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_compute_signal_power_invalid_signal_type"><code class="docutils literal notranslate"><span class="pre">test_compute_signal_power_invalid_signal_type()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_compute_signal_power_large_signal"><code class="docutils literal notranslate"><span class="pre">test_compute_signal_power_large_signal()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_compute_signal_power_single_element"><code class="docutils literal notranslate"><span class="pre">test_compute_signal_power_single_element()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_compute_signal_power_type"><code class="docutils literal notranslate"><span class="pre">test_compute_signal_power_type()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_compute_white_noise_std_constant_signal"><code class="docutils literal notranslate"><span class="pre">test_compute_white_noise_std_constant_signal()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_compute_white_noise_std_high_snr"><code class="docutils literal notranslate"><span class="pre">test_compute_white_noise_std_high_snr()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_compute_white_noise_std_invalid_snr_type"><code class="docutils literal notranslate"><span class="pre">test_compute_white_noise_std_invalid_snr_type()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_compute_white_noise_std_negative_snr"><code class="docutils literal notranslate"><span class="pre">test_compute_white_noise_std_negative_snr()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_compute_white_noise_std_output_type"><code class="docutils literal notranslate"><span class="pre">test_compute_white_noise_std_output_type()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_compute_white_noise_std_zero_snr"><code class="docutils literal notranslate"><span class="pre">test_compute_white_noise_std_zero_snr()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_frequencies_length_with_default_sampling_rate"><code class="docutils literal notranslate"><span class="pre">test_frequencies_length_with_default_sampling_rate()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_frequencies_length_with_valid_sampling_rate"><code class="docutils literal notranslate"><span class="pre">test_frequencies_length_with_valid_sampling_rate()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_frequencies_range_with_default_sampling_rate"><code class="docutils literal notranslate"><span class="pre">test_frequencies_range_with_default_sampling_rate()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_frequencies_range_with_valid_sampling_rate"><code class="docutils literal notranslate"><span class="pre">test_frequencies_range_with_valid_sampling_rate()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_generate_periodic_signal_empty_frequencies"><code class="docutils literal notranslate"><span class="pre">test_generate_periodic_signal_empty_frequencies()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_generate_periodic_signal_invalid_duration_type"><code class="docutils literal notranslate"><span class="pre">test_generate_periodic_signal_invalid_duration_type()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_generate_periodic_signal_invalid_duration_value"><code class="docutils literal notranslate"><span class="pre">test_generate_periodic_signal_invalid_duration_value()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_generate_periodic_signal_invalid_frequencies_type"><code class="docutils literal notranslate"><span class="pre">test_generate_periodic_signal_invalid_frequencies_type()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_generate_periodic_signal_invalid_frequencies_value"><code class="docutils literal notranslate"><span class="pre">test_generate_periodic_signal_invalid_frequencies_value()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_generate_periodic_signal_invalid_sampling_rate_type"><code class="docutils literal notranslate"><span class="pre">test_generate_periodic_signal_invalid_sampling_rate_type()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_generate_periodic_signal_invalid_sampling_rate_value"><code class="docutils literal notranslate"><span class="pre">test_generate_periodic_signal_invalid_sampling_rate_value()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_generate_periodic_signal_invalid_waveform_type"><code class="docutils literal notranslate"><span class="pre">test_generate_periodic_signal_invalid_waveform_type()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_generate_periodic_signal_invalid_waveform_value"><code class="docutils literal notranslate"><span class="pre">test_generate_periodic_signal_invalid_waveform_value()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_generate_periodic_signal_negative_frequencies_value"><code class="docutils literal notranslate"><span class="pre">test_generate_periodic_signal_negative_frequencies_value()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_generate_periodic_signal_signal_amplitude"><code class="docutils literal notranslate"><span class="pre">test_generate_periodic_signal_signal_amplitude()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_generate_periodic_signal_signal_is_ndarray"><code class="docutils literal notranslate"><span class="pre">test_generate_periodic_signal_signal_is_ndarray()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_generate_periodic_signal_signal_length"><code class="docutils literal notranslate"><span class="pre">test_generate_periodic_signal_signal_length()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_generate_periodic_signal_signal_square_amplitude"><code class="docutils literal notranslate"><span class="pre">test_generate_periodic_signal_signal_square_amplitude()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_generate_periodic_signal_signal_square_length"><code class="docutils literal notranslate"><span class="pre">test_generate_periodic_signal_signal_square_length()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_generate_periodic_signal_single_frequency"><code class="docutils literal notranslate"><span class="pre">test_generate_periodic_signal_single_frequency()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_generate_periodic_signal_square_signal_is_ndarray"><code class="docutils literal notranslate"><span class="pre">test_generate_periodic_signal_square_signal_is_ndarray()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_generate_periodic_signal_square_time_is_ndarray"><code class="docutils literal notranslate"><span class="pre">test_generate_periodic_signal_square_time_is_ndarray()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_generate_periodic_signal_time_array"><code class="docutils literal notranslate"><span class="pre">test_generate_periodic_signal_time_array()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_generate_periodic_signal_time_is_ndarray"><code class="docutils literal notranslate"><span class="pre">test_generate_periodic_signal_time_is_ndarray()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_generate_periodic_signal_zero_duration"><code class="docutils literal notranslate"><span class="pre">test_generate_periodic_signal_zero_duration()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_generate_white_noise_constant_signal"><code class="docutils literal notranslate"><span class="pre">test_generate_white_noise_constant_signal()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_generate_white_noise_high_snr"><code class="docutils literal notranslate"><span class="pre">test_generate_white_noise_high_snr()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_generate_white_noise_length"><code class="docutils literal notranslate"><span class="pre">test_generate_white_noise_length()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_generate_white_noise_negative_snr"><code class="docutils literal notranslate"><span class="pre">test_generate_white_noise_negative_snr()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_generate_white_noise_noise_std"><code class="docutils literal notranslate"><span class="pre">test_generate_white_noise_noise_std()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_generate_white_noise_scalar_signal"><code class="docutils literal notranslate"><span class="pre">test_generate_white_noise_scalar_signal()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_generate_white_noise_scalar_signal_float"><code class="docutils literal notranslate"><span class="pre">test_generate_white_noise_scalar_signal_float()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_generate_white_noise_zero_mean"><code class="docutils literal notranslate"><span class="pre">test_generate_white_noise_zero_mean()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_generate_white_noise_zero_signal"><code class="docutils literal notranslate"><span class="pre">test_generate_white_noise_zero_signal()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_invalid_numcomponents_type"><code class="docutils literal notranslate"><span class="pre">test_invalid_numcomponents_type()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_invalid_numcomponents_value"><code class="docutils literal notranslate"><span class="pre">test_invalid_numcomponents_value()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_invalid_sampling_rate_type_random_frequencies"><code class="docutils literal notranslate"><span class="pre">test_invalid_sampling_rate_type_random_frequencies()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_invalid_sampling_rate_value_random_frequencies"><code class="docutils literal notranslate"><span class="pre">test_invalid_sampling_rate_value_random_frequencies()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_large_number_of_components"><code class="docutils literal notranslate"><span class="pre">test_large_number_of_components()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_minimal_valid_numcomponent"><code class="docutils literal notranslate"><span class="pre">test_minimal_valid_numcomponent()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_minimal_valid_sampling_rate"><code class="docutils literal notranslate"><span class="pre">test_minimal_valid_sampling_rate()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_zero_numcomponents"><code class="docutils literal notranslate"><span class="pre">test_zero_numcomponents()</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Signal-noise Simulator</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">test_signal_toolkit module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/test_signal_toolkit.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-test_signal_toolkit">
+<span id="test-signal-toolkit-module"></span><h1>test_signal_toolkit module<a class="headerlink" href="#module-test_signal_toolkit" title="Link to this heading"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_add_colored_noise_low_snr">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_add_colored_noise_low_snr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_add_colored_noise_low_snr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_add_colored_noise_low_snr" title="Link to this definition"></a></dt>
+<dd><p>Test that add_colored_noise with a low SNR results in a noise-dominated output.</p>
+<p>GIVEN: A valid input signal, a very low SNR value, valid slope and sampling rate.</p>
+<p>WHEN: The add_colored_noise function is called with these parameters.</p>
+<p>THEN: The noise power is greater than the signal power.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_add_colored_noise_output_shape">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_add_colored_noise_output_shape</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_add_colored_noise_output_shape"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_add_colored_noise_output_shape" title="Link to this definition"></a></dt>
+<dd><p>Test that add_colored_noise output has the correct shape.</p>
+<p>GIVEN: A valid input signal, reasonable snr_db, slope, and sampling_rate.</p>
+<p>WHEN: The add_colored_noise function is called with these parameters.</p>
+<p>THEN: The output has the same shape as the input signal.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_add_colored_noise_slope_effect">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_add_colored_noise_slope_effect</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_add_colored_noise_slope_effect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_add_colored_noise_slope_effect" title="Link to this definition"></a></dt>
+<dd><p>Test that changing the slope affects the noise spectrum.</p>
+<p>GIVEN: A valid input signal, different slope values, valid SNR and sampling_rate.</p>
+<p>WHEN: The add_colored_noise function is called two times with different slopes.</p>
+<p>THEN: The output noise is different for different slopes.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_add_colored_noise_zero_signal">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_add_colored_noise_zero_signal</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_add_colored_noise_zero_signal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_add_colored_noise_zero_signal" title="Link to this definition"></a></dt>
+<dd><p>Test that add_colored_noise correctly generates only colored noise when the input
+is zero.</p>
+<p>GIVEN: An input signal of all zeros, valid snr, slope and sampling_rate.</p>
+<p>WHEN: The add_colored_noise function is called with these parameters.</p>
+<p>THEN: The output is not all zeros.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_add_white_noise_all_zeros">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_add_white_noise_all_zeros</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_add_white_noise_all_zeros"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_add_white_noise_all_zeros" title="Link to this definition"></a></dt>
+<dd><p>Test that an all-zero input signal returns an all-zero noisy signal.</p>
+<p>GIVEN: An all-zero input signal and a valid SNR.</p>
+<p>WHEN: The add_white_noise function is called withthese parameters.</p>
+<p>THEN: The output noisy signal consists entirely of zeros.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_add_white_noise_high_snr">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_add_white_noise_high_snr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_add_white_noise_high_snr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_add_white_noise_high_snr" title="Link to this definition"></a></dt>
+<dd><p>Test that a very high SNR returns the input signal, within a certain tolerance.</p>
+<p>GIVEN: A valid input signal and a very high SNR.</p>
+<p>WHEN: The add_white_noise function is called.</p>
+<p>THEN: The output noisy signal is nearly identical to the input signal.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_add_white_noise_noisy_signal_size">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_add_white_noise_noisy_signal_size</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_add_white_noise_noisy_signal_size"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_add_white_noise_noisy_signal_size" title="Link to this definition"></a></dt>
+<dd><p>Test that the noisy signal has the same length as the input signal.</p>
+<p>GIVEN: A valid input signal and SNR.</p>
+<p>WHEN: The add_white_noise function is called with these parameters.</p>
+<p>THEN: The output noisy signal is of type numpy.ndarray.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_add_white_noise_noisy_signal_type">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_add_white_noise_noisy_signal_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_add_white_noise_noisy_signal_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_add_white_noise_noisy_signal_type" title="Link to this definition"></a></dt>
+<dd><p>Test that the noisy signal has the same type as the input signal.</p>
+<p>GIVEN: A valid input signal and SNR.</p>
+<p>WHEN: The add_white_noise function is called with  these parameters.</p>
+<p>THEN: The output noisy signal is of type numpy.ndarray.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_add_white_noise_scalar">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_add_white_noise_scalar</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_add_white_noise_scalar"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_add_white_noise_scalar" title="Link to this definition"></a></dt>
+<dd><p>Test that the function handles scalar signals correctly.</p>
+<p>GIVEN: A scalar input signal and a valid SNR.</p>
+<p>WHEN: The add_white_noise function is called with  these parameters.</p>
+<p>THEN: The noisy signal has length 1.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_apply_spectral_slope_invalid_slope_type">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_apply_spectral_slope_invalid_slope_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_apply_spectral_slope_invalid_slope_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_apply_spectral_slope_invalid_slope_type" title="Link to this definition"></a></dt>
+<dd><p>Test that apply_spectral_slope raises a TypeError for invalid slope types.</p>
+<p>GIVEN: A valid input signal, an invalid slope (non-numeric type) and a valid sampling rate.</p>
+<p>WHEN: The apply_spectral_slope function is called with these parameters.</p>
+<p>THEN: A TypeError is raised with the appropriate message.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_apply_spectral_slope_negative_slope">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_apply_spectral_slope_negative_slope</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_apply_spectral_slope_negative_slope"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_apply_spectral_slope_negative_slope" title="Link to this definition"></a></dt>
+<dd><p>Test that apply_spectral_slope raises a ValueError when slope is negative.</p>
+<p>GIVEN: A valid input signal, a negative slope and a valid sampling rate.</p>
+<p>WHEN: The apply_spectral_slope function is called with these parameters.</p>
+<p>THEN: A ValueError is raised with the appropriate message.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_apply_spectral_slope_output_size">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_apply_spectral_slope_output_size</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_apply_spectral_slope_output_size"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_apply_spectral_slope_output_size" title="Link to this definition"></a></dt>
+<dd><p>Test that apply_spectral_slope returns an output of the correct size.</p>
+<p>GIVEN: A valid input signal and a positive slope, default sampling rate.</p>
+<p>WHEN: The apply_spectral_slope function is called with these parameters.</p>
+<p>THEN: The output spectrum has the same shape as the input signal.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_apply_spectral_slope_zero_slope">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_apply_spectral_slope_zero_slope</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_apply_spectral_slope_zero_slope"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_apply_spectral_slope_zero_slope" title="Link to this definition"></a></dt>
+<dd><p>Test that apply_spectral_slope returns the original spectrum when slope is zero.</p>
+<p>GIVEN: A valid input signal, slope = 0 and default sampling_rate.</p>
+<p>WHEN: The apply_spectral_slope function is called with the parameters.</p>
+<p>THEN: The output spectrum is identical to the original FFT of the signal.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_compute_fft_coefficients_length">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_compute_fft_coefficients_length</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_compute_fft_coefficients_length"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_compute_fft_coefficients_length" title="Link to this definition"></a></dt>
+<dd><p>Test that the length of fft_coefficients matches the length of the signal.</p>
+<p>GIVEN: Valid input signal and sampling rate.</p>
+<p>WHEN: The compute_fft function is called with these parameters.</p>
+<p>THEN: The output fft_coefficients array has the same length as the input signal.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_compute_fft_empty_signal">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_compute_fft_empty_signal</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_compute_fft_empty_signal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_compute_fft_empty_signal" title="Link to this definition"></a></dt>
+<dd><p>Test that the compute_fft raises an error when an empty signal is provided.</p>
+<p>GIVEN: An empty array, valid sampling rate.</p>
+<p>WHEN: The compute_fft function is called with these parameters.</p>
+<p>THEN: A ValueError is raised with the appropriate message.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_compute_fft_frequency_bins_length">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_compute_fft_frequency_bins_length</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_compute_fft_frequency_bins_length"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_compute_fft_frequency_bins_length" title="Link to this definition"></a></dt>
+<dd><p>Test that the length of frequency_bins matches the length of the signal.</p>
+<p>GIVEN: Valid input signal and sampling rate.</p>
+<p>WHEN: The compute_fft function is called with these parameters.</p>
+<p>THEN: The output frequency_bins array has the same length as the input signal.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_compute_fft_invalid_sampling_rate_type">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_compute_fft_invalid_sampling_rate_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_compute_fft_invalid_sampling_rate_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_compute_fft_invalid_sampling_rate_type" title="Link to this definition"></a></dt>
+<dd><p>Test that the compute_fft raises an error when a not float or integer sampling
+rate is provided.</p>
+<p>GIVEN: Valid input signal, a non float or integer sampling rate.</p>
+<p>WHEN: The compute_fft function is called with these parameters.</p>
+<p>THEN: A TypeError is raised with the appropriate message.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_compute_fft_invalid_sampling_rate_value">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_compute_fft_invalid_sampling_rate_value</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_compute_fft_invalid_sampling_rate_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_compute_fft_invalid_sampling_rate_value" title="Link to this definition"></a></dt>
+<dd><p>Test that the compute_fft raises an error when a negative sampling rate is
+provided.</p>
+<p>GIVEN: Valid input signal, a negative sampling rate.</p>
+<p>WHEN: The compute_fft function is called with these parameters.</p>
+<p>THEN: A ValueError is raised with the appropriate message.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_compute_fft_invalid_signal_type">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_compute_fft_invalid_signal_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_compute_fft_invalid_signal_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_compute_fft_invalid_signal_type" title="Link to this definition"></a></dt>
+<dd><p>Test that the compute_fft raises an error when a not integer or float element is
+provided in the signal array.</p>
+<p>GIVEN: An array containing at least a non-integer or float value, valid sampling rate.</p>
+<p>WHEN: The compute_fft function is called with these parameters.</p>
+<p>THEN: A TypeError is raised with the appropriate message.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_compute_fft_zero_signal">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_compute_fft_zero_signal</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_compute_fft_zero_signal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_compute_fft_zero_signal" title="Link to this definition"></a></dt>
+<dd><p>Test that a zero signal returns a zero FFT.</p>
+<p>GIVEN: A signal consisting of all zeros and a valid sampling rate.</p>
+<p>WHEN: The compute_fft function is called with these parameters.</p>
+<p>THEN: The output fft_coefficients array should contain only zeros.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_compute_ifft_complex_output">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_compute_ifft_complex_output</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_compute_ifft_complex_output"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_compute_ifft_complex_output" title="Link to this definition"></a></dt>
+<dd><p>Test that the output of compute_ifft is real-valued.</p>
+<p>GIVEN: A valid complex spectrum.</p>
+<p>WHEN: The compute_ifft function is called with this parameter.</p>
+<p>THEN: The output is complex-valued.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_compute_ifft_empty_spectrum">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_compute_ifft_empty_spectrum</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_compute_ifft_empty_spectrum"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_compute_ifft_empty_spectrum" title="Link to this definition"></a></dt>
+<dd><p>Test that the compute_ifft raises an error when an empty spectrum is provided.</p>
+<p>GIVEN: An empty array representing the spectrum.</p>
+<p>WHEN: The compute_ifft function is called with this parameter.</p>
+<p>THEN: A ValueError is raised.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_compute_ifft_invalid_spectrum_type">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_compute_ifft_invalid_spectrum_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_compute_ifft_invalid_spectrum_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_compute_ifft_invalid_spectrum_type" title="Link to this definition"></a></dt>
+<dd><p>Test that the compute_ifft raises a TypeError when an invalid spectrum type is
+provided.</p>
+<p>GIVEN: An invalid spectrum type (e.g. string instead of a complex numpy array).</p>
+<p>WHEN: The compute_ifft function is called with this parameter.</p>
+<p>THEN: A TypeError is raised with the appropriate message.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_compute_ifft_invalid_spectrum_value">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_compute_ifft_invalid_spectrum_value</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_compute_ifft_invalid_spectrum_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_compute_ifft_invalid_spectrum_value" title="Link to this definition"></a></dt>
+<dd><p>Test that the compute_ifft raises a TypeError when an invalid spectrum type is
+provided.</p>
+<p>GIVEN: An invalid spectrum type (e.g. string instead of a complex numpy array).</p>
+<p>WHEN: The compute_ifft function is called with this parameter.</p>
+<p>THEN: A ValueError is raised with the appropriate message.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_compute_ifft_length">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_compute_ifft_length</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_compute_ifft_length"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_compute_ifft_length" title="Link to this definition"></a></dt>
+<dd><p>Test that the length of the output matches the input spectrum length.</p>
+<p>GIVEN: A valid complex spectrum.</p>
+<p>WHEN: The compute_ifft function is called with this parameter.</p>
+<p>THEN: The output signal has the same length as the input spectrum.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_compute_ifft_zero_spectrum">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_compute_ifft_zero_spectrum</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_compute_ifft_zero_spectrum"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_compute_ifft_zero_spectrum" title="Link to this definition"></a></dt>
+<dd><p>Test that a zero spectrum returns a zero signal.</p>
+<p>GIVEN: A spectrum consisting of all zeros (complex values).</p>
+<p>WHEN: The compute_ifft function is called with this parameter.</p>
+<p>THEN: The output signal should be an array of zeros.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_compute_signal_power_basic">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_compute_signal_power_basic</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_compute_signal_power_basic"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_compute_signal_power_basic" title="Link to this definition"></a></dt>
+<dd><p>Test that compute_signal_power returns the correct power when input signal is constant
+GIVEN: A constant signal where all elements are equal (e.g., an array of ones).</p>
+<p>WHEN: The compute_signal_power function is called with this parameter.</p>
+<p>THEN: The RMS power is equal to the value of the constant signal.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_compute_signal_power_empty_signal">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_compute_signal_power_empty_signal</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_compute_signal_power_empty_signal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_compute_signal_power_empty_signal" title="Link to this definition"></a></dt>
+<dd><p>Test that compute_signal_power raises a ValueError when provided with an empty
+array.</p>
+<p>GIVEN: An empty numpy array.</p>
+<p>WHEN: The compute_signal_power function is called with this parameter.</p>
+<p>THEN: A ValueError is raised with the appropriate message.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_compute_signal_power_invalid_signal_element">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_compute_signal_power_invalid_signal_element</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_compute_signal_power_invalid_signal_element"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_compute_signal_power_invalid_signal_element" title="Link to this definition"></a></dt>
+<dd><p>Test that compute_signal_power raises a TypeError when provided with an invalid
+element in signal array.</p>
+<p>GIVEN: A numpy array containing an invalid type.</p>
+<p>WHEN: The compute_signal_power function is called with this parameter.</p>
+<p>THEN: A TypeError is raised.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_compute_signal_power_invalid_signal_type">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_compute_signal_power_invalid_signal_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_compute_signal_power_invalid_signal_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_compute_signal_power_invalid_signal_type" title="Link to this definition"></a></dt>
+<dd><p>Test that compute_signal_power raises a TypeError when provided with an invalid
+input type.</p>
+<p>GIVEN: An invalid input (e.g., a string) instead of a numpy array representing a signal.</p>
+<p>WHEN: The compute_signal_power function is called with this parameter.</p>
+<p>THEN: A TypeError is raised.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_compute_signal_power_large_signal">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_compute_signal_power_large_signal</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_compute_signal_power_large_signal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_compute_signal_power_large_signal" title="Link to this definition"></a></dt>
+<dd><p>Test that compute_signal_power handles a large signal correctly.</p>
+<p>GIVEN: A large random signal with a very large number of elements (e.g., 10^8 elements).</p>
+<p>WHEN: The compute_signal_power function is called with this parameter.</p>
+<p>THEN: The return value is of type float.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_compute_signal_power_single_element">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_compute_signal_power_single_element</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_compute_signal_power_single_element"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_compute_signal_power_single_element" title="Link to this definition"></a></dt>
+<dd><p>Test that compute_signal_power returns the correct power for a single- element
+signal.</p>
+<p>GIVEN: A signal with a single element (e.g., an array with one value).</p>
+<p>WHEN: The compute_signal_power function is called with this parameter.</p>
+<p>THEN: The RMS power is equal to the value of the signal.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_compute_signal_power_type">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_compute_signal_power_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_compute_signal_power_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_compute_signal_power_type" title="Link to this definition"></a></dt>
+<dd><p>Test that compute_signal_power returns the correct output type when given a valid
+input.</p>
+<p>GIVEN: A valid 1D numpy array.</p>
+<p>WHEN: The compute_signal_power function is called with this parameter.</p>
+<p>THEN: The return value is of type float</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_compute_white_noise_std_constant_signal">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_compute_white_noise_std_constant_signal</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_compute_white_noise_std_constant_signal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_compute_white_noise_std_constant_signal" title="Link to this definition"></a></dt>
+<dd><p>Test that for a constant signal, noise std is computed correctly.</p>
+<p>GIVEN: A constant signal (e.g., an array of ones) and a valid SNR.</p>
+<p>WHEN: The compute_white_noise_std function is called with these parameters.</p>
+<p>THEN: The return value is the expected noise standard deviation.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_compute_white_noise_std_high_snr">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_compute_white_noise_std_high_snr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_compute_white_noise_std_high_snr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_compute_white_noise_std_high_snr" title="Link to this definition"></a></dt>
+<dd><p>Test that for high SNR, noise std approaches zero.</p>
+<p>GIVEN: A valid signal and a high SNR (e.g., 1000 dB).</p>
+<p>WHEN: The compute_white_noise_std function is called with these parameters.</p>
+<p>THEN: The return value is close to zero.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_compute_white_noise_std_invalid_snr_type">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_compute_white_noise_std_invalid_snr_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_compute_white_noise_std_invalid_snr_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_compute_white_noise_std_invalid_snr_type" title="Link to this definition"></a></dt>
+<dd><p>Test that compute_white_noise_std raises a TypeError when provided with an
+invalid SNR type.</p>
+<p>GIVEN: A valid signal and an invalid type for SNR.</p>
+<p>WHEN: The compute_white_noise_std function is called with these parameters.</p>
+<p>THEN: A TypeError is raised.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_compute_white_noise_std_negative_snr">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_compute_white_noise_std_negative_snr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_compute_white_noise_std_negative_snr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_compute_white_noise_std_negative_snr" title="Link to this definition"></a></dt>
+<dd><p>Test that for negative SNR, noise std is larger than signal RMS.</p>
+<p>GIVEN: A valid signal and a negative SNR.</p>
+<p>WHEN: The compute_white_noise_std function is called with these parameters.</p>
+<p>THEN: The return value is greater than the signal power.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_compute_white_noise_std_output_type">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_compute_white_noise_std_output_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_compute_white_noise_std_output_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_compute_white_noise_std_output_type" title="Link to this definition"></a></dt>
+<dd><p>Test that compute_white_noise_std returns a float.</p>
+<p>GIVEN: A valid signal and SNR.</p>
+<p>WHEN: The compute_signal_power function is called with these parameters.</p>
+<p>THEN: The return value is of type float.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_compute_white_noise_std_zero_snr">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_compute_white_noise_std_zero_snr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_compute_white_noise_std_zero_snr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_compute_white_noise_std_zero_snr" title="Link to this definition"></a></dt>
+<dd><p>Test that with 0 dB SNR, noise std equals signal RMS.</p>
+<p>GIVEN: A valid signal and SNR = 0.</p>
+<p>WHEN: The compute_white_noise_std function is called with these parameters.</p>
+<p>THEN: The return value equals the RMS power of the input signal.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_frequencies_length_with_default_sampling_rate">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_frequencies_length_with_default_sampling_rate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_frequencies_length_with_default_sampling_rate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_frequencies_length_with_default_sampling_rate" title="Link to this definition"></a></dt>
+<dd><p>Test that the generate_random_frequencies        returns an array of frequencies
+with the appropriate length, when called with the default parameter.</p>
+<p>GIVEN: A valid num_components and the default value for sampling_rate.</p>
+<p>WHEN: The generate_random_frequencies        function is called with these parameters.</p>
+<p>THEN: frequencies is an array of length equal to num_components.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_frequencies_length_with_valid_sampling_rate">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_frequencies_length_with_valid_sampling_rate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_frequencies_length_with_valid_sampling_rate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_frequencies_length_with_valid_sampling_rate" title="Link to this definition"></a></dt>
+<dd><p>Test that the generate_random_frequencies        returns an array of frequencies
+with the appropriate length, when called with a valid sampling_rate.</p>
+<p>GIVEN: A valid num_components and sampling_rate.</p>
+<p>WHEN: The generate_random_frequencies        function is called with these parameters.</p>
+<p>THEN: frequencies is an array of length equal to num_components.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_frequencies_range_with_default_sampling_rate">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_frequencies_range_with_default_sampling_rate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_frequencies_range_with_default_sampling_rate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_frequencies_range_with_default_sampling_rate" title="Link to this definition"></a></dt>
+<dd><p>Test that the generate_random_frequencies returns an array of frequencies within
+the appropriate range, from 1 to the Nyquist’s frequency, when called with the
+default parameter.</p>
+<p>GIVEN: A valid num_components and the default value for sampling_rate.</p>
+<p>WHEN: The generate_random_frequencies        function is called with these parameters.</p>
+<p>THEN: frequencies are all greater than or equal to 1 and smaller than 125.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_frequencies_range_with_valid_sampling_rate">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_frequencies_range_with_valid_sampling_rate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_frequencies_range_with_valid_sampling_rate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_frequencies_range_with_valid_sampling_rate" title="Link to this definition"></a></dt>
+<dd><p>Test that the generate_random_frequencies        returns an array of frequencies
+within the appropriate range, from 1 to the Nyquist’s frequency, when called with a
+valid sampling_rate.</p>
+<p>GIVEN: A valid num_components and sampling_rate.</p>
+<p>WHEN: The generate_random_frequencies        function is called with these parameters.</p>
+<p>THEN: frequencies are all greater than or equal to 1 and smaller than sampling_rate/2.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_generate_periodic_signal_empty_frequencies">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_generate_periodic_signal_empty_frequencies</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_generate_periodic_signal_empty_frequencies"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_generate_periodic_signal_empty_frequencies" title="Link to this definition"></a></dt>
+<dd><p>Test that the generate_periodic_signal returns an empty array when frequencies is
+an empty array.</p>
+<p>GIVEN: An empty array of frequencies, a valid signal duration and sampling_rate, default waveform_type.</p>
+<p>WHEN: The generate_periodic_signal function is called with these parameters.</p>
+<p>THEN: signal is an empty array.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_generate_periodic_signal_invalid_duration_type">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_generate_periodic_signal_invalid_duration_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_generate_periodic_signal_invalid_duration_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_generate_periodic_signal_invalid_duration_type" title="Link to this definition"></a></dt>
+<dd><p>Test that the generate_periodic_signal         raises an error when a not float
+duration is provided.</p>
+<dl class="simple">
+<dt>GIVEN: A valid array of frequencies, non-float signal duration, a valid</dt><dd><p>sampling rate and default waveform_type.</p>
+</dd>
+</dl>
+<p>WHEN: The generate_periodic_signal         function is called with these parameters.</p>
+<p>THEN: A TypeError is raised with the appropriate message.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_generate_periodic_signal_invalid_duration_value">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_generate_periodic_signal_invalid_duration_value</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_generate_periodic_signal_invalid_duration_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_generate_periodic_signal_invalid_duration_value" title="Link to this definition"></a></dt>
+<dd><p>Test that the generate_periodic_signal         raises an error when a negative
+duration is provided.</p>
+<dl class="simple">
+<dt>GIVEN: A valid array of frequencies, a negative signal duration, a valid</dt><dd><p>sampling rate and default waveform_type.</p>
+</dd>
+</dl>
+<p>WHEN: The generate_periodic_signal         function is called with these parameters.</p>
+<p>THEN: A ValueError is raised with the appropriate message.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_generate_periodic_signal_invalid_frequencies_type">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_generate_periodic_signal_invalid_frequencies_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_generate_periodic_signal_invalid_frequencies_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_generate_periodic_signal_invalid_frequencies_type" title="Link to this definition"></a></dt>
+<dd><p>Test that the generate_periodic_signal         raises an error when a not integer
+frequency is provided in the frequencies array.</p>
+<dl class="simple">
+<dt>GIVEN: An array of frequencies containing at least a non-integer value, valid signal duration and</dt><dd><p>sampling rate, default waveform_type.</p>
+</dd>
+</dl>
+<p>WHEN: The generate_periodic_signal         function is called with these parameters.</p>
+<p>THEN: A TypeError is raised with the appropriate message.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_generate_periodic_signal_invalid_frequencies_value">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_generate_periodic_signal_invalid_frequencies_value</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_generate_periodic_signal_invalid_frequencies_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_generate_periodic_signal_invalid_frequencies_value" title="Link to this definition"></a></dt>
+<dd><p>Test that the generate_periodic_signal raises an error when a frequency greater
+than or equal to Nyquist’s frequency’ is provided in the frequencies array.</p>
+<dl class="simple">
+<dt>GIVEN: An array of frequencies containing at least a wrong value, valid signal duration and</dt><dd><p>sampling rate, default waveform_type.</p>
+</dd>
+</dl>
+<p>WHEN: The generate_periodic_signal         function is called with these parameters.</p>
+<p>THEN: A ValueError is raised with the appropriate message.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_generate_periodic_signal_invalid_sampling_rate_type">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_generate_periodic_signal_invalid_sampling_rate_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_generate_periodic_signal_invalid_sampling_rate_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_generate_periodic_signal_invalid_sampling_rate_type" title="Link to this definition"></a></dt>
+<dd><p>Test that the generate_periodic_signal         raises an error when a not float
+or integer sampling rate is provided.</p>
+<dl class="simple">
+<dt>GIVEN: A valid array of frequencies and duration, a non float or integer</dt><dd><p>sampling rate, default waveform_type.</p>
+</dd>
+</dl>
+<p>WHEN: The generate_periodic_signal         function is called with these parameters.</p>
+<p>THEN: A TypeError is raised with the appropriate message.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_generate_periodic_signal_invalid_sampling_rate_value">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_generate_periodic_signal_invalid_sampling_rate_value</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_generate_periodic_signal_invalid_sampling_rate_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_generate_periodic_signal_invalid_sampling_rate_value" title="Link to this definition"></a></dt>
+<dd><p>Test that the generate_periodic_signal         raises an error when a negative
+sampling rate is provided.</p>
+<dl class="simple">
+<dt>GIVEN: A valid array of frequencies and duration, a negative</dt><dd><p>sampling rate and default waveform_type.</p>
+</dd>
+</dl>
+<p>WHEN: The generate_periodic_signal         function is called with these parameters.</p>
+<p>THEN: A ValueError is raised with the appropriate message.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_generate_periodic_signal_invalid_waveform_type">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_generate_periodic_signal_invalid_waveform_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_generate_periodic_signal_invalid_waveform_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_generate_periodic_signal_invalid_waveform_type" title="Link to this definition"></a></dt>
+<dd><p>Test that the generate_periodic_signal raises a TypeError when a non- string
+waveform_type is provided.</p>
+<dl class="simple">
+<dt>GIVEN: A valid array of frequencies, duration, and sampling rate,</dt><dd><p>a non-string waveform_type.</p>
+</dd>
+</dl>
+<p>WHEN: The generate_periodic_signal function is called with these parameters.</p>
+<p>THEN: A TypeError is raised with the appropriate message.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_generate_periodic_signal_invalid_waveform_value">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_generate_periodic_signal_invalid_waveform_value</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_generate_periodic_signal_invalid_waveform_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_generate_periodic_signal_invalid_waveform_value" title="Link to this definition"></a></dt>
+<dd><p>Test that the generate_periodic_signal raises a ValueError when an invalid
+waveform_type is provided.</p>
+<dl class="simple">
+<dt>GIVEN: A valid array of frequencies, duration, and sampling rate,</dt><dd><p>an invalid waveform_type.</p>
+</dd>
+</dl>
+<p>WHEN: The generate_periodic_signal function is called with these parameters.</p>
+<p>THEN: A ValueError is raised with the appropriate message.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_generate_periodic_signal_negative_frequencies_value">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_generate_periodic_signal_negative_frequencies_value</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_generate_periodic_signal_negative_frequencies_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_generate_periodic_signal_negative_frequencies_value" title="Link to this definition"></a></dt>
+<dd><p>Test that the generate_periodic_signal raises an error when a frequency smaller
+than or equal to zero is provided in the frequencies array.</p>
+<dl class="simple">
+<dt>GIVEN: An array of frequencies containing at least a wrong value, valid signal duration and</dt><dd><p>sampling rate, default waveform_type.</p>
+</dd>
+</dl>
+<p>WHEN: The generate_periodic_signal         function is called with these parameters.</p>
+<p>THEN: A ValueError is raised with the appropriate message.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_generate_periodic_signal_signal_amplitude">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_generate_periodic_signal_signal_amplitude</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_generate_periodic_signal_signal_amplitude"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_generate_periodic_signal_signal_amplitude" title="Link to this definition"></a></dt>
+<dd><p>Test that the signal has non-zero amplitude.</p>
+<dl class="simple">
+<dt>GIVEN: A valid array of frequencies, signal duration,</dt><dd><p>sampling rate, and default waveform_type.</p>
+</dd>
+</dl>
+<p>WHEN: The generate_periodic_signal         function is called with these parameters.</p>
+<p>THEN: The signal has non-zero amplitude.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_generate_periodic_signal_signal_is_ndarray">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_generate_periodic_signal_signal_is_ndarray</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_generate_periodic_signal_signal_is_ndarray"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_generate_periodic_signal_signal_is_ndarray" title="Link to this definition"></a></dt>
+<dd><p>Test that the ‘signal’ variable is of type numpy.ndarray.</p>
+<dl class="simple">
+<dt>GIVEN: A valid array of frequencies, signal duration,</dt><dd><p>sampling rate, and default waveform_type.</p>
+</dd>
+</dl>
+<p>WHEN: The generate_periodic_signal         function is called with these parameters.</p>
+<p>THEN: The ‘signal’ variable is of type numpy.ndarray.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_generate_periodic_signal_signal_length">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_generate_periodic_signal_signal_length</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_generate_periodic_signal_signal_length"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_generate_periodic_signal_signal_length" title="Link to this definition"></a></dt>
+<dd><p>Test that generate_periodic_signal     returns a signal with length equal to
+duration * sampling_rate.</p>
+<dl class="simple">
+<dt>GIVEN: A valid array of frequencies, signal duration, and</dt><dd><p>sampling rate, default waveform_type.</p>
+</dd>
+</dl>
+<p>WHEN: The generate_periodic_signal         function is called with these parameters.</p>
+<p>THEN: The length of the signal is correct (duration * sampling_rate).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_generate_periodic_signal_signal_square_amplitude">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_generate_periodic_signal_signal_square_amplitude</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_generate_periodic_signal_signal_square_amplitude"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_generate_periodic_signal_signal_square_amplitude" title="Link to this definition"></a></dt>
+<dd><p>Test that the signal has non-zero amplitude when selceting square waves.</p>
+<dl class="simple">
+<dt>GIVEN: A valid array of frequencies, signal duration,</dt><dd><p>sampling rate, and waveform_type = square.</p>
+</dd>
+</dl>
+<p>WHEN: The generate_periodic_signal         function is called with these parameters.</p>
+<p>THEN: The signal has non-zero amplitude.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_generate_periodic_signal_signal_square_length">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_generate_periodic_signal_signal_square_length</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_generate_periodic_signal_signal_square_length"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_generate_periodic_signal_signal_square_length" title="Link to this definition"></a></dt>
+<dd><p>Test that generate_periodic_signal     returns a signal with length equal to
+duration * sampling_rate when selecting square waves.</p>
+<dl class="simple">
+<dt>GIVEN: A valid array of frequencies, signal duration, and</dt><dd><p>sampling rate, and waveform_type = square.</p>
+</dd>
+</dl>
+<p>WHEN: The generate_periodic_signal function is called with these parameters.</p>
+<p>THEN: The length of the signal is correct (duration * sampling_rate).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_generate_periodic_signal_single_frequency">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_generate_periodic_signal_single_frequency</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_generate_periodic_signal_single_frequency"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_generate_periodic_signal_single_frequency" title="Link to this definition"></a></dt>
+<dd><p>Test that generate_periodic_signal correctly generates a single sinusoidal wave.</p>
+<dl class="simple">
+<dt>GIVEN: A valid array of frequencies containing just one value, a valid signal duration and</dt><dd><p>sampling rate, default waveform_type.</p>
+</dd>
+</dl>
+<p>WHEN: The generate_periodic_signal         function is called with these parameters.</p>
+<p>THEN: The generated signal is the expected sinusoidal wave.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_generate_periodic_signal_square_signal_is_ndarray">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_generate_periodic_signal_square_signal_is_ndarray</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_generate_periodic_signal_square_signal_is_ndarray"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_generate_periodic_signal_square_signal_is_ndarray" title="Link to this definition"></a></dt>
+<dd><p>Test that the ‘signal’ variable is of type numpy.ndarray when selceting square
+waves.</p>
+<dl class="simple">
+<dt>GIVEN: A valid array of frequencies, signal duration,</dt><dd><p>sampling rate, and waveform_type = square.</p>
+</dd>
+</dl>
+<p>WHEN: The generate_periodic_signal         function is called with these parameters.</p>
+<p>THEN: The ‘signal’ variable is of type numpy.ndarray.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_generate_periodic_signal_square_time_is_ndarray">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_generate_periodic_signal_square_time_is_ndarray</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_generate_periodic_signal_square_time_is_ndarray"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_generate_periodic_signal_square_time_is_ndarray" title="Link to this definition"></a></dt>
+<dd><p>Test that the ‘time’ variable is of type numpy.ndarray when selceting square
+waves.</p>
+<dl class="simple">
+<dt>GIVEN: A valid array of frequencies, signal duration,</dt><dd><p>sampling rate and waveform_type = square.</p>
+</dd>
+</dl>
+<p>WHEN: The generate_periodic_signal         function is called with these parameters.</p>
+<p>THEN: The ‘time’ variable is of type numpy.ndarray.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_generate_periodic_signal_time_array">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_generate_periodic_signal_time_array</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_generate_periodic_signal_time_array"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_generate_periodic_signal_time_array" title="Link to this definition"></a></dt>
+<dd><p>Test that the time array is generated correctly.</p>
+<dl class="simple">
+<dt>GIVEN: A valid array of frequencies, signal duration,</dt><dd><p>sampling rate and default waveform_type.</p>
+</dd>
+</dl>
+<p>WHEN: The generate_periodic_signal         function is called with these parameters.</p>
+<p>THEN: The time array contains the correct points.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_generate_periodic_signal_time_is_ndarray">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_generate_periodic_signal_time_is_ndarray</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_generate_periodic_signal_time_is_ndarray"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_generate_periodic_signal_time_is_ndarray" title="Link to this definition"></a></dt>
+<dd><p>Test that the ‘time’ variable is of type numpy.ndarray.</p>
+<dl class="simple">
+<dt>GIVEN: A valid array of frequencies, signal duration,</dt><dd><p>sampling rate and default waveform_type.</p>
+</dd>
+</dl>
+<p>WHEN: The generate_periodic_signal         function is called with these parameters.</p>
+<p>THEN: The ‘time’ variable is of type numpy.ndarray.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_generate_periodic_signal_zero_duration">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_generate_periodic_signal_zero_duration</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_generate_periodic_signal_zero_duration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_generate_periodic_signal_zero_duration" title="Link to this definition"></a></dt>
+<dd><p>Test that the generate_periodic_signal         returns an empty array when
+duration = 0 s.</p>
+<dl class="simple">
+<dt>GIVEN: A valid array of frequencies, signal duration = 0, a valid</dt><dd><p>sampling rate and default waveform_type.</p>
+</dd>
+</dl>
+<p>WHEN: The generate_periodic_signal         function is called with these parameters.</p>
+<p>THEN: signal is an empty array.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_generate_white_noise_constant_signal">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_generate_white_noise_constant_signal</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_generate_white_noise_constant_signal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_generate_white_noise_constant_signal" title="Link to this definition"></a></dt>
+<dd><p>Test that generate_white_noise generates noise even when the input signal is
+constant.</p>
+<p>GIVEN: A constant signal and a valid SNR.</p>
+<p>WHEN: The generate_white_noise function is called with these parameters.</p>
+<p>THEN: The generated noise is not all zeros.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_generate_white_noise_high_snr">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_generate_white_noise_high_snr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_generate_white_noise_high_snr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_generate_white_noise_high_snr" title="Link to this definition"></a></dt>
+<dd><p>Test that generate_white_noise returns near-zero noise for a very high SNR.</p>
+<p>GIVEN: A very high signal-to-noise ratio (SNR) and a valid input signal.</p>
+<p>WHEN: The generate_white_noise function is called with these parameters.</p>
+<p>THEN: The generated noise should be close to zero for all elements.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_generate_white_noise_length">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_generate_white_noise_length</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_generate_white_noise_length"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_generate_white_noise_length" title="Link to this definition"></a></dt>
+<dd><p>Test that generate_white_noise generates noise of the same length as the input
+signal.</p>
+<p>GIVEN: A valid SNR and a valid input signal.</p>
+<p>WHEN: The generate_white_noise function is called with these parameters.</p>
+<p>THEN: The return value has the same length as the input signal.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_generate_white_noise_negative_snr">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_generate_white_noise_negative_snr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_generate_white_noise_negative_snr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_generate_white_noise_negative_snr" title="Link to this definition"></a></dt>
+<dd><p>Test that generate_white_noise generates high-amplitude noise for negative SNR.</p>
+<p>GIVEN: A valid signal and a negative SNR.</p>
+<p>WHEN: The generate_white_noise function is called with these parameters.</p>
+<p>THEN: The noise standard deviation is larger than the signal’s standard deviation.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_generate_white_noise_noise_std">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_generate_white_noise_noise_std</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_generate_white_noise_noise_std"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_generate_white_noise_noise_std" title="Link to this definition"></a></dt>
+<dd><p>Test the standard deviation of noise generated by generate_white_noise.</p>
+<p>GIVEN: A valid signal and a specified signal-to-noise ratio (SNR) in dB.</p>
+<p>WHEN: The generate_white_noise function is called with these parameters.</p>
+<dl class="simple">
+<dt>THEN: The standard deviation of the generated noise matches the expected value</dt><dd><p>within a small numerical tolerance.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_generate_white_noise_scalar_signal">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_generate_white_noise_scalar_signal</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_generate_white_noise_scalar_signal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_generate_white_noise_scalar_signal" title="Link to this definition"></a></dt>
+<dd><p>Test that generate_white_noise generates noise for a scalar signal.</p>
+<p>GIVEN: A valid SNR and a scalar signal (single value).</p>
+<p>WHEN: The generate_white_noise function is called with these parameters.</p>
+<p>THEN: The return value is an array of length 1.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_generate_white_noise_scalar_signal_float">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_generate_white_noise_scalar_signal_float</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_generate_white_noise_scalar_signal_float"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_generate_white_noise_scalar_signal_float" title="Link to this definition"></a></dt>
+<dd><p>Test that generate_white_noise works when the signal is a single floating-point
+number.</p>
+<p>GIVEN: A scalar float as signal.</p>
+<p>WHEN: The generate_white_noise function is called with these parameters.</p>
+<p>THEN: The return value is an array of length 1.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_generate_white_noise_zero_mean">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_generate_white_noise_zero_mean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_generate_white_noise_zero_mean"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_generate_white_noise_zero_mean" title="Link to this definition"></a></dt>
+<dd><p>Test that generate_white_noise generates noise with zero mean within a tolerance.</p>
+<p>GIVEN: A valid SNR and a valid input signal.</p>
+<p>WHEN: The generate_white_noise function is called with these parameters.</p>
+<p>THEN: The return value has a mean of 0 within the tolerance of one standard deviation of the noise.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_generate_white_noise_zero_signal">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_generate_white_noise_zero_signal</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_generate_white_noise_zero_signal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_generate_white_noise_zero_signal" title="Link to this definition"></a></dt>
+<dd><p>Test that generate_white_noise returns all zeros when the input signal is all
+zeros.</p>
+<p>GIVEN: A zero signal and a valid SNR.</p>
+<p>WHEN: The generate_white_noise function is called with these parameters.</p>
+<p>THEN: The generated noise is an array of zeros.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_invalid_numcomponents_type">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_invalid_numcomponents_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_invalid_numcomponents_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_invalid_numcomponents_type" title="Link to this definition"></a></dt>
+<dd><p>Test that the generate_random_frequencies raises an error when a not integer
+number of components is provided.</p>
+<p>GIVEN: An invalid number of components, default sampling_rate</p>
+<p>WHEN: The generate_random_frequencies        function is called with these parameters.</p>
+<p>THEN: A TypeError is raised with the appropriate message.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_invalid_numcomponents_value">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_invalid_numcomponents_value</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_invalid_numcomponents_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_invalid_numcomponents_value" title="Link to this definition"></a></dt>
+<dd><p>Test that the generate_random_frequencies raises an error when a negative number
+of components is provided.</p>
+<p>GIVEN: A negative number of components, default sampling_rate</p>
+<p>WHEN: The generate_random_frequencies        function is called with these parameters.</p>
+<p>THEN: A ValueError is raised.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_invalid_sampling_rate_type_random_frequencies">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_invalid_sampling_rate_type_random_frequencies</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_invalid_sampling_rate_type_random_frequencies"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_invalid_sampling_rate_type_random_frequencies" title="Link to this definition"></a></dt>
+<dd><p>Test that the generate_random_frequencies        raises an error when a not
+integer sampling rate is provided.</p>
+<p>GIVEN: A valid number of components, invalid sampling_rate</p>
+<p>WHEN: The generate_random_frequencies        function is called with these parameters.</p>
+<p>THEN: A TypeError is raised with the appropriate message.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_invalid_sampling_rate_value_random_frequencies">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_invalid_sampling_rate_value_random_frequencies</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_invalid_sampling_rate_value_random_frequencies"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_invalid_sampling_rate_value_random_frequencies" title="Link to this definition"></a></dt>
+<dd><p>Test that the generate_random_frequencies        raises an error when a negative
+sampling rate is provided.</p>
+<p>GIVEN: A valid number of components, a sampling_rate smaller than or equal to 0.</p>
+<p>WHEN: The generate_random_frequencies        function is called with these parameters.</p>
+<p>THEN: A ValueError is raised.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_large_number_of_components">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_large_number_of_components</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_large_number_of_components"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_large_number_of_components" title="Link to this definition"></a></dt>
+<dd><p>Test that generate_random_frequencies    can handle large input sizes
+efficiently.</p>
+<p>GIVEN: num_components = 10^8, a valid sampling_rate.</p>
+<p>WHEN: The generate_random_frequencies        function is called with these parameters.</p>
+<p>THEN: Frequencies is an array of length 10^8</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_minimal_valid_numcomponent">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_minimal_valid_numcomponent</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_minimal_valid_numcomponent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_minimal_valid_numcomponent" title="Link to this definition"></a></dt>
+<dd><p>Test that generate_random_frequencies    works when num_components is the minimum
+allowed value.</p>
+<p>GIVEN: num_components = 1, a valid sampling_rate.</p>
+<p>WHEN: The generate_random_frequencies        function is called with these parameters.</p>
+<p>THEN: Frequencies is an array of length 1</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_minimal_valid_sampling_rate">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_minimal_valid_sampling_rate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_minimal_valid_sampling_rate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_minimal_valid_sampling_rate" title="Link to this definition"></a></dt>
+<dd><p>Test that generate_random_frequencies    works correctly when sampling_rate is
+the minimum allowed value.</p>
+<p>GIVEN: A valid number of components, sampling_rate = 4.</p>
+<p>WHEN: The generate_random_frequencies        function is called with these parameters.</p>
+<p>THEN: Frequencies is an array with only 1 and 2</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_zero_numcomponents">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_zero_numcomponents</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_zero_numcomponents"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_zero_numcomponents" title="Link to this definition"></a></dt>
+<dd><p>Test that the generate_random_frequencies        returns an empty array when 0
+number of components is provided.</p>
+<p>GIVEN: A negative number of components, default sampling_rate.</p>
+<p>WHEN: The generate_random_frequencies        function is called with these parameters.</p>
+<p>THEN: An empty array is returned.</p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="utils.html" class="btn btn-neutral float-left" title="utils module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Chiara Malvaso.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

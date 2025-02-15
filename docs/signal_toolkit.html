@@ -1,0 +1,408 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>signal_toolkit module &mdash; Signal-noise Simulator 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=2709fde1"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="utils module" href="utils.html" />
+    <link rel="prev" title="signal_builder module" href="signal_builder.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Signal-noise Simulator
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="signal_builder.html">signal_builder module</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">signal_toolkit module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#signal_toolkit.add_colored_noise"><code class="docutils literal notranslate"><span class="pre">add_colored_noise()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#signal_toolkit.add_white_noise"><code class="docutils literal notranslate"><span class="pre">add_white_noise()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#signal_toolkit.apply_spectral_slope"><code class="docutils literal notranslate"><span class="pre">apply_spectral_slope()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#signal_toolkit.compute_fft"><code class="docutils literal notranslate"><span class="pre">compute_fft()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#signal_toolkit.compute_ifft"><code class="docutils literal notranslate"><span class="pre">compute_ifft()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#signal_toolkit.compute_signal_power"><code class="docutils literal notranslate"><span class="pre">compute_signal_power()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#signal_toolkit.compute_white_noise_std"><code class="docutils literal notranslate"><span class="pre">compute_white_noise_std()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#signal_toolkit.generate_periodic_signal"><code class="docutils literal notranslate"><span class="pre">generate_periodic_signal()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#signal_toolkit.generate_random_frequencies"><code class="docutils literal notranslate"><span class="pre">generate_random_frequencies()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#signal_toolkit.generate_white_noise"><code class="docutils literal notranslate"><span class="pre">generate_white_noise()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">utils module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test_signal_toolkit.html">test_signal_toolkit module</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Signal-noise Simulator</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">signal_toolkit module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/signal_toolkit.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-signal_toolkit">
+<span id="signal-toolkit-module"></span><h1>signal_toolkit module<a class="headerlink" href="#module-signal_toolkit" title="Link to this heading"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="signal_toolkit.add_colored_noise">
+<span class="sig-prename descclassname"><span class="pre">signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">add_colored_noise</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">snr_db</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">slope</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sampling_rate</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/signal_toolkit.html#add_colored_noise"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#signal_toolkit.add_colored_noise" title="Link to this definition"></a></dt>
+<dd><p>Add colored noise to a signal based on a given spectral slope.</p>
+<p>This function generates white noise at a specified signal-to-noise ratio (SNR),
+applies a spectral slope to shape its frequency content, and then adds the
+resulting colored noise to the input signal. The output signal is real-valued,
+but the process involves a complex-valued intermediate representation.</p>
+<p><strong>Note:</strong> The output signal is complex-valued due to the spectral transformation.
+Discarding the imaginary part can alter the spectral characteristics of the noise.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>signal</strong> (<em>numpy.ndarray</em>) – Input time-domain signal, assumed to be a 1D array of real values.</p></li>
+<li><p><strong>snr_db</strong> (<em>float</em>) – Desired signal-to-noise ratio (SNR) in decibels, defining the power
+level of the noise relative to the signal.</p></li>
+<li><p><strong>slope</strong> (<em>float</em>) – Slope value that defines the spectral modification applied to the noise.</p></li>
+<li><p><strong>sampling_rate</strong> (<em>int</em><em>, </em><em>optional</em>) – Sampling rate of the signal in Hz (default is 250 Hz).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The input signal with added colored noise. The output is a 1D array
+of real values.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>TypeError</strong> – If <cite>snr_db</cite> is not a number or <cite>signal</cite> is not a valid array.</p></li>
+<li><p><strong>ValueError</strong> – If <cite>signal</cite> is empty or <cite>slope</cite> is not a valid number.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="signal_toolkit.add_white_noise">
+<span class="sig-prename descclassname"><span class="pre">signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">add_white_noise</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">snr_db</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/signal_toolkit.html#add_white_noise"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#signal_toolkit.add_white_noise" title="Link to this definition"></a></dt>
+<dd><p>Add white Gaussian noise to a given signal with a specified SNR.</p>
+<p>This function adds white Gaussian noise to a signal in order to achieve the specified SNR.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>signal</strong> (<em>numpy.ndarray</em><em> or </em><em>int</em>) – The input signal to which noise will be added. If a scalar (int or float)
+is provided, it is treated as an array of length 1.</p></li>
+<li><p><strong>snr_db</strong> (<em>float</em>) – The desired signal-to-noise ratio (SNR) in decibels (dB).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The input signal with added white Gaussian noise.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="signal_toolkit.apply_spectral_slope">
+<span class="sig-prename descclassname"><span class="pre">signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">apply_spectral_slope</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">slope</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sampling_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">250</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/signal_toolkit.html#apply_spectral_slope"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#signal_toolkit.apply_spectral_slope" title="Link to this definition"></a></dt>
+<dd><p>Apply a linear spectral slope to a signal in the frequency domain.</p>
+<p>This function applies a linear modification to the signal’s frequency spectrum
+by adjusting its magnitude with a specified slope.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>signal</strong> (<em>numpy.ndarray</em>) – The input time-domain signal, assumed to be a 1D array of real values.</p></li>
+<li><p><strong>slope</strong> (<em>float</em>) – The slope value that defines the linear modification applied to the spectrum.</p></li>
+<li><p><strong>sampling_rate</strong> (<em>int</em><em> or </em><em>float</em><em>, </em><em>optional</em>) – The sampling rate of the signal in Hz (default is 250 Hz).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The time-domain signal after the spectral slope is applied.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>TypeError</strong> – If <cite>signal</cite> is not a valid numeric array, or <cite>slope</cite> is not a number.</p></li>
+<li><p><strong>ValueError</strong> – If <cite>signal</cite> is empty.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="signal_toolkit.compute_fft">
+<span class="sig-prename descclassname"><span class="pre">signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">compute_fft</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sampling_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">250</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/signal_toolkit.html#compute_fft"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#signal_toolkit.compute_fft" title="Link to this definition"></a></dt>
+<dd><p>Compute the full Fast Fourier Transform (FFT) of a real-valued signal.</p>
+<p>This function computes the FFT of the given signal, returning the complex
+coefficients and the corresponding frequency bins.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>signal</strong> (<em>numpy.ndarray</em>) – The input signal, assumed to be a 1D array of real values.</p></li>
+<li><p><strong>sampling_rate</strong> (<em>int</em><em> or </em><em>float</em><em>, </em><em>optional</em>) – The sampling rate of the signal in Hz (default is 250 Hz).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A tuple containing:
+- numpy.ndarray: The FFT coefficients of the input signal.
+- numpy.ndarray: The corresponding frequency bins.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>TypeError</strong> – If <cite>signal</cite> is not an array of numbers.</p></li>
+<li><p><strong>ValueError</strong> – If <cite>sampling_rate</cite> is less than or equal to 0.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="signal_toolkit.compute_ifft">
+<span class="sig-prename descclassname"><span class="pre">signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">compute_ifft</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spectrum</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/signal_toolkit.html#compute_ifft"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#signal_toolkit.compute_ifft" title="Link to this definition"></a></dt>
+<dd><p>Compute the inverse Fast Fourier Transform (IFFT).</p>
+<p>This function computes the IFFT of the given complex-valued spectrum.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>spectrum</strong> (<em>numpy.ndarray</em>) – The input spectrum, assumed to be a complex-valued array.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The time-domain signal obtained by applying the IFFT to the input spectrum.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>TypeError</strong> – If <cite>spectrum</cite> is not a NumPy array.</p></li>
+<li><p><strong>ValueError</strong> – If <cite>spectrum</cite> does not contain complex values.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="signal_toolkit.compute_signal_power">
+<span class="sig-prename descclassname"><span class="pre">signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">compute_signal_power</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/signal_toolkit.html#compute_signal_power"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#signal_toolkit.compute_signal_power" title="Link to this definition"></a></dt>
+<dd><p>Compute the root mean square (RMS) power of the signal.</p>
+<p>This function calculates the root mean square (RMS) of the given signal,
+which represents the power of the signal in a statistical sense.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>signal</strong> (<em>numpy.ndarray</em>) – The input signal for which the RMS power will be calculated.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The RMS power of the signal.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>ValueError</strong> – If <cite>signal</cite> is an empty array.</p></li>
+<li><p><strong>TypeError</strong> – If <cite>signal</cite> is not a numeric array.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="signal_toolkit.compute_white_noise_std">
+<span class="sig-prename descclassname"><span class="pre">signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">compute_white_noise_std</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">snr_db</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/signal_toolkit.html#compute_white_noise_std"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#signal_toolkit.compute_white_noise_std" title="Link to this definition"></a></dt>
+<dd><p>Compute the standard deviation of white Gaussian noise required to achieve a
+specified SNR.</p>
+<p>This function calculates the standard deviation of white Gaussian noise
+needed to achieve a given signal-to-noise ratio (SNR) based on the RMS
+power of the input signal.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>signal</strong> (<em>numpy.ndarray</em>) – The input signal for which the noise standard deviation will be computed.</p></li>
+<li><p><strong>snr_db</strong> (<em>float</em>) – The desired signal-to-noise ratio (SNR) in decibels (dB).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The standard deviation of the white Gaussian noise needed to achieve the given SNR.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>TypeError</strong> – If <cite>snr_db</cite> is not a number.</p></li>
+<li><p><strong>ValueError</strong> – If <cite>signal</cite> is empty.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="signal_toolkit.generate_periodic_signal">
+<span class="sig-prename descclassname"><span class="pre">signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">generate_periodic_signal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">frequencies</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sampling_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">250</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">waveform_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sin'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/signal_toolkit.html#generate_periodic_signal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#signal_toolkit.generate_periodic_signal" title="Link to this definition"></a></dt>
+<dd><p>Generate a periodic signal composed of the sum of sinusoidal or square waves.</p>
+<p>This function generates a signal by summing sinusoidal or square waves
+with the given frequencies. It returns the time values and the resulting
+periodic signal.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>frequencies</strong> (<em>numpy.ndarray</em>) – Array of frequencies of the waves (in Hz).</p></li>
+<li><p><strong>duration</strong> (<em>float</em><em>, </em><em>optional</em>) – Duration of the signal in seconds. Default is 1.0 second.</p></li>
+<li><p><strong>sampling_rate</strong> (<em>int</em><em>, </em><em>optional</em>) – Sampling frequency in Hz. Default is 250 Hz.</p></li>
+<li><p><strong>waveform_type</strong> (<em>{'sin'</em><em>, </em><em>'square'}</em><em>, </em><em>optional</em>) – Type of waveform (‘sin’ for sinusoidal wave, ‘square’ for square wave;
+default is ‘sin’).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A tuple containing:
+- numpy.ndarray: The time points (array of time values).
+- numpy.ndarray: The resulting periodic signal (sum of sinusoids or square waves).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>TypeError</strong> – If <cite>frequencies</cite> is not a valid array of integers or if <cite>duration</cite>,
+    <cite>sampling_rate</cite>, or <cite>waveform_type</cite> is of the wrong type.</p></li>
+<li><p><strong>ValueError</strong> – If <cite>frequencies</cite> are not valid or if <cite>waveform_type</cite> is not ‘sin’ or ‘square’.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="signal_toolkit.generate_random_frequencies">
+<span class="sig-prename descclassname"><span class="pre">signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">generate_random_frequencies</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_components</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sampling_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">250</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/signal_toolkit.html#generate_random_frequencies"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#signal_toolkit.generate_random_frequencies" title="Link to this definition"></a></dt>
+<dd><p>Generate random frequencies within the proper range to avoid aliasing.</p>
+<p>This function generates an array of random integer frequencies that are
+within the appropriate range, taking into account the Nyquist frequency
+(half the sampling rate) to avoid aliasing.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>num_components</strong> (<em>int</em>) – Number of signal components (i.e., number of random frequencies to generate).</p></li>
+<li><p><strong>sampling_rate</strong> (<em>int</em><em>, </em><em>optional</em>) – The sampling rate in Hz. Must be at least 4 Hz. Default is 250 Hz.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Array of randomly chosen frequencies (in Hz).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>TypeError</strong> – If <cite>num_components</cite> or <cite>sampling_rate</cite> is not an integer.</p></li>
+<li><p><strong>ValueError</strong> – If <cite>sampling_rate</cite> is less than 4 or if <cite>num_components</cite> is negative.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="signal_toolkit.generate_white_noise">
+<span class="sig-prename descclassname"><span class="pre">signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">generate_white_noise</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">snr_db</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/signal_toolkit.html#generate_white_noise"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#signal_toolkit.generate_white_noise" title="Link to this definition"></a></dt>
+<dd><p>Generate white Gaussian noise with a specified SNR relative to a given signal.</p>
+<p>This function generates white Gaussian noise with the correct standard deviation
+to achieve the specified SNR, based on the input signal.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>signal</strong> (<em>numpy.ndarray</em><em> or </em><em>int</em>) – The input signal to determine the noise level. If a scalar (int or float) is
+provided, it is treated as an array of length 1. If an array is provided,
+its length determines the length of the generated noise.</p></li>
+<li><p><strong>snr_db</strong> (<em>float</em>) – The desired signal-to-noise ratio (SNR) in decibels (dB).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>White Gaussian noise with the computed standard deviation needed to achieve the given SNR.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="signal_builder.html" class="btn btn-neutral float-left" title="signal_builder module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="utils.html" class="btn btn-neutral float-right" title="utils module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Chiara Malvaso.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
