@@ -4,3 +4,8 @@ check_what_happens.py
 .coverage
 *.csv
 docs/source/check_what_happens.rst
+docs/_build/
+docs/.doctrees/
+docs/_modules/
+docs/_sources/
+docs/_static/
