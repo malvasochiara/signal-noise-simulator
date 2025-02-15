@@ -120,3 +120,6 @@ def main():
     args = parser.parse_args()
 
     generate_and_plot_signal(args)
+
+if __name__ == "__main__":
+    main()
