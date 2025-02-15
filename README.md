@@ -94,11 +94,11 @@ python signal_builder.py --duration 1.0 --sampling_rate 200 --frequencies 10,20,
 ```  
 
 ### 2️⃣ Add Noise to the Signal  
-To generate a signal with white noise at 10 dB SNR:  
+To generate a signal with custom frequencies and white noise at 10 dB SNR:  
 ```bash
-python signal_builder.py --duration 1.0 --sampling_rate 200 --num_components 10 --snr 10 --plot
+python signal_builder.py --duration 1.0 --sampling_rate 200 --frequencies 10,20,30 --num_components 10 --snr 10 --plot
 ```  
-To generate a signal with colored noise (spectral slope 0.7):  
+To generate a signal with custom frequencies and colored noise (spectral slope 0.7):  
 ```bash
 python signal_builder.py --duration 1.0 --sampling_rate 200 --frequencies 10,20,30 --snr 10 --noise_type colored --slope 0.7 --plot
 ```  
