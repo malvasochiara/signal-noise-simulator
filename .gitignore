@@ -3,3 +3,4 @@ __pycache__/
 check_what_happens.py
 .coverage
 *.csv
+docs/source/check_what_happens.rst
