@@ -20,6 +20,7 @@ def plot_clean_signal(time, signal):
     ----------
     time : numpy.ndarray
         1D array representing the time vector in seconds.
+
     signal : numpy.ndarray
         1D array representing the amplitude of the signal over time.
 
@@ -47,10 +48,13 @@ def plot_noisy_signal(time, signal, noisy_signal, snr):
     ----------
     time : numpy.ndarray
         1D array representing the time vector in seconds.
+
     signal : numpy.ndarray
         1D array representing the clean (noise-free) signal.
+
     noisy_signal : numpy.ndarray
         1D array representing the noisy version of the signal.
+
     snr : float
         Signal-to-noise ratio (SNR) in decibels.
 
@@ -97,18 +101,25 @@ def save_signal_to_csv(
     ----------
     time : numpy.ndarray
         1D array representing the time vector in seconds.
+
     signal : numpy.ndarray
         1D array representing the clean (noise-free) signal.
+
     noisy_signal : numpy.ndarray, optional
         1D array representing the noisy signal (default: None).
+
     save_path : str, optional
         Directory path where the CSV file should be saved (default: current directory).
+
     waveform_type : str, optional
         Type of waveform used ("sin" for sinusoidal, "square" for square wave; default: "sin").
+
     sampling_rate : int, optional
         Sampling rate in Hz (default: 250 Hz).
+
     snr : float, optional
         Signal-to-noise ratio in dB. If None, no noisy signal is saved (default: None).
+
     noise_type : str, optional
         Type of noise added to the signal ('white' or 'colored'; default: 'white').
 
@@ -123,7 +134,6 @@ def save_signal_to_csv(
     - The filename follows the format:
       `signal_<waveform_type>_<sampling_rate>Hz[_<noise_type>_<snr>db].csv`
     """
-
     if not os.path.exists(save_path):
         os.makedirs(save_path)
 
@@ -153,17 +163,37 @@ def generate_and_plot_signal(args):
     Parameters
     ----------
     args : argparse.Namespace
-        Parsed command-line arguments containing signal parameters such as:
-        - `num_components` (int): Number of signal components (ignored if `frequencies` is provided).
-        - `duration` (float): Signal duration in seconds.
-        - `sampling_rate` (int): Sampling frequency in Hz.
-        - `waveform_type` (str): Type of waveform ('sin' or 'square').
-        - `frequencies` (str, optional): Comma-separated list of frequencies in Hz.
-        - `snr` (float, optional): Signal-to-noise ratio in dB; if provided, noise is added.
-        - `noise_type` (str, optional): Type of noise to add ('white' for white noise or 'colored' for colored noise).
-        - `slope` (float, optional): Spectral slope for colored noise; ignored if white noise is selected.
-        - `plot` (bool): If True, the generated signal is plotted.
-        - `save` (str, optional): Directory path to save the signal as a CSV file.
+        Parsed command-line arguments containing the following signal parameters:
+
+        num_components : int
+            Number of signal components (ignored if `frequencies` is provided).
+
+        duration : float
+            Signal duration in seconds.
+
+        sampling_rate : int
+            Sampling frequency in Hz.
+
+        waveform_type : str
+            Type of waveform ('sin' or 'square').
+
+        frequencies : str, optional
+            Comma-separated list of frequencies in Hz. If not provided, random frequencies are generated.
+
+        snr : float, optional
+            Signal-to-noise ratio in dB. If provided, noise is added.
+
+        noise_type : str, optional
+            Type of noise to add. Can be either 'white' for white noise or 'colored' for colored noise.
+
+        slope : float, optional
+            Spectral slope for colored noise. This is ignored if `noise_type` is set to 'white'.
+
+        plot : bool
+            If True, the generated signal is plotted.
+
+        save : str, optional
+            Directory path to save the signal as a CSV file.
 
     Returns
     -------

@@ -18,12 +18,14 @@ from signal_toolkit import (
 
 
 def test_frequencies_range_with_default_sampling_rate():
-    """Test that the generate_random_frequencies returns an array of
-    frequencies within the appropriate range, from 1 to the Nyquist's
-    frequency, when called with the default parameter.
+    """Test that the generate_random_frequencies returns an array of frequencies within
+    the appropriate range, from 1 to the Nyquist's frequency, when called with the
+    default parameter.
 
     GIVEN: A valid num_components and the default value for sampling_rate.
+
     WHEN: The generate_random_frequencies        function is called with these parameters.
+
     THEN: frequencies are all greater than or equal to 1 and smaller than 125.
     """
     np.random.seed(42)
@@ -36,12 +38,13 @@ def test_frequencies_range_with_default_sampling_rate():
 
 
 def test_frequencies_length_with_default_sampling_rate():
-    """Test that the generate_random_frequencies        returns an array of
-    frequencies with the appropriate length, when called with the default
-    parameter.
+    """Test that the generate_random_frequencies        returns an array of frequencies
+    with the appropriate length, when called with the default parameter.
 
     GIVEN: A valid num_components and the default value for sampling_rate.
+
     WHEN: The generate_random_frequencies        function is called with these parameters.
+
     THEN: frequencies is an array of length equal to num_components.
     """
     np.random.seed(42)
@@ -54,12 +57,14 @@ def test_frequencies_length_with_default_sampling_rate():
 
 
 def test_frequencies_range_with_valid_sampling_rate():
-    """Test that the generate_random_frequencies        returns an array of
-    frequencies within the appropriate range, from 1 to the Nyquist's
-    frequency, when called with a valid sampling_rate.
+    """Test that the generate_random_frequencies        returns an array of frequencies
+    within the appropriate range, from 1 to the Nyquist's frequency, when called with a
+    valid sampling_rate.
 
     GIVEN: A valid num_components and sampling_rate.
+    
     WHEN: The generate_random_frequencies        function is called with these parameters.
+    
     THEN: frequencies are all greater than or equal to 1 and smaller than sampling_rate/2.
     """
     np.random.seed(42)
@@ -73,12 +78,13 @@ def test_frequencies_range_with_valid_sampling_rate():
 
 
 def test_frequencies_length_with_valid_sampling_rate():
-    """Test that the generate_random_frequencies        returns an array of
-    frequencies with the appropriate length, when called with a valid
-    sampling_rate.
+    """Test that the generate_random_frequencies        returns an array of frequencies
+    with the appropriate length, when called with a valid sampling_rate.
 
     GIVEN: A valid num_components and sampling_rate.
+    
     WHEN: The generate_random_frequencies        function is called with these parameters.
+    
     THEN: frequencies is an array of length equal to num_components.
     """
     np.random.seed(42)
@@ -92,11 +98,13 @@ def test_frequencies_length_with_valid_sampling_rate():
 
 
 def test_invalid_numcomponents_type():
-    """Test that the generate_random_frequencies raises an error when a not
-    integer number of components is provided.
+    """Test that the generate_random_frequencies raises an error when a not integer
+    number of components is provided.
 
     GIVEN: An invalid number of components, default sampling_rate
+    
     WHEN: The generate_random_frequencies        function is called with these parameters.
+    
     THEN: A TypeError is raised with the appropriate message.
     """
     np.random.seed(42)
@@ -109,11 +117,13 @@ def test_invalid_numcomponents_type():
 
 
 def test_invalid_numcomponents_value():
-    """Test that the generate_random_frequencies raises an error when a
-    negative number of components is provided.
+    """Test that the generate_random_frequencies raises an error when a negative number
+    of components is provided.
 
     GIVEN: A negative number of components, default sampling_rate
+    
     WHEN: The generate_random_frequencies        function is called with these parameters.
+    
     THEN: A ValueError is raised.
     """
     np.random.seed(42)
@@ -123,11 +133,13 @@ def test_invalid_numcomponents_value():
 
 
 def test_zero_numcomponents():
-    """Test that the generate_random_frequencies        returns an empty array
-    when 0 number of components is provided.
+    """Test that the generate_random_frequencies        returns an empty array when 0
+    number of components is provided.
 
-    GIVEN: A negative number of components, default sampling_rate
+    GIVEN: A negative number of components, default sampling_rate.
+    
     WHEN: The generate_random_frequencies        function is called with these parameters.
+    
     THEN: An empty array is returned.
     """
     np.random.seed(42)
@@ -139,11 +151,13 @@ def test_zero_numcomponents():
 
 
 def test_invalid_sampling_rate_type_random_frequencies():
-    """Test that the generate_random_frequencies        raises an error when a
-    not integer sampling rate is provided.
+    """Test that the generate_random_frequencies        raises an error when a not
+    integer sampling rate is provided.
 
     GIVEN: A valid number of components, invalid sampling_rate
+    
     WHEN: The generate_random_frequencies        function is called with these parameters.
+    
     THEN: A TypeError is raised with the appropriate message.
     """
     np.random.seed(42)
@@ -156,11 +170,13 @@ def test_invalid_sampling_rate_type_random_frequencies():
 
 
 def test_invalid_sampling_rate_value_random_frequencies():
-    """Test that the generate_random_frequencies        raises an error when a
-    negative sampling rate is provided.
+    """Test that the generate_random_frequencies        raises an error when a negative
+    sampling rate is provided.
 
     GIVEN: A valid number of components, a sampling_rate smaller than or equal to 0.
+    
     WHEN: The generate_random_frequencies        function is called with these parameters.
+    
     THEN: A ValueError is raised.
     """
     np.random.seed(42)
@@ -173,11 +189,13 @@ def test_invalid_sampling_rate_value_random_frequencies():
 
 
 def test_minimal_valid_sampling_rate():
-    """Test that generate_random_frequencies    works correctly when
-    sampling_rate is the minimum allowed value.
+    """Test that generate_random_frequencies    works correctly when sampling_rate is
+    the minimum allowed value.
 
     GIVEN: A valid number of components, sampling_rate = 4.
+    
     WHEN: The generate_random_frequencies        function is called with these parameters.
+    
     THEN: Frequencies is an array with only 1 and 2
     """
     np.random.seed(42)
@@ -188,11 +206,13 @@ def test_minimal_valid_sampling_rate():
 
 
 def test_minimal_valid_numcomponent():
-    """Test that generate_random_frequencies    works when num_components is
-    the minimum allowed value.
+    """Test that generate_random_frequencies    works when num_components is the minimum
+    allowed value.
 
     GIVEN: num_components = 1, a valid sampling_rate.
+    
     WHEN: The generate_random_frequencies        function is called with these parameters.
+    
     THEN: Frequencies is an array of length 1
     """
     np.random.seed(42)
@@ -205,7 +225,9 @@ def test_large_number_of_components():
     efficiently.
 
     GIVEN: num_components = 10^8, a valid sampling_rate.
+    
     WHEN: The generate_random_frequencies        function is called with these parameters.
+    
     THEN: Frequencies is an array of length 10^8
     """
     np.random.seed(42)
@@ -219,12 +241,13 @@ def test_large_number_of_components():
 
 
 def test_generate_periodic_signal_single_frequency():
-    """Test that generate_periodic_signal correctly generates a single
-    sinusoidal wave.
+    """Test that generate_periodic_signal correctly generates a single sinusoidal wave.
 
     GIVEN: A valid array of frequencies containing just one value, a valid signal duration and
            sampling rate, default waveform_type.
+           
     WHEN: The generate_periodic_signal         function is called with these parameters.
+    
     THEN: The generated signal is the expected sinusoidal wave.
     """
     time, signal = generate_periodic_signal(
@@ -240,12 +263,14 @@ def test_generate_periodic_signal_single_frequency():
 
 
 def test_generate_periodic_signal_signal_length():
-    """Test that generate_periodic_signal     returns a signal with length
-    equal to duration * sampling_rate.
+    """Test that generate_periodic_signal     returns a signal with length equal to
+    duration * sampling_rate.
 
     GIVEN: A valid array of frequencies, signal duration, and
            sampling rate, default waveform_type.
+           
     WHEN: The generate_periodic_signal         function is called with these parameters.
+    
     THEN: The length of the signal is correct (duration * sampling_rate).
     """
 
@@ -263,7 +288,9 @@ def test_generate_periodic_signal_signal_amplitude():
 
     GIVEN: A valid array of frequencies, signal duration,
            sampling rate, and default waveform_type.
+           
     WHEN: The generate_periodic_signal         function is called with these parameters.
+    
     THEN: The signal has non-zero amplitude.
     """
 
@@ -278,7 +305,9 @@ def test_generate_periodic_signal_signal_is_ndarray():
 
     GIVEN: A valid array of frequencies, signal duration,
            sampling rate, and default waveform_type.
+           
     WHEN: The generate_periodic_signal         function is called with these parameters.
+    
     THEN: The 'signal' variable is of type numpy.ndarray.
     """
     _, signal = generate_periodic_signal(
@@ -294,7 +323,9 @@ def test_generate_periodic_signal_time_is_ndarray():
 
     GIVEN: A valid array of frequencies, signal duration,
            sampling rate and default waveform_type.
+           
     WHEN: The generate_periodic_signal         function is called with these parameters.
+    
     THEN: The 'time' variable is of type numpy.ndarray.
     """
     time, _ = generate_periodic_signal(
@@ -310,7 +341,9 @@ def test_generate_periodic_signal_time_array():
 
     GIVEN: A valid array of frequencies, signal duration,
            sampling rate and default waveform_type.
+           
     WHEN: The generate_periodic_signal         function is called with these parameters.
+    
     THEN: The time array contains the correct points.
     """
 
@@ -324,12 +357,14 @@ def test_generate_periodic_signal_time_array():
 
 
 def test_generate_periodic_signal_negative_frequencies_value():
-    """Test that the generate_periodic_signal raises an error when a frequency
-    smaller than or equal to zero is provided in the frequencies array.
+    """Test that the generate_periodic_signal raises an error when a frequency smaller
+    than or equal to zero is provided in the frequencies array.
 
     GIVEN: An array of frequencies containing at least a wrong value, valid signal duration and
            sampling rate, default waveform_type.
+           
     WHEN: The generate_periodic_signal         function is called with these parameters.
+    
     THEN: A ValueError is raised with the appropriate message.
     """
     with pytest.raises(
@@ -341,13 +376,14 @@ def test_generate_periodic_signal_negative_frequencies_value():
 
 
 def test_generate_periodic_signal_invalid_frequencies_value():
-    """Test that the generate_periodic_signal raises an error when a frequency
-    greater than or equal to Nyquist's frequency' is provided in the
-    frequencies array.
+    """Test that the generate_periodic_signal raises an error when a frequency greater
+    than or equal to Nyquist's frequency' is provided in the frequencies array.
 
     GIVEN: An array of frequencies containing at least a wrong value, valid signal duration and
            sampling rate, default waveform_type.
+           
     WHEN: The generate_periodic_signal         function is called with these parameters.
+    
     THEN: A ValueError is raised with the appropriate message.
     """
     with pytest.raises(
@@ -360,12 +396,14 @@ def test_generate_periodic_signal_invalid_frequencies_value():
 
 
 def test_generate_periodic_signal_invalid_frequencies_type():
-    """Test that the generate_periodic_signal         raises an error when a
-    not integer frequency is provided in the frequencies array.
+    """Test that the generate_periodic_signal         raises an error when a not integer
+    frequency is provided in the frequencies array.
 
     GIVEN: An array of frequencies containing at least a non-integer value, valid signal duration and
            sampling rate, default waveform_type.
+           
     WHEN: The generate_periodic_signal         function is called with these parameters.
+    
     THEN: A TypeError is raised with the appropriate message.
     """
     with pytest.raises(TypeError, match="Frequencies should be integer"):
@@ -375,12 +413,14 @@ def test_generate_periodic_signal_invalid_frequencies_type():
 
 
 def test_generate_periodic_signal_invalid_duration_type():
-    """Test that the generate_periodic_signal         raises an error when a
-    not float duration is provided.
+    """Test that the generate_periodic_signal         raises an error when a not float
+    duration is provided.
 
     GIVEN: A valid array of frequencies, non-float signal duration, a valid
            sampling rate and default waveform_type.
+           
     WHEN: The generate_periodic_signal         function is called with these parameters.
+    
     THEN: A TypeError is raised with the appropriate message.
     """
     with pytest.raises(
@@ -392,12 +432,14 @@ def test_generate_periodic_signal_invalid_duration_type():
 
 
 def test_generate_periodic_signal_invalid_duration_value():
-    """Test that the generate_periodic_signal         raises an error when a
-    negative duration is provided.
+    """Test that the generate_periodic_signal         raises an error when a negative
+    duration is provided.
 
     GIVEN: A valid array of frequencies, a negative signal duration, a valid
            sampling rate and default waveform_type.
+           
     WHEN: The generate_periodic_signal         function is called with these parameters.
+    
     THEN: A ValueError is raised with the appropriate message.
     """
     with pytest.raises(
@@ -409,12 +451,14 @@ def test_generate_periodic_signal_invalid_duration_value():
 
 
 def test_generate_periodic_signal_zero_duration():
-    """Test that the generate_periodic_signal         returns an empty array
-    when duration = 0 s.
+    """Test that the generate_periodic_signal         returns an empty array when
+    duration = 0 s.
 
     GIVEN: A valid array of frequencies, signal duration = 0, a valid
            sampling rate and default waveform_type.
+           
     WHEN: The generate_periodic_signal         function is called with these parameters.
+    
     THEN: signal is an empty array.
     """
     _, signal = generate_periodic_signal(
@@ -426,12 +470,14 @@ def test_generate_periodic_signal_zero_duration():
 
 
 def test_generate_periodic_signal_invalid_sampling_rate_type():
-    """Test that the generate_periodic_signal         raises an error when a
-    not float or integer sampling rate is provided.
+    """Test that the generate_periodic_signal         raises an error when a not float
+    or integer sampling rate is provided.
 
     GIVEN: A valid array of frequencies and duration, a non float or integer
            sampling rate, default waveform_type.
+           
     WHEN: The generate_periodic_signal         function is called with these parameters.
+    
     THEN: A TypeError is raised with the appropriate message.
     """
     with pytest.raises(
@@ -444,12 +490,14 @@ def test_generate_periodic_signal_invalid_sampling_rate_type():
 
 
 def test_generate_periodic_signal_invalid_sampling_rate_value():
-    """Test that the generate_periodic_signal         raises an error when a
-    negative sampling rate is provided.
+    """Test that the generate_periodic_signal         raises an error when a negative
+    sampling rate is provided.
 
     GIVEN: A valid array of frequencies and duration, a negative
            sampling rate and default waveform_type.
+           
     WHEN: The generate_periodic_signal         function is called with these parameters.
+    
     THEN: A ValueError is raised with the appropriate message.
     """
     with pytest.raises(
@@ -462,11 +510,13 @@ def test_generate_periodic_signal_invalid_sampling_rate_value():
 
 
 def test_generate_periodic_signal_empty_frequencies():
-    """Test that the generate_periodic_signal returns an empty array when
-    frequencies is an empty array.
+    """Test that the generate_periodic_signal returns an empty array when frequencies is
+    an empty array.
 
     GIVEN: An empty array of frequencies, a valid signal duration and sampling_rate, default waveform_type.
+    
     WHEN: The generate_periodic_signal function is called with these parameters.
+    
     THEN: signal is an empty array.
     """
     _, signal = generate_periodic_signal(
@@ -478,12 +528,14 @@ def test_generate_periodic_signal_empty_frequencies():
 
 
 def test_generate_periodic_signal_invalid_waveform_type():
-    """Test that the generate_periodic_signal raises a TypeError when a non-
-    string waveform_type is provided.
+    """Test that the generate_periodic_signal raises a TypeError when a non- string
+    waveform_type is provided.
 
     GIVEN: A valid array of frequencies, duration, and sampling rate,
            a non-string waveform_type.
+           
     WHEN: The generate_periodic_signal function is called with these parameters.
+    
     THEN: A TypeError is raised with the appropriate message.
     """
     with pytest.raises(
@@ -499,12 +551,14 @@ def test_generate_periodic_signal_invalid_waveform_type():
 
 
 def test_generate_periodic_signal_invalid_waveform_value():
-    """Test that the generate_periodic_signal raises a ValueError when an
-    invalid waveform_type is provided.
+    """Test that the generate_periodic_signal raises a ValueError when an invalid
+    waveform_type is provided.
 
     GIVEN: A valid array of frequencies, duration, and sampling rate,
            an invalid waveform_type.
+           
     WHEN: The generate_periodic_signal function is called with these parameters.
+    
     THEN: A ValueError is raised with the appropriate message.
     """
     with pytest.raises(
@@ -520,12 +574,14 @@ def test_generate_periodic_signal_invalid_waveform_value():
 
 
 def test_generate_periodic_signal_signal_square_length():
-    """Test that generate_periodic_signal     returns a signal with length
-    equal to duration * sampling_rate when selecting square waves.
+    """Test that generate_periodic_signal     returns a signal with length equal to
+    duration * sampling_rate when selecting square waves.
 
     GIVEN: A valid array of frequencies, signal duration, and
            sampling rate, and waveform_type = square.
+           
     WHEN: The generate_periodic_signal function is called with these parameters.
+    
     THEN: The length of the signal is correct (duration * sampling_rate).
     """
 
@@ -546,7 +602,9 @@ def test_generate_periodic_signal_signal_square_amplitude():
 
     GIVEN: A valid array of frequencies, signal duration,
            sampling rate, and waveform_type = square.
+           
     WHEN: The generate_periodic_signal         function is called with these parameters.
+    
     THEN: The signal has non-zero amplitude.
     """
 
@@ -560,12 +618,14 @@ def test_generate_periodic_signal_signal_square_amplitude():
 
 
 def test_generate_periodic_signal_square_signal_is_ndarray():
-    """Test that the 'signal' variable is of type numpy.ndarray when selceting
-    square waves.
+    """Test that the 'signal' variable is of type numpy.ndarray when selceting square
+    waves.
 
     GIVEN: A valid array of frequencies, signal duration,
            sampling rate, and waveform_type = square.
+           
     WHEN: The generate_periodic_signal         function is called with these parameters.
+    
     THEN: The 'signal' variable is of type numpy.ndarray.
     """
     _, signal = generate_periodic_signal(
@@ -580,12 +640,14 @@ def test_generate_periodic_signal_square_signal_is_ndarray():
 
 
 def test_generate_periodic_signal_square_time_is_ndarray():
-    """Test that the 'time' variable is of type numpy.ndarray when selceting
-    square waves.
+    """Test that the 'time' variable is of type numpy.ndarray when selceting square
+    waves.
 
     GIVEN: A valid array of frequencies, signal duration,
            sampling rate and waveform_type = square.
+           
     WHEN: The generate_periodic_signal         function is called with these parameters.
+    
     THEN: The 'time' variable is of type numpy.ndarray.
     """
     time, _ = generate_periodic_signal(
@@ -603,11 +665,13 @@ def test_generate_periodic_signal_square_time_is_ndarray():
 
 
 def test_compute_signal_power_type():
-    """Test that compute_signal_power returns the correct output type when
-    given a valid input.
+    """Test that compute_signal_power returns the correct output type when given a valid
+    input.
 
     GIVEN: A valid 1D numpy array.
+    
     WHEN: The compute_signal_power function is called with this parameter.
+    
     THEN: The return value is of type float
     """
     signal = np.array([1, 2, 3, 4, 5])
@@ -620,7 +684,9 @@ def test_compute_signal_power_type():
 def test_compute_signal_power_basic():
     """Test that compute_signal_power returns the correct power when input signal is constant
     GIVEN: A constant signal where all elements are equal (e.g., an array of ones).
+    
     WHEN: The compute_signal_power function is called with this parameter.
+    
     THEN: The RMS power is equal to the value of the constant signal.
 
     """
@@ -631,11 +697,13 @@ def test_compute_signal_power_basic():
 
 
 def test_compute_signal_power_invalid_signal_type():
-    """Test that compute_signal_power raises a TypeError when provided with an
-    invalid input type.
+    """Test that compute_signal_power raises a TypeError when provided with an invalid
+    input type.
 
     GIVEN: An invalid input (e.g., a string) instead of a numpy array representing a signal.
+    
     WHEN: The compute_signal_power function is called with this parameter.
+    
     THEN: A TypeError is raised.
     """
     with pytest.raises(TypeError):
@@ -643,11 +711,13 @@ def test_compute_signal_power_invalid_signal_type():
 
 
 def test_compute_signal_power_single_element():
-    """Test that compute_signal_power returns the correct power for a single-
-    element signal.
+    """Test that compute_signal_power returns the correct power for a single- element
+    signal.
 
     GIVEN: A signal with a single element (e.g., an array with one value).
+    
     WHEN: The compute_signal_power function is called with this parameter.
+    
     THEN: The RMS power is equal to the value of the signal.
     """
     signal = np.array([5])
@@ -658,7 +728,9 @@ def test_compute_signal_power_large_signal():
     """Test that compute_signal_power handles a large signal correctly.
 
     GIVEN: A large random signal with a very large number of elements (e.g., 10^8 elements).
+    
     WHEN: The compute_signal_power function is called with this parameter.
+    
     THEN: The return value is of type float.
     """
     np.random.seed(42)
@@ -669,11 +741,13 @@ def test_compute_signal_power_large_signal():
 
 
 def test_compute_signal_power_invalid_signal_element():
-    """Test that compute_signal_power raises a TypeError when provided with an
-    invalid element in signal array.
+    """Test that compute_signal_power raises a TypeError when provided with an invalid
+    element in signal array.
 
     GIVEN: A numpy array containing an invalid type.
+    
     WHEN: The compute_signal_power function is called with this parameter.
+    
     THEN: A TypeError is raised.
     """
     signal = np.array([1, 2, 3, None, 4, 5])
@@ -682,11 +756,13 @@ def test_compute_signal_power_invalid_signal_element():
 
 
 def test_compute_signal_power_empty_signal():
-    """Test that compute_signal_power raises a ValueError when provided with an
-    empty array.
+    """Test that compute_signal_power raises a ValueError when provided with an empty
+    array.
 
     GIVEN: An empty numpy array.
+    
     WHEN: The compute_signal_power function is called with this parameter.
+    
     THEN: A ValueError is raised with the appropriate message.
     """
     signal = np.array([])
@@ -703,7 +779,9 @@ def test_compute_white_noise_std_output_type():
     """Test that compute_white_noise_std returns a float.
 
     GIVEN: A valid signal and SNR.
+    
     WHEN: The compute_signal_power function is called with these parameters.
+    
     THEN: The return value is of type float.
     """
     signal = np.arange(1, 50, 0.5)
@@ -717,7 +795,9 @@ def test_compute_white_noise_std_zero_snr():
     """Test that with 0 dB SNR, noise std equals signal RMS.
 
     GIVEN: A valid signal and SNR = 0.
+    
     WHEN: The compute_white_noise_std function is called with these parameters.
+    
     THEN: The return value equals the RMS power of the input signal.
     """
     signal = np.arange(1, 20, 0.5)
@@ -731,7 +811,9 @@ def test_compute_white_noise_std_high_snr():
     """Test that for high SNR, noise std approaches zero.
 
     GIVEN: A valid signal and a high SNR (e.g., 1000 dB).
+    
     WHEN: The compute_white_noise_std function is called with these parameters.
+    
     THEN: The return value is close to zero.
     """
     signal = np.arange(1, 20, 0.5)
@@ -744,7 +826,9 @@ def test_compute_white_noise_std_negative_snr():
     """Test that for negative SNR, noise std is larger than signal RMS.
 
     GIVEN: A valid signal and a negative SNR.
+    
     WHEN: The compute_white_noise_std function is called with these parameters.
+    
     THEN: The return value is greater than the signal power.
     """
     signal = np.arange(1, 20, 0.5)
@@ -757,7 +841,9 @@ def test_compute_white_noise_std_constant_signal():
     """Test that for a constant signal, noise std is computed correctly.
 
     GIVEN: A constant signal (e.g., an array of ones) and a valid SNR.
+    
     WHEN: The compute_white_noise_std function is called with these parameters.
+    
     THEN: The return value is the expected noise standard deviation.
     """
     signal = np.ones(50)
@@ -768,11 +854,13 @@ def test_compute_white_noise_std_constant_signal():
 
 
 def test_compute_white_noise_std_invalid_snr_type():
-    """Test that compute_white_noise_std raises a TypeError when provided with
-    an invalid SNR type.
+    """Test that compute_white_noise_std raises a TypeError when provided with an
+    invalid SNR type.
 
     GIVEN: A valid signal and an invalid type for SNR.
+    
     WHEN: The compute_white_noise_std function is called with these parameters.
+    
     THEN: A TypeError is raised.
     """
     signal = np.arange(1, 20, 0.5)
@@ -787,11 +875,13 @@ def test_compute_white_noise_std_invalid_snr_type():
 
 
 def test_generate_white_noise_length():
-    """Test that generate_white_noise generates noise of the same length as the
-    input signal.
+    """Test that generate_white_noise generates noise of the same length as the input
+    signal.
 
     GIVEN: A valid SNR and a valid input signal.
+    
     WHEN: The generate_white_noise function is called with these parameters.
+    
     THEN: The return value has the same length as the input signal.
     """
     np.random.seed(42)
@@ -805,11 +895,12 @@ def test_generate_white_noise_length():
 
 
 def test_generate_white_noise_zero_mean():
-    """Test that generate_white_noise generates noise with zero mean within a
-    tolerance.
+    """Test that generate_white_noise generates noise with zero mean within a tolerance.
 
     GIVEN: A valid SNR and a valid input signal.
+    
     WHEN: The generate_white_noise function is called with these parameters.
+    
     THEN: The return value has a mean of 0 within the tolerance of one standard deviation of the noise.
     """
     np.random.seed(42)
@@ -826,7 +917,9 @@ def test_generate_white_noise_noise_std():
     """Test the standard deviation of noise generated by generate_white_noise.
 
     GIVEN: A valid signal and a specified signal-to-noise ratio (SNR) in dB.
+    
     WHEN: The generate_white_noise function is called with these parameters.
+    
     THEN: The standard deviation of the generated noise matches the expected value
           within a small numerical tolerance.
     """
@@ -845,7 +938,9 @@ def test_generate_white_noise_scalar_signal():
     """Test that generate_white_noise generates noise for a scalar signal.
 
     GIVEN: A valid SNR and a scalar signal (single value).
+    
     WHEN: The generate_white_noise function is called with these parameters.
+    
     THEN: The return value is an array of length 1.
     """
     np.random.seed(42)
@@ -858,11 +953,13 @@ def test_generate_white_noise_scalar_signal():
 
 
 def test_generate_white_noise_scalar_signal_float():
-    """Test that generate_white_noise works when the signal is a single
-    floating-point number.
+    """Test that generate_white_noise works when the signal is a single floating-point
+    number.
 
     GIVEN: A scalar float as signal.
+    
     WHEN: The generate_white_noise function is called with these parameters.
+    
     THEN: The return value is an array of length 1.
     """
     np.random.seed(42)
@@ -876,11 +973,12 @@ def test_generate_white_noise_scalar_signal_float():
 
 
 def test_generate_white_noise_high_snr():
-    """Test that generate_white_noise returns near-zero noise for a very high
-    SNR.
+    """Test that generate_white_noise returns near-zero noise for a very high SNR.
 
     GIVEN: A very high signal-to-noise ratio (SNR) and a valid input signal.
+    
     WHEN: The generate_white_noise function is called with these parameters.
+    
     THEN: The generated noise should be close to zero for all elements.
     """
     np.random.seed(42)
@@ -895,11 +993,13 @@ def test_generate_white_noise_high_snr():
 
 
 def test_generate_white_noise_constant_signal():
-    """Test that generate_white_noise generates noise even when the input
-    signal is constant.
+    """Test that generate_white_noise generates noise even when the input signal is
+    constant.
 
     GIVEN: A constant signal and a valid SNR.
+    
     WHEN: The generate_white_noise function is called with these parameters.
+    
     THEN: The generated noise is not all zeros.
     """
     np.random.seed(42)
@@ -913,11 +1013,12 @@ def test_generate_white_noise_constant_signal():
 
 
 def test_generate_white_noise_negative_snr():
-    """Test that generate_white_noise generates high-amplitude noise for
-    negative SNR.
+    """Test that generate_white_noise generates high-amplitude noise for negative SNR.
 
     GIVEN: A valid signal and a negative SNR.
+    
     WHEN: The generate_white_noise function is called with these parameters.
+    
     THEN: The noise standard deviation is larger than the signal's standard deviation.
     """
     np.random.seed(42)
@@ -931,11 +1032,13 @@ def test_generate_white_noise_negative_snr():
 
 
 def test_generate_white_noise_zero_signal():
-    """Test that generate_white_noise returns all zeros when the input signal
-    is all zeros.
+    """Test that generate_white_noise returns all zeros when the input signal is all
+    zeros.
 
     GIVEN: A zero signal and a valid SNR.
+    
     WHEN: The generate_white_noise function is called with these parameters.
+    
     THEN: The generated noise is an array of zeros.
     """
     np.random.seed(42)
@@ -955,7 +1058,9 @@ def test_add_white_noise_noisy_signal_size():
     """Test that the noisy signal has the same length as the input signal.
 
     GIVEN: A valid input signal and SNR.
+    
     WHEN: The add_white_noise function is called with these parameters.
+    
     THEN: The output noisy signal is of type numpy.ndarray.
     """
     signal = np.linspace(-5, 25, 70)
@@ -971,7 +1076,9 @@ def test_add_white_noise_noisy_signal_type():
     """Test that the noisy signal has the same type as the input signal.
 
     GIVEN: A valid input signal and SNR.
+    
     WHEN: The add_white_noise function is called with  these parameters.
+    
     THEN: The output noisy signal is of type numpy.ndarray.
     """
     signal = np.linspace(-5, 25, 70)
@@ -984,7 +1091,9 @@ def test_add_white_noise_scalar():
     """Test that the function handles scalar signals correctly.
 
     GIVEN: A scalar input signal and a valid SNR.
+    
     WHEN: The add_white_noise function is called with  these parameters.
+    
     THEN: The noisy signal has length 1.
     """
     signal = 5
@@ -999,7 +1108,9 @@ def test_add_white_noise_all_zeros():
     """Test that an all-zero input signal returns an all-zero noisy signal.
 
     GIVEN: An all-zero input signal and a valid SNR.
+    
     WHEN: The add_white_noise function is called withthese parameters.
+    
     THEN: The output noisy signal consists entirely of zeros.
     """
     np.random.seed(42)
@@ -1012,11 +1123,12 @@ def test_add_white_noise_all_zeros():
 
 
 def test_add_white_noise_high_snr():
-    """Test that a very high SNR returns the input signal, within a certain
-    tolerance.
+    """Test that a very high SNR returns the input signal, within a certain tolerance.
 
     GIVEN: A valid input signal and a very high SNR.
+    
     WHEN: The add_white_noise function is called.
+    
     THEN: The output noisy signal is nearly identical to the input signal.
     """
     np.random.seed(42)
@@ -1035,7 +1147,9 @@ def test_compute_fft_frequency_bins_length():
     """Test that the length of frequency_bins matches the length of the signal.
 
     GIVEN: Valid input signal and sampling rate.
+    
     WHEN: The compute_fft function is called with these parameters.
+    
     THEN: The output frequency_bins array has the same length as the input signal.
     """
     sampling_rate = 250
@@ -1047,11 +1161,12 @@ def test_compute_fft_frequency_bins_length():
 
 
 def test_compute_fft_coefficients_length():
-    """Test that the length of fft_coefficients matches the length of the
-    signal.
+    """Test that the length of fft_coefficients matches the length of the signal.
 
     GIVEN: Valid input signal and sampling rate.
+    
     WHEN: The compute_fft function is called with these parameters.
+    
     THEN: The output fft_coefficients array has the same length as the input signal.
     """
     sampling_rate = 350
@@ -1063,11 +1178,13 @@ def test_compute_fft_coefficients_length():
 
 
 def test_compute_fft_invalid_sampling_rate_type():
-    """Test that the compute_fft raises an error when a not float or integer
-    sampling rate is provided.
+    """Test that the compute_fft raises an error when a not float or integer sampling
+    rate is provided.
 
     GIVEN: Valid input signal, a non float or integer sampling rate.
+    
     WHEN: The compute_fft function is called with these parameters.
+    
     THEN: A TypeError is raised with the appropriate message.
     """
     signal = np.ones(50)
@@ -1079,11 +1196,13 @@ def test_compute_fft_invalid_sampling_rate_type():
 
 
 def test_compute_fft_invalid_sampling_rate_value():
-    """Test that the compute_fft raises an error when a negative sampling rate
-    is provided.
+    """Test that the compute_fft raises an error when a negative sampling rate is
+    provided.
 
     GIVEN: Valid input signal, a negative sampling rate.
+    
     WHEN: The compute_fft function is called with these parameters.
+    
     THEN: A ValueError is raised with the appropriate message.
     """
     signal = np.ones(50)
@@ -1095,11 +1214,13 @@ def test_compute_fft_invalid_sampling_rate_value():
 
 
 def test_compute_fft_invalid_signal_type():
-    """Test that the compute_fft raises an error when a not integer or float
-    element is provided in the signal array.
+    """Test that the compute_fft raises an error when a not integer or float element is
+    provided in the signal array.
 
     GIVEN: An array containing at least a non-integer or float value, valid sampling rate.
+    
     WHEN: The compute_fft function is called with these parameters.
+    
     THEN: A TypeError is raised with the appropriate message.
     """
     signal = np.array([1, 2, 3, 4, "cinque", 6])
@@ -1111,11 +1232,12 @@ def test_compute_fft_invalid_signal_type():
 
 
 def test_compute_fft_empty_signal():
-    """Test that the compute_fft raises an error when an empty signal is
-    provided.
+    """Test that the compute_fft raises an error when an empty signal is provided.
 
     GIVEN: An empty array, valid sampling rate.
+    
     WHEN: The compute_fft function is called with these parameters.
+    
     THEN: A ValueError is raised with the appropriate message.
     """
     signal = np.array([])
@@ -1127,7 +1249,9 @@ def test_compute_fft_zero_signal():
     """Test that a zero signal returns a zero FFT.
 
     GIVEN: A signal consisting of all zeros and a valid sampling rate.
+    
     WHEN: The compute_fft function is called with these parameters.
+    
     THEN: The output fft_coefficients array should contain only zeros.
     """
     signal = np.zeros(50)
@@ -1144,7 +1268,9 @@ def test_compute_ifft_complex_output():
     """Test that the output of compute_ifft is real-valued.
 
     GIVEN: A valid complex spectrum.
+    
     WHEN: The compute_ifft function is called with this parameter.
+    
     THEN: The output is complex-valued.
     """
     spectrum = np.array([1 + 2j, 3 + 4j, 5 + 6j])
@@ -1156,7 +1282,9 @@ def test_compute_ifft_length():
     """Test that the length of the output matches the input spectrum length.
 
     GIVEN: A valid complex spectrum.
+    
     WHEN: The compute_ifft function is called with this parameter.
+    
     THEN: The output signal has the same length as the input spectrum.
     """
     spectrum = np.array([1 + 2j, 3 + 4j, 5 + 6j])
@@ -1167,11 +1295,13 @@ def test_compute_ifft_length():
 
 
 def test_compute_ifft_invalid_spectrum_type():
-    """Test that the compute_ifft raises a TypeError when an invalid spectrum
-    type is provided.
+    """Test that the compute_ifft raises a TypeError when an invalid spectrum type is
+    provided.
 
     GIVEN: An invalid spectrum type (e.g. string instead of a complex numpy array).
+    
     WHEN: The compute_ifft function is called with this parameter.
+    
     THEN: A TypeError is raised with the appropriate message.
     """
     spectrum = "invalid_input"
@@ -1182,11 +1312,13 @@ def test_compute_ifft_invalid_spectrum_type():
 
 
 def test_compute_ifft_invalid_spectrum_value():
-    """Test that the compute_ifft raises a TypeError when an invalid spectrum
-    type is provided.
+    """Test that the compute_ifft raises a TypeError when an invalid spectrum type is
+    provided.
 
     GIVEN: An invalid spectrum type (e.g. string instead of a complex numpy array).
+    
     WHEN: The compute_ifft function is called with this parameter.
+    
     THEN: A ValueError is raised with the appropriate message.
     """
     spectrum = np.array([1, 3, 5, 7, 9])
@@ -1198,11 +1330,12 @@ def test_compute_ifft_invalid_spectrum_value():
 
 
 def test_compute_ifft_empty_spectrum():
-    """Test that the compute_ifft raises an error when an empty spectrum is
-    provided.
+    """Test that the compute_ifft raises an error when an empty spectrum is provided.
 
     GIVEN: An empty array representing the spectrum.
+    
     WHEN: The compute_ifft function is called with this parameter.
+    
     THEN: A ValueError is raised.
     """
     spectrum = np.array([])
@@ -1214,7 +1347,9 @@ def test_compute_ifft_zero_spectrum():
     """Test that a zero spectrum returns a zero signal.
 
     GIVEN: A spectrum consisting of all zeros (complex values).
+    
     WHEN: The compute_ifft function is called with this parameter.
+    
     THEN: The output signal should be an array of zeros.
     """
     spectrum = np.array([0 + 0j, 0 + 0j, 0 + 0j, 0 + 0j])
@@ -1229,7 +1364,9 @@ def test_apply_spectral_slope_output_size():
     """Test that apply_spectral_slope returns an output of the correct size.
 
     GIVEN: A valid input signal and a positive slope, default sampling rate.
+    
     WHEN: The apply_spectral_slope function is called with these parameters.
+    
     THEN: The output spectrum has the same shape as the input signal.
     """
     signal = np.ones(100)
@@ -1241,11 +1378,12 @@ def test_apply_spectral_slope_output_size():
 
 
 def test_apply_spectral_slope_zero_slope():
-    """Test that apply_spectral_slope returns the original spectrum when slope
-    is zero.
+    """Test that apply_spectral_slope returns the original spectrum when slope is zero.
 
     GIVEN: A valid input signal, slope = 0 and default sampling_rate.
+    
     WHEN: The apply_spectral_slope function is called with the parameters.
+    
     THEN: The output spectrum is identical to the original FFT of the signal.
     """
     signal = np.ones(100)
@@ -1260,11 +1398,12 @@ def test_apply_spectral_slope_zero_slope():
 
 
 def test_apply_spectral_slope_invalid_slope_type():
-    """Test that apply_spectral_slope raises a TypeError for invalid slope
-    types.
+    """Test that apply_spectral_slope raises a TypeError for invalid slope types.
 
     GIVEN: A valid input signal, an invalid slope (non-numeric type) and a valid sampling rate.
+    
     WHEN: The apply_spectral_slope function is called with these parameters.
+    
     THEN: A TypeError is raised with the appropriate message.
     """
     signal = np.array([1, 2, 3, 4, 5, 6])
@@ -1275,11 +1414,12 @@ def test_apply_spectral_slope_invalid_slope_type():
 
 
 def test_apply_spectral_slope_negative_slope():
-    """Test that apply_spectral_slope raises a ValueError when slope is
-    negative.
+    """Test that apply_spectral_slope raises a ValueError when slope is negative.
 
     GIVEN: A valid input signal, a negative slope and a valid sampling rate.
+    
     WHEN: The apply_spectral_slope function is called with these parameters.
+    
     THEN: A ValueError is raised with the appropriate message.
     """
     signal = np.array([1, 2, 3, 4, 5, 6])
@@ -1296,7 +1436,9 @@ def test_add_colored_noise_output_shape():
     """Test that add_colored_noise output has the correct shape.
 
     GIVEN: A valid input signal, reasonable snr_db, slope, and sampling_rate.
+    
     WHEN: The add_colored_noise function is called with these parameters.
+    
     THEN: The output has the same shape as the input signal.
     """
     signal = np.ones(100)
@@ -1312,11 +1454,13 @@ def test_add_colored_noise_output_shape():
 
 
 def test_add_colored_noise_zero_signal():
-    """Test that add_colored_noise correctly generates only colored noise when
-    the input is zero.
+    """Test that add_colored_noise correctly generates only colored noise when the input
+    is zero.
 
     GIVEN: An input signal of all zeros, valid snr, slope and sampling_rate.
+    
     WHEN: The add_colored_noise function is called with these parameters.
+    
     THEN: The output is not all zeros.
     """
     signal = np.zeros(100)
@@ -1332,11 +1476,12 @@ def test_add_colored_noise_zero_signal():
 
 
 def test_add_colored_noise_low_snr():
-    """Test that add_colored_noise with a low SNR results in a noise-dominated
-    output.
+    """Test that add_colored_noise with a low SNR results in a noise-dominated output.
 
     GIVEN: A valid input signal, a very low SNR value, valid slope and sampling rate.
+    
     WHEN: The add_colored_noise function is called with these parameters.
+    
     THEN: The noise power is greater than the signal power.
     """
     signal = np.ones(100)
@@ -1356,7 +1501,9 @@ def test_add_colored_noise_slope_effect():
     """Test that changing the slope affects the noise spectrum.
 
     GIVEN: A valid input signal, different slope values, valid SNR and sampling_rate.
+    
     WHEN: The add_colored_noise function is called two times with different slopes.
+    
     THEN: The output noise is different for different slopes.
     """
     signal = np.ones(100)

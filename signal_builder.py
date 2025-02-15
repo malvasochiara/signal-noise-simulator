@@ -4,17 +4,16 @@ import argparse
 from utils import generate_and_plot_signal
 
 def main():
-    """
-    Main function to parse command-line arguments and generate a periodic signal.
+    """Main function to parse command-line arguments and generate a periodic signal.
 
-    This script uses the argparse library to collect parameters from the command line, 
-    such as signal components, duration, sampling rate, waveform type, and optional 
-    noise settings (SNR, noise type, slope). It then calls the `generate_and_plot_signal` 
-    function to generate and optionally plot the periodic signal and/or save the signal data 
+    This script uses the argparse library to collect parameters from the command line,
+    such as signal components, duration, sampling rate, waveform type, and optional
+    noise settings (SNR, noise type, slope). It then calls the `generate_and_plot_signal`
+    function to generate and optionally plot the periodic signal and/or save the signal data
     to a CSV file.
 
     Command-line arguments include:
-    
+
     Parameters
     ----------
     num_components : int, optional
@@ -30,15 +29,15 @@ def main():
     snr : float, optional
         Signal-to-noise ratio in dB. If provided, noise will be added to the signal.
     noise_type : {'white', 'colored'}, optional
-        Type of noise to add when `snr` is specified. Choices are 'white' (Gaussian white noise) or 'colored' 
+        Type of noise to add when `snr` is specified. Choices are 'white' (Gaussian white noise) or 'colored'
         (frequency-dependent noise that increases linearly). Default is 'white'. Ignored if `snr` is not provided.
     slope : float, optional
-        Spectral slope for colored noise. Controls how noise power increases with frequency. Default is 0.5. 
+        Spectral slope for colored noise. Controls how noise power increases with frequency. Default is 0.5.
         Ignored if `snr` is not provided or if `noise_type` is 'white'.
     plot : bool, optional
         If set, the generated signal will be plotted.
     save : str, optional
-        Path to save the signal and time data as a CSV file. If no path is provided, the file will be saved in 
+        Path to save the signal and time data as a CSV file. If no path is provided, the file will be saved in
         the current directory.
 
     Returns

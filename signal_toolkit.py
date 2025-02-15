@@ -6,24 +6,28 @@ import math
 def generate_random_frequencies(num_components, sampling_rate=250):
     """Generate random frequencies within the proper range to avoid aliasing.
 
+    This function generates an array of random integer frequencies that are
+    within the appropriate range, taking into account the Nyquist frequency
+    (half the sampling rate) to avoid aliasing.
+
     Parameters
     ----------
     num_components : int
-        Number of frequencies to generate.
+        Number of signal components (i.e., number of random frequencies to generate).
     sampling_rate : int, optional
-        Sampling rate in Hz. Must be at least 4 Hz. Default is 250 Hz.
+        The sampling rate in Hz. Must be at least 4 Hz. Default is 250 Hz.
 
     Returns
     -------
-    frequencies : numpy.ndarray
-        Array of randomly chosen integer frequencies (in Hz).
+    numpy.ndarray
+        Array of randomly chosen frequencies (in Hz).
 
     Raises
     ------
     TypeError
         If `num_components` or `sampling_rate` is not an integer.
     ValueError
-        If `sampling_rate` is less than 4 or if `num_components` is negative
+        If `sampling_rate` is less than 4 or if `num_components` is negative.
     """
     if not isinstance(num_components, (int, np.integer)) or isinstance(
         num_components, bool
@@ -37,7 +41,6 @@ def generate_random_frequencies(num_components, sampling_rate=250):
 
     if sampling_rate <= 3:
         raise ValueError("sampling_rate should be greater than or equal to 4")
-
     # Set the maximum value of frequencies to the Nyquist's frequency to avoid aliasing
     frequencies = np.random.randint(
         1, math.floor(sampling_rate / 2), size=num_components
@@ -46,41 +49,42 @@ def generate_random_frequencies(num_components, sampling_rate=250):
     return frequencies
 
 
+
 def generate_periodic_signal(
     frequencies, duration=1, sampling_rate=250, waveform_type="sin"
 ):
-    """Generate a periodic signal composed of the sum of sinusoidal or square
-    waves.
+    """Generate a periodic signal composed of the sum of sinusoidal or square waves.
+
+    This function generates a signal by summing sinusoidal or square waves
+    with the given frequencies. It returns the time values and the resulting
+    periodic signal.
 
     Parameters
     ----------
     frequencies : numpy.ndarray
         Array of frequencies of the waves (in Hz).
     duration : float, optional
-        Duration of the signal in seconds. Default is 1 second.
+        Duration of the signal in seconds. Default is 1.0 second.
     sampling_rate : int, optional
-        Sampling rate in Hz. Default is 250 Hz.
-    waveform_type : str, optional
-        Type of waveform to generate. Can be either 'sin' (default) for
-        sinusoidal waves or 'square' for square waves.
+        Sampling frequency in Hz. Default is 250 Hz.
+    waveform_type : {'sin', 'square'}, optional
+        Type of waveform ('sin' for sinusoidal wave, 'square' for square wave;
+        default is 'sin').
 
     Returns
     -------
-    time : numpy.ndarray
-        Array of time points (in seconds).
-    signal : numpy.ndarray
-        The resulting periodic signal.
+    tuple
+        A tuple containing:
+        - numpy.ndarray: The time points (array of time values).
+        - numpy.ndarray: The resulting periodic signal (sum of sinusoids or square waves).
 
     Raises
     ------
     TypeError
-        If `frequencies` is not an array of integers.
-        If `duration` or `sampling_rate` is not a number.
-        If `waveform_type` is not a string.
+        If `frequencies` is not a valid array of integers or if `duration`,
+        `sampling_rate`, or `waveform_type` is of the wrong type.
     ValueError
-        If any frequency is not positive or exceeds the Nyquist frequency.
-        If `duration` or `sampling_rate` is negative.
-        If `waveform_type` is not 'sin' or 'square'.
+        If `frequencies` are not valid or if `waveform_type` is not 'sin' or 'square'.
     """
     if not all(isinstance(f, (int, np.integer)) for f in frequencies):
         raise TypeError("Frequencies should be integer")
@@ -150,22 +154,25 @@ def generate_periodic_signal(
 def compute_signal_power(signal):
     """Compute the root mean square (RMS) power of the signal.
 
+    This function calculates the root mean square (RMS) of the given signal,
+    which represents the power of the signal in a statistical sense.
+
     Parameters
     ----------
     signal : numpy.ndarray
-        Input signal for which the RMS power will be calculated.
+        The input signal for which the RMS power will be calculated.
 
     Returns
     -------
-    power : float
-        The root mean square (RMS) power of the signal.
+    float
+        The RMS power of the signal.
 
     Raises
     ------
     ValueError
         If `signal` is an empty array.
     TypeError
-        If 'signal' is not a numeric array.
+        If `signal` is not a numeric array.
     """
     if signal.size == 0:
         raise ValueError("Input signal must be a non-empty array.")
@@ -173,19 +180,23 @@ def compute_signal_power(signal):
 
 
 def compute_white_noise_std(signal, snr_db):
-    """Compute the standard deviation of white Gaussian noise required to
-    achieve a specified SNR.
+    """Compute the standard deviation of white Gaussian noise required to achieve a
+    specified SNR.
+
+    This function calculates the standard deviation of white Gaussian noise
+    needed to achieve a given signal-to-noise ratio (SNR) based on the RMS
+    power of the input signal.
 
     Parameters
     ----------
     signal : numpy.ndarray
-        Input signal for which the noise standard deviation will be computed.
+        The input signal for which the noise standard deviation will be computed.
     snr_db : float
-        Desired signal-to-noise ratio (SNR) in decibels (dB).
+        The desired signal-to-noise ratio (SNR) in decibels (dB).
 
     Returns
     -------
-    noise_std : float
+    float
         The standard deviation of the white Gaussian noise needed to achieve the given SNR.
 
     Raises
@@ -204,24 +215,24 @@ def compute_white_noise_std(signal, snr_db):
 
 
 def generate_white_noise(signal, snr_db):
-    """Generate white Gaussian noise with a specified SNR relative to a given
-    signal.
+    """Generate white Gaussian noise with a specified SNR relative to a given signal.
+
+    This function generates white Gaussian noise with the correct standard deviation
+    to achieve the specified SNR, based on the input signal.
 
     Parameters
     ----------
     signal : numpy.ndarray or int
-        Input signal to determine the noise level. If a scalar (int or float)
-        is provided, it is treated as an array of length 1. If an array is
-        provided, its length determines the length of the generated noise.
+        The input signal to determine the noise level. If a scalar (int or float) is
+        provided, it is treated as an array of length 1. If an array is provided,
+        its length determines the length of the generated noise.
     snr_db : float
-        Desired signal-to-noise ratio (SNR) in decibels (dB).
+        The desired signal-to-noise ratio (SNR) in decibels (dB).
 
     Returns
     -------
-    noise : numpy.ndarray
-        White Gaussian noise with the computed standard deviation needed to
-        achieve the given SNR relative to the input signal. The output is an array
-        of the same length as the input signal, whether scalar or array.
+    numpy.ndarray
+        White Gaussian noise with the computed standard deviation needed to achieve the given SNR.
     """
     # Check if signal is a scalar and convert to array if so
     if np.isscalar(signal):
@@ -235,19 +246,20 @@ def generate_white_noise(signal, snr_db):
 def add_white_noise(signal, snr_db):
     """Add white Gaussian noise to a given signal with a specified SNR.
 
+    This function adds white Gaussian noise to a signal in order to achieve the specified SNR.
+
     Parameters
     ----------
     signal : numpy.ndarray or int
-        Input signal to which noise will be added. If a scalar (int or float)
+        The input signal to which noise will be added. If a scalar (int or float)
         is provided, it is treated as an array of length 1.
     snr_db : float
-        Desired signal-to-noise ratio (SNR) in decibels (dB).
+        The desired signal-to-noise ratio (SNR) in decibels (dB).
 
     Returns
     -------
-    noisy_signal : numpy.ndarray
-        The input signal with added white Gaussian noise. The output is an array
-        of the same length as the input signal, whether scalar or array.
+    numpy.ndarray
+        The input signal with added white Gaussian noise.
     """
 
     noisy_signal = signal + generate_white_noise(signal, snr_db)
@@ -257,25 +269,29 @@ def add_white_noise(signal, snr_db):
 def compute_fft(signal, sampling_rate=250):
     """Compute the full Fast Fourier Transform (FFT) of a real-valued signal.
 
-    This function calculates the two-sided Fourier Transform of a real-valued
-    input signal, returning both positive and negative frequency components
-    along with their corresponding complex Fourier coefficients.
+    This function computes the FFT of the given signal, returning the complex
+    coefficients and the corresponding frequency bins.
 
     Parameters
     ----------
     signal : numpy.ndarray
-        Input signal, assumed to be a 1D array of real values.
+        The input signal, assumed to be a 1D array of real values.
     sampling_rate : int or float, optional
-        Sampling rate of the signal in Hz (default is 250 Hz).
+        The sampling rate of the signal in Hz (default is 250 Hz).
 
     Returns
     -------
-    fft_coefficients : numpy.ndarray
-        The full FFT of the input signal. The output is complex-valued,
-        representing both magnitude and phase.
-    frequency_bins : numpy.ndarray
-        Array of frequency values corresponding to the FFT output, ranging
-        from negative to positive frequencies (centered at zero).
+    tuple
+        A tuple containing:
+        - numpy.ndarray: The FFT coefficients of the input signal.
+        - numpy.ndarray: The corresponding frequency bins.
+
+    Raises
+    ------
+    TypeError
+        If `signal` is not an array of numbers.
+    ValueError
+        If `sampling_rate` is less than or equal to 0.
     """
     if not all(
         isinstance(s, (int, float, np.integer, np.floating)) for s in signal
@@ -302,29 +318,24 @@ def compute_fft(signal, sampling_rate=250):
 def compute_ifft(spectrum):
     """Compute the inverse Fast Fourier Transform (IFFT).
 
-    This function calculates the inverse Fourier Transform of a given spectrum
-    and returns the resulting time-domain signal. The
-    IFFT is computed based on the provided spectrum.
+    This function computes the IFFT of the given complex-valued spectrum.
 
     Parameters
     ----------
     spectrum : numpy.ndarray
-        The input spectrum, assumed to be complex-valued, representing the
-        frequency-domain coefficients of the signal.
+        The input spectrum, assumed to be a complex-valued array.
 
     Returns
     -------
-    signal : numpy.ndarray
-        The complex time-domain signal obtained by applying the IFFT
-        to the input spectrum. The output is a 1D array of complex values,
-        representing the reconstructed signal.
+    numpy.ndarray
+        The time-domain signal obtained by applying the IFFT to the input spectrum.
 
     Raises
     ------
     TypeError
         If `spectrum` is not a NumPy array.
     ValueError
-    If `spectrum` does not contain complex values.
+        If `spectrum` does not contain complex values.
     """
     if not isinstance(spectrum, np.ndarray):
         raise TypeError("Input spectrum must be a NumPy array.")
@@ -340,33 +351,29 @@ def compute_ifft(spectrum):
 def apply_spectral_slope(signal, slope, sampling_rate=250):
     """Apply a linear spectral slope to a signal in the frequency domain.
 
-    This function computes the Fourier Transform of the input signal,
-    then modifies its spectrum by adding a linear slope based on the
-    corresponding frequency bins.
+    This function applies a linear modification to the signal's frequency spectrum
+    by adjusting its magnitude with a specified slope.
 
-        Parameters
+    Parameters
     ----------
     signal : numpy.ndarray
-        Input time-domain signal, assumed to be a 1D array of real values.
+        The input time-domain signal, assumed to be a 1D array of real values.
     slope : float
-        Slope value that defines the linear modification applied to the spectrum.
-    sampling_rate : int, optional
-        Sampling rate of the signal in Hz (default is 250 Hz).
+        The slope value that defines the linear modification applied to the spectrum.
+    sampling_rate : int or float, optional
+        The sampling rate of the signal in Hz (default is 250 Hz).
 
     Returns
     -------
-    modified_spectrum : numpy.ndarray
-        The modified frequency-domain representation of the signal after
-        applying the linear spectral slope. The output is complex-valued.
+    numpy.ndarray
+        The time-domain signal after the spectral slope is applied.
 
     Raises
-    -------
-    Raises:
-
+    ------
     TypeError
-        If slope is not a numeric type (integer or float).
+        If `signal` is not a valid numeric array, or `slope` is not a number.
     ValueError
-        If slope is negative.
+        If `signal` is empty.
     """
     if not isinstance(
         slope, (int, float, np.integer, np.floating)
@@ -385,7 +392,8 @@ def add_colored_noise(signal, snr_db, slope, sampling_rate):
 
     This function generates white noise at a specified signal-to-noise ratio (SNR),
     applies a spectral slope to shape its frequency content, and then adds the
-    resulting colored noise to the input signal.
+    resulting colored noise to the input signal. The output signal is real-valued,
+    but the process involves a complex-valued intermediate representation.
 
     **Note:** The output signal is complex-valued due to the spectral transformation.
     Discarding the imaginary part can alter the spectral characteristics of the noise.
@@ -399,14 +407,21 @@ def add_colored_noise(signal, snr_db, slope, sampling_rate):
         level of the noise relative to the signal.
     slope : float
         Slope value that defines the spectral modification applied to the noise.
-    sampling_rate : int
-        Sampling rate of the signal in Hz.
+    sampling_rate : int, optional
+        Sampling rate of the signal in Hz (default is 250 Hz).
 
     Returns
     -------
-    noisy_signal : numpy.ndarray
+    numpy.ndarray
         The input signal with added colored noise. The output is a 1D array
         of real values.
+
+    Raises
+    ------
+    TypeError
+        If `snr_db` is not a number or `signal` is not a valid array.
+    ValueError
+        If `signal` is empty or `slope` is not a valid number.
     """
     white_noise = generate_white_noise(signal, snr_db)
     colored_noise_spectrum = apply_spectral_slope(white_noise, slope)
