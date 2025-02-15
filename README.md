@@ -1,6 +1,7 @@
-# signal-noise-simulator
+# Signal-noise Simulator
 
-This repository contains a Python-based implementation for generating periodic signals. 
+This repository contains a Python-based toolkit for generating, manipulating, and analyzing periodic signals. It provides a set of scripts that allow users to create signals with sinusoidal or square components, add controlled noise (both white and colored), and perform spectral transformations. The repository includes core functions for signal generation, noise addition, and visualization, along with utilities for saving the results to CSV files. The project also features unit tests to ensure the stability and correctness of the code. It is designed to support basic signal processing tasks, including signal generation and noise simulation.
+
 
 ## Installation
 
@@ -25,233 +26,95 @@ You can install them using:
 ```bash
 python -m pip install -r requirements.txt
 ```
+## Documentation
+
+The documentation for this project is available on https://malvasochiara.github.io/signal-noise-simulator/.
+
+This site is generated using **Sphinx** from the docstrings in the code. It provides detailed explanations of the functionality of each script in the repository, including descriptions of the core functions and how they interact to generate, analyze, and manipulate periodic signals.
 
 ## Scripts overview
 
-### signal_toolkit.py
+##### `signal_toolkit.py`
+Provides core functions for generating and analyzing signals, including periodic signal creation, noise addition, and spectral transformations. Users can generate signals with sinusoidal or square components, introduce controlled noise (white or colored), and compute key properties like power and frequency content.
 
-The `signal_toolkit.py` script contains a set of functions for generating signals and adding noise. Below is an overview of the available functions:
-
-#### `generate_random_frequencies`
-Generates an array of random frequencies within a valid range to avoid aliasing. The frequencies are integers randomly selected between 1 Hz and the Nyquist frequency (half the sampling rate).
-
-**Parameters:**
-- `num_components` (int): Number of random frequencies to generate.
-- `sampling_rate` (int, optional): Sampling rate in Hz. Must be at least 4 Hz (default is 250 Hz).
-
-**Returns:**
-- `frequencies` (`numpy.ndarray`): Array of random integer frequencies in Hz.
+⚠️ Some spectral modifications produce complex-valued signals. Ignoring the imaginary part may alter the spectral characteristics, affecting the intended noise profile.
 
 ---
 
-#### `generate_periodic_signal`
-Generates a periodic signal composed of the sum of sinusoidal or square waves. The function allows users to specify the waveform type.
+##### `test_signal_toolkit.py`
+Contains unit tests for all functions in `signal_toolkit.py`, ensuring correctness and stability. The tests follow the unit testing approach and are implemented using pytest.
 
-**Parameters:**
-- `frequencies` (`numpy.ndarray`): Array of frequencies (in Hz) for the waves.
-- `duration` (float, optional): Duration of the signal in seconds (default is 1 second).
-- `sampling_rate` (int, optional): Sampling rate in Hz (default is 250 Hz).
-- `waveform_type` (str, optional): Type of waveform to generate. Can be either `'sin'` (default) for sinusoidal waves or `'square'` for square waves.
+**Usage:**
+To run all tests from the command line, navigate to the script's directory and execute:
 
-**Returns:**
-- `time` (`numpy.ndarray`): Array of time points for the signal (in seconds).
-- `signal` (`numpy.ndarray`): Array representing the sum of the generated waves.
+```bash
+pytest test_signal_toolkit.py
+```
 
-**Raises:**
-- `TypeError`: If the input parameters are not of the correct type.
-- `ValueError`: If any frequency is not positive or exceeds the Nyquist frequency, or if `waveform_type` is not `'sin'` or `'square'`.
+This will automatically discover and run all test cases, providing a report on passed and failed tests.
 
----
+**Test Coverage:**
+To check the test coverage and ensure all functions are properly tested, use `pytest-cov`:
 
-#### `compute_signal_power`
-Computes the root mean square (RMS) power of a given signal.
+```bash
+pytest test_signal_toolkit.py --cov=signal_toolkit
+```
 
-**Parameters:**
-- `signal` (`numpy.ndarray`): Input signal for which the RMS power will be calculated.
-
-**Returns:**
-- `power` (float): The root mean square (RMS) power of the signal.
+This command will generate a coverage report, highlighting which parts of `signal_toolkit.py` are tested and which are not.
 
 ---
 
-#### `compute_white_noise_std`
-Computes the standard deviation of white Gaussian noise required to achieve a specified signal-to-noise ratio (SNR).
-
-**Parameters:**
-- `signal` (`numpy.ndarray`): Input signal for which the noise standard deviation will be computed.
-- `snr_db` (float): Desired signal-to-noise ratio (SNR) in decibels (dB).
-
-**Returns:**
-- `noise_std` (float): The standard deviation of the white Gaussian noise needed to achieve the given SNR.
+##### `utils.py`
+Provides utility functions for plotting and saving signals. It includes tools for visualizing clean and noisy signals, comparing different noise levels, and exporting data to CSV files. These functions are used in `signal_builder.py` to display generated signals and store results for further analysis.
 
 ---
 
-#### `generate_white_noise`
-Generates white Gaussian noise with a specified SNR relative to a given signal.
+##### `signal_builder.py`
 
-**Parameters:**
-- `signal` (`numpy.ndarray` or `int`): Input signal to determine the noise level. If a scalar (int or float) is provided, it is treated as an array of length 1. If an array is provided, its length determines the length of the generated noise.
-- `snr_db` (float): Desired signal-to-noise ratio (SNR) in decibels (dB).
-
-**Returns:**
-- `noise` (`numpy.ndarray`): White Gaussian noise with the computed standard deviation needed to achieve the given SNR relative to the input signal. The output is an array of the same length as the input signal, whether scalar or array.
-
----
-
-#### `add_white_noise`
-Adds white Gaussian noise to a given signal with a specified SNR.
-
-**Parameters:**
-- `signal` (`numpy.ndarray` or `int`): Input signal to which noise will be added. If a scalar (int or float) is provided, it is treated as an array of length 1.
-- `snr_db` (float): Desired signal-to-noise ratio (SNR) in decibels (dB).
-
-**Returns:**
-- `noisy_signal` (`numpy.ndarray`): The input signal with added white Gaussian noise. The output is an array of the same length as the input signal, whether scalar or array.
-
-The generated signals can be used for further analysis, testing, or as inputs to other processing functions.
-
----
-#### `compute_fft`
-
-Computes the full Fast Fourier Transform (FFT) of a real-valued signal.
-
-
-**Parameters:**
-
-- `signal` (`numpy.ndarray`): Input signal, assumed to be a 1D array of real values.
-
-- `sampling_rate` (`int` or `float`, optional): Sampling rate of the signal in Hz (default is 250 Hz).
-
-**Returns:**
-
-- `fft_coefficients` (`numpy.ndarray`): The full FFT of the input signal. The output is complex-valued, representing both magnitude and phase.
-
-- `frequency_bins` (`numpy.ndarray`): Array of frequency values corresponding to the FFT output, ranging from negative to positive frequencies (centered at zero).
----
-
-#### `compute_ifft_and_return_real`
-Computes the inverse Fast Fourier Transform (IFFT) of a given spectrum and returns only the real part of the resulting time-domain signal.
-
-**Parameters:**
-
-- `spectrum (numpy.ndarray)`: The input spectrum, assumed to be complex-valued, representing the frequency-domain coefficients of the signal.
-
-**Returns:**
-
-- `real_signal (numpy.ndarray)`: The real part of the time-domain signal obtained by applying the IFFT to the input spectrum.
----
-#### `apply_spectral_slope`
-Applies a linear spectral slope to a signal in the frequency domain.
-
-**Parameters:**
-
-- `signal (numpy.ndarray)`: Input time-domain signal, assumed to be a 1D array of real values.
-- `slope (float)`: Slope value that defines the linear modification applied to the spectrum. Must be non-negative.
-- `sampling_rate (int, optional)`: Sampling rate of the signal in Hz (default is 250 Hz).
-
-**Returns:**
-
-- `modified_spectrum (numpy.ndarray)`: The modified frequency-domain representation of the signal after applying the linear spectral slope. The output is complex-valued.
----
-#### `add_colored_noise`
-
-Adds colored noise to a signal based on a given spectral slope.
-
-This function generates white noise at a specified signal-to-noise ratio (SNR), applies a spectral slope to shape its frequency content, and then adds the resulting colored noise to the input signal.
-
-**Note**: The output signal is complex-valued due to the spectral transformation. Discarding the imaginary part can alter the spectral characteristics of the noise.
-
-**Parameters:**
-
-- `signal (numpy.ndarray)`: Input time-domain signal, assumed to be a 1D array of real values.
-
-- `snr_db (float)`: Desired signal-to-noise ratio (SNR) in decibels, defining the power level of the noise relative to the signal.
-
-- `slope (float)`: Slope value that defines the spectral modification applied to the noise.
-
-- `sampling_rate (int)`: Sampling rate of the signal in Hz.
-
-**Returns:**
-
-- `noisy_signal` (numpy.ndarray): The input signal with added colored noise. The output is a 1D array of real values.
-
----
-### utils.py
-
-The `utils.py` file contains utility functions for saving generated data and handling file paths.
-
-**Main Functions**
-- `parse_arguments()`: Parses and processes command-line arguments for signal generation and plotting. It handles parameters such as the number of components, duration, sampling rate, waveform type, noise addition, and saving options.
-
-- `plot_clean_signal(time, signal)`: Plots a clean, noise-free periodic signal over time.
-
-- `plot_noisy_signal(time, signal, noisy_signal, snr)`: Plots both the clean and noisy versions of a signal, allowing for comparison when noise is added based on the given signal-to-noise ratio (SNR).
-
-- `save_signal_to_csv(time, signal, noisy_signal=None, save_path='.', waveform_type='sin', sampling_rate=250, snr=None, noise_type='white')`:Saves the generated signal (and the noisy version, if the option to add noise is used) to a CSV file. The filename includes the noise type (white or colored), the SNR, waveform type, and sampling rate. If the specified directory does not exist, it is automatically created.
-
-- `generate_and_plot_signal()`: Manages the full process of signal generation, noise addition, plotting, and saving. It retrieves arguments, generates the signal based on user preferences, and performs the required operations accordingly.
-
-These functions are used in signal_builder.py to manage data saving in a flexible and automated way.
-
----
-## signal_builder.py
-
-The `signal_builder.py`  script generates periodic signals by combining sinusoidal or square waves with either random or user-defined frequencies. The signal can be customized through command-line arguments, allowing users to control parameters such as duration, sampling rate, and waveform type. The generated signal can be visualized with an optional plot and saved to a CSV file. Noise can be added to the signal by specifying a signal-to-noise ratio (SNR). The script supports two types of noise: *white noise* (Gaussian) and *colored noise*, where the spectral slope can be adjusted to control how noise power increases with frequency. 
+Generates periodic signals by combining sinusoidal or square waves with either random or user-defined frequencies. The signal can be customized through command-line arguments, allowing users to control parameters such as duration, sampling rate, and waveform type. The generated signal can be visualized with an optional plot and saved to a CSV file. Noise can be added to the signal by specifying a signal-to-noise ratio (SNR). The script supports two types of noise: *white noise* (Gaussian) and *colored noise*, where the spectral slope can be adjusted to control how noise power increases with frequency.
 
 ⚠️ When using colored noise, the resulting signal is inherently complex-valued. Ignoring the imaginary part and considering only the real component may alter the spectral characteristics, potentially distorting the expected linear frequency dependence of the noise.
 
 The user can choose to save the generated signal and time data to a CSV file, with the filename automatically reflecting key parameters such as waveform type, sampling rate, noise type, and SNR. The save location can be specified, or the file will be stored in the current directory by default.
 
-### Usage
 
-To use the script from the command line, you can run the following command:
 
+## Usage  
+
+The script `signal_builder.py` can be run from the command line with different configurations. Below are some common usage examples.  
+
+### 1️⃣ Generate and Plot a Signal  
+To generate a signal with randomly chosen frequencies and plot it:  
+```bash
+python signal_builder.py --duration 1.0 --sampling_rate 200 --num_components 10 --plot
+``` 
+To specify custom frequencies:  
+```bash
+python signal_builder.py --duration 1.0 --sampling_rate 200 --frequencies 10,20,30 --plot
+```  
+
+### 2️⃣ Add Noise to the Signal  
+To generate a signal with white noise at 10 dB SNR:  
 ```bash
 python signal_builder.py --duration 1.0 --sampling_rate 200 --num_components 10 --snr 10 --plot
-```
-
-Alternatively, you can provide a custom list of frequencies:
-
-```bash
-python signal_builder.py --duration 1.0 --sampling_rate 200 --frequencies 10,20,30 --snr 10 --plot
-```
-In this case, the `--num_components` argument will be ignored if `--frequencies` is provided.
-
-To generate a signal with specific frequencies and add colored noise with a slope of 0.7:
+```  
+To generate a signal with colored noise (spectral slope 0.7):  
 ```bash
 python signal_builder.py --duration 1.0 --sampling_rate 200 --frequencies 10,20,30 --snr 10 --noise_type colored --slope 0.7 --plot
+```  
 
-```
-To save the generated signal, use the `--save` argument:
+### 3️⃣ Save the Generated Signal  
+To save the generated signal in the current directory:  
 ```bash
-python script.py --num_components 5 --duration 1.0 --sampling_rate 250 --save
-```
-By default, this saves the file in the current directory (./signal_data.csv). To specify a different directory:
+python signal_builder.py --num_components 5 --duration 1.0 --sampling_rate 250 --save
+```  
+To specify a custom save directory:  
 ```bash
-python script.py --num_components 5 --duration 1.0 --sampling_rate 250 --save /path/to/directory
-```
-**Arguments:**
-- `--duration`: Duration of the signal in seconds (e.g., 1.0 for 1 second).
-- `--sampling_rate`: Sampling rate of the signal in Hz (e.g., 200 for 200 Hz).
-- `--num_components`: Number of sinusoidal or square wave components to combine (e.g., 10).
-- `--frequencies`: Comma-separated list of frequencies in Hz (e.g., '10,20,30'). If provided, the `--num_components` argument will be ignored.
-- `--snr`: Signal-to-noise ratio (SNR) in dB (e.g., 10 for a 10 dB SNR). If omitted, the signal will be generated without noise.
-- `--noise_type`: Type of noise (white for white noise, colored for colored noise; default: white). Ignored if `--snr` is not specified.
-- `--slope`: Spectral slope for colored noise. Higher values increase noise power at higher frequencies. Ignored if `--noise_type` is white. Default: 0.5.
-- `--plot`: Option to plot the generated signal (add this flag to see the plot).
--  `--save`: Option to save signal and time data as a CSV file. If no path is provided, the file will be saved in the current directory.
+python signal_builder.py --num_components 5 --duration 1.0 --sampling_rate 250 --save /path/to/directory
+```  
 
-### Accessing Help
-To get a description of all available parameters and options, you can access the help documentation by running:
-
+### ℹ️ Accessing Help  
+For a complete list of parameters and their descriptions, run:  
 ```bash
 python signal_builder.py --help
 ```
-
-## Testing
-
-To ensure the correct functionality of the functions, various tests have been implemented. You can run the tests using **pytest** to verify that the function behaves as expected.
-
-## Work in Progress
-
-This repository is under active development. New features and improvements will be added incrementally.
