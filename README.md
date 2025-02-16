@@ -102,6 +102,16 @@ python signal_builder.py --duration 1.0 --sampling_rate 200 --frequencies 10,20,
 <img src="generated_results/custom_frequencies_10_20_30.png" width="600">
 </p>
 
+To generate a square wave instead of a sine wave:
+```bash
+python signal_builder.py --duration 1.0 --sampling_rate 200 --frequencies 10 --waveform_type square --plot
+```  
+
+<p align="center">
+<img src="generated_results/square_wave_10Hz.png" width="600">
+</p>
+
+
 ### 2️⃣ Add Noise to the Signal  
 To generate a signal with custom frequencies and white noise at 10 dB SNR:  
 ```bash
@@ -131,6 +141,9 @@ To specify a custom save directory:
 ```bash
 python signal_builder.py --num_components 5 --duration 1.0 --sampling_rate 250 --save /path/to/directory
 ```  
+
+When using the `--save` option, the generated signal is saved as a `.csv` file.
+You can find example saved signals (both clean and with noise) in the [`generated_results`](generated_results/) folder.
 
 ### ℹ️ Accessing Help  
 For a complete list of parameters and their descriptions, run:  
