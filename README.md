@@ -89,16 +89,18 @@ To generate a signal with randomly chosen frequencies and plot it:
 python signal_builder.py --duration 1.0 --sampling_rate 200 --num_components 10 --plot
 ``` 
 
-![Generated Signal Plot](generated_results/random_frequencies_10_components.png)
+<p align="center">
 <img src="generated_results/random_frequencies_10_components.png" width="600">
+</p>
 
 To specify custom frequencies:  
 ```bash
 python signal_builder.py --duration 1.0 --sampling_rate 200 --frequencies 10,20,30 --plot
 ```  
 
-![Generated Signal Plot](generated_results/custom_frequencies_10_20_30.png)
+<p align="center">
 <img src="generated_results/custom_frequencies_10_20_30.png" width="600">
+</p>
 
 ### 2️⃣ Add Noise to the Signal  
 To generate a signal with custom frequencies and white noise at 10 dB SNR:  
@@ -106,15 +108,18 @@ To generate a signal with custom frequencies and white noise at 10 dB SNR:
 python signal_builder.py --duration 1.0 --sampling_rate 200 --frequencies 10,20,30 --num_components 10 --snr 5 --plot
 ```  
 
-![Generated Noisy Signal Plot](generated_results/white_noise_5db.png)
+<p align="center">
 <img src="generated_results/white_noise_5db.png" width="600">
+</p>
 
 To generate a signal with custom frequencies and colored noise (spectral slope 0.7):  
 ```bash
 python signal_builder.py --duration 1.0 --sampling_rate 200 --frequencies 10,20,30 --snr 5 --noise_type colored --slope 0.7 --plot
 ```  
-![Generated Noisy Signal Plot](generated_results/colored_noise_5db.png)
+
+<p align="center">
 <img src="generated_results/colored_noise_5db.png" width="600">
+</p>
 
 ### 3️⃣ Save the Generated Signal  
 To save the generated signal in the current directory:  
