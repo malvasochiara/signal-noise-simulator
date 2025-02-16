@@ -3,6 +3,8 @@ __pycache__/
 check_what_happens.py
 .coverage
 *.csv
+!generated_results/signal_sin_200Hz.csv
+!generated_results/signal_sin_200Hz_white_5.0db.csv
 docs/source/check_what_happens.rst
 docs/_build/
 docs/.doctrees/
