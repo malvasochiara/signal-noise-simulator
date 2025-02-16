@@ -1,3 +1,11 @@
+## Table of Contents
+1. [Signal-noise Simulator](#signal-noise-simulator)
+2. [Installation](#installation)
+3. [Dependencies](#dependencies)
+4. [Documentation](#documentation)
+5. [Scripts overview](#scripts-overview)
+6. [Usage](#usage)
+
 # Signal-noise Simulator
 
 This repository contains a Python-based toolkit for generating, manipulating, and analyzing periodic signals. It provides a set of scripts that allow users to create signals with sinusoidal or square components, add controlled noise (both white and colored), and perform spectral transformations. The repository includes core functions for signal generation, noise addition, and visualization, along with utilities for saving the results to CSV files. The project also features unit tests to ensure the stability and correctness of the code. It is designed to support basic signal processing tasks, including signal generation and noise simulation.
