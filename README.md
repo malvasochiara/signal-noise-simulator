@@ -21,6 +21,7 @@ This repository contains the following folders and files:
 - [`test_signal_toolkit.py`](test_signal_toolkit.py): Unit tests for `signal_toolkit.py`.
 - [`utils.py`](utils.py): Utility functions for plotting and saving signals.
 - [`signal_builder.py`](signal_builder.py): Main script for generating and saving signals with optional noise.
+- [`requirements.txt`](requirements.txt): Contains the list of dependencies required for the project.
 
 ## Documentation
 
