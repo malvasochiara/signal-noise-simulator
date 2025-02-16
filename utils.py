@@ -1,4 +1,9 @@
 # -*- coding: utf-8 -*-
+'''
+Author: Chiara Malvaso
+Date: February 2025
+'''
+
 import matplotlib.pyplot as plt
 import numpy as np
 import os

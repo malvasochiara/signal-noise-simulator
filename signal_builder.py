@@ -1,4 +1,8 @@
 # -*- coding: utf-8 -*-
+'''
+Author: Chiara Malvaso
+Date: February 2025
+'''
 
 import argparse
 from utils import generate_and_plot_signal
