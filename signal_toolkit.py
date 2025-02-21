@@ -109,9 +109,6 @@ def generate_periodic_signal(
     if not isinstance(waveform_type, str):
         raise TypeError("Waveform type should be a string, sin or square.")
 
-    if waveform_type not in {"sin", "square"}:
-        raise ValueError("Waveform type should be sin or square.")
-
     if np.any(frequencies <= 0):
         raise ValueError("Frequencies should be positive and non-zero")
 
@@ -134,7 +131,6 @@ def generate_periodic_signal(
 
     # Ensure the function always returns a signal array of the same length as time, even when the frequencies array is empty,
     # to maintain consistency in the output format.
-
     if frequencies.size == 0:
         signal = np.zeros_like(time)
     else:
@@ -144,7 +140,7 @@ def generate_periodic_signal(
                 [np.sin(2 * np.pi * freq * time) for freq in frequencies],
                 axis=0,
             )
-        else:  # waveform_type == "square"
+        elif waveform_type == "square":
             signal = np.sum(
                 [
                     np.sign(np.sin(2 * np.pi * freq * time))
@@ -152,6 +148,8 @@ def generate_periodic_signal(
                 ],
                 axis=0,
             )
+        else:
+            raise ValueError("Waveform type should be sin or square.")
 
     return time, signal
 
