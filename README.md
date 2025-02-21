@@ -1,15 +1,39 @@
 ## Table of Contents
 1. [Signal-noise Simulator](#signal-noise-simulator)
-2. [Repository Structure](#repository-structure)
-3. [Documentation](#documentation)
-4. [Scripts overview](#scripts-overview)
-5. [Installation](#installation)
-6. [Dependencies](#dependencies)
+2. [Installation](#installation)
+3. [Dependencies](#dependencies)
+4. [Repository Structure](#repository-structure)
+5. [Documentation](#documentation)
+6. [Scripts overview](#scripts-overview)
 7. [Usage](#usage)
 
 # Signal-noise Simulator
 
 This repository contains a Python-based toolkit for generating, manipulating, and analyzing periodic signals. It provides a set of scripts that allow users to create signals with sinusoidal or square components, add controlled noise (both white and colored), and perform spectral transformations. The repository includes core functions for signal generation, noise addition, and visualization, along with utilities for saving the results to CSV files. The project also features unit tests to ensure the stability and correctness of the code. It is designed to support basic signal processing tasks, including signal generation and noise simulation.
+
+## Installation
+
+To use this repository, first clone it with:
+
+```bash
+git clone https://github.com/malvasochiara/signal-noise-simulator.git
+cd signal-noise-simulator
+```
+
+## Dependencies
+
+This project requires **Python ≥ 3.8** and the following Python packages:
+
+- `numpy==1.23.5`
+- `matplotlib==3.10.0`
+- `pytest==8.3.4`
+- `pytest-cov==6.0.0`
+
+You can install them using:
+
+```bash
+python -m pip install -r requirements.txt
+```
 
 ## Repository Structure
 
@@ -75,30 +99,6 @@ Generates periodic signals by combining sinusoidal or square waves with either r
 ⚠️ When using colored noise, the resulting signal is inherently complex-valued. Ignoring the imaginary part and considering only the real component may alter the spectral characteristics, potentially distorting the expected linear frequency dependence of the noise.
 
 The user can choose to save the generated signal and time data to a CSV file, with the filename automatically reflecting key parameters such as waveform type, sampling rate, noise type, and SNR. The save location can be specified, or the file will be stored in the current directory by default.
-
-## Installation
-
-To use this repository, first clone it with:
-
-```bash
-git clone https://github.com/malvasochiara/signal-noise-simulator.git
-cd signal-noise-simulator
-```
-
-## Dependencies
-
-This project requires **Python ≥ 3.8** and the following Python packages:
-
-- `numpy==1.23.5`
-- `matplotlib==3.10.0`
-- `pytest==8.3.4`
-- `pytest-cov==6.0.0`
-
-You can install them using:
-
-```bash
-python -m pip install -r requirements.txt
-```
 
 
 ## Usage  
