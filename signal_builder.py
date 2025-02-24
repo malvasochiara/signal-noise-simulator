@@ -38,6 +38,12 @@ def main():
     slope : float, optional
         Spectral slope for colored noise. Controls how noise power increases with frequency. Default is 0.5.
         Ignored if `snr` is not provided or if `noise_type` is 'white'.
+    freq_seed : int, optional
+        Random seed for frequency generation. If provided, ensures the same frequencies are generated
+        on each execution. If not set, frequencies will vary randomly.
+    noise_seed : int, optional
+        Random seed for noise generation. If provided, ensures the same noise is added to the signal
+        on each execution. If not set, noise will vary randomly.
     plot : bool, optional
         If set, the generated signal will be plotted.
     save : str, optional
@@ -112,6 +118,18 @@ def main():
             "noise type is 'white'."
         ),
     )
+    
+    parser.add_argument(
+    "--freq_seed",
+    type=int,
+    help="Random seed for frequency generation. If not provided, results will be different on each run.",
+    )
+    
+    parser.add_argument(
+        "--noise_seed",
+        type=int,
+        help="Random seed for noise generation. If not provided, results will be different on each run.",
+    )
 
     parser.add_argument(
         "--save",
@@ -120,6 +138,8 @@ def main():
         type=str,
         help="Path to save the signal and time data as a CSV file. If no path is provided, the file will be saved in the current directory.",
     )
+    
+
 
     args = parser.parse_args()
 

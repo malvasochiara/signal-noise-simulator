@@ -104,6 +104,10 @@ to a CSV file.</p>
 (frequency-dependent noise that increases linearly). Default is ‘white’. Ignored if <cite>snr</cite> is not provided.</p></li>
 <li><p><strong>slope</strong> (<em>float</em><em>, </em><em>optional</em>) – Spectral slope for colored noise. Controls how noise power increases with frequency. Default is 0.5.
 Ignored if <cite>snr</cite> is not provided or if <cite>noise_type</cite> is ‘white’.</p></li>
+<li><p><strong>freq_seed</strong> (<em>int</em><em>, </em><em>optional</em>) – Random seed for frequency generation. If provided, ensures the same frequencies are generated
+on each execution. If not set, frequencies will vary randomly.</p></li>
+<li><p><strong>noise_seed</strong> (<em>int</em><em>, </em><em>optional</em>) – Random seed for noise generation. If provided, ensures the same noise is added to the signal
+on each execution. If not set, noise will vary randomly.</p></li>
 <li><p><strong>plot</strong> (<em>bool</em><em>, </em><em>optional</em>) – If set, the generated signal will be plotted.</p></li>
 <li><p><strong>save</strong> (<em>str</em><em>, </em><em>optional</em>) – Path to save the signal and time data as a CSV file. If no path is provided, the file will be saved in
 the current directory.</p></li>

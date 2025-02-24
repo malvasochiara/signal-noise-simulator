@@ -104,11 +104,15 @@ adds noise if requested, and optionally plots or saves the signal.</p>
 </dd>
 <dt>frequencies<span class="classifier">str, optional</span></dt><dd><p>Comma-separated list of frequencies in Hz. If not provided, random frequencies are generated.</p>
 </dd>
+<dt>freq_seed<span class="classifier">int, optional</span></dt><dd><p>Random seed for frequency generation. If provided, ensures reproducibility of the randomly generated frequencies.</p>
+</dd>
 <dt>snr<span class="classifier">float, optional</span></dt><dd><p>Signal-to-noise ratio in dB. If provided, noise is added.</p>
 </dd>
 <dt>noise_type<span class="classifier">str, optional</span></dt><dd><p>Type of noise to add. Can be either ‘white’ for white noise or ‘colored’ for colored noise.</p>
 </dd>
 <dt>slope<span class="classifier">float, optional</span></dt><dd><p>Spectral slope for colored noise. This is ignored if <cite>noise_type</cite> is set to ‘white’.</p>
+</dd>
+<dt>noise_seed<span class="classifier">int, optional</span></dt><dd><p>Random seed for noise generation. If provided, ensures reproducibility of the added noise.</p>
 </dd>
 <dt>plot<span class="classifier">bool</span></dt><dd><p>If True, the generated signal is plotted.</p>
 </dd>
@@ -127,8 +131,9 @@ adds noise if requested, and optionally plots or saves the signal.</p>
 <p class="rubric">Notes</p>
 <ul class="simple">
 <li><p>If <cite>frequencies</cite> is provided, those values are used directly.</p></li>
-<li><p>Otherwise, <cite>num_components</cite> random frequencies are generated.</p></li>
-<li><p>If <cite>snr</cite> is specified, white noise or colored noise is added to the signal based on the <cite>noise_type</cite> argument.</p></li>
+<li><p>Otherwise, <cite>num_components</cite> random frequencies are generated, optionally using <cite>freq_seed</cite> for reproducibility.</p></li>
+<li><p>If <cite>snr</cite> is specified, white noise or colored noise is added to the signal based on the <cite>noise_type</cite> argument,
+optionally using <cite>noise_seed</cite> for reproducibility.</p></li>
 <li><p>If <cite>plot</cite> is set, the function plots the signal.</p></li>
 <li><p>If <cite>save</cite> is set, the function saves the signal data to a CSV file, including both clean and noisy signals if noise is added.</p></li>
 </ul>

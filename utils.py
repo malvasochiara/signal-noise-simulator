@@ -189,6 +189,9 @@ def generate_and_plot_signal(args):
         frequencies : str, optional
             Comma-separated list of frequencies in Hz. If not provided, random frequencies are generated.
 
+        freq_seed : int, optional
+            Random seed for frequency generation. If provided, ensures reproducibility of the randomly generated frequencies.
+
         snr : float, optional
             Signal-to-noise ratio in dB. If provided, noise is added.
 
@@ -197,6 +200,9 @@ def generate_and_plot_signal(args):
 
         slope : float, optional
             Spectral slope for colored noise. This is ignored if `noise_type` is set to 'white'.
+
+        noise_seed : int, optional
+            Random seed for noise generation. If provided, ensures reproducibility of the added noise.
 
         plot : bool
             If True, the generated signal is plotted.
@@ -212,17 +218,17 @@ def generate_and_plot_signal(args):
     Notes
     -----
     - If `frequencies` is provided, those values are used directly.
-    - Otherwise, `num_components` random frequencies are generated.
-    - If `snr` is specified, white noise or colored noise is added to the signal based on the `noise_type` argument.
+    - Otherwise, `num_components` random frequencies are generated, optionally using `freq_seed` for reproducibility.
+    - If `snr` is specified, white noise or colored noise is added to the signal based on the `noise_type` argument, 
+      optionally using `noise_seed` for reproducibility.
     - If `plot` is set, the function plots the signal.
     - If `save` is set, the function saves the signal data to a CSV file, including both clean and noisy signals if noise is added.
     """
-
     if args.frequencies:
         frequencies = np.array([int(f) for f in args.frequencies.split(",")])
     else:
         frequencies = generate_random_frequencies(
-            args.num_components, args.sampling_rate
+            args.num_components, seed=args.freq_seed, sampling_rate=args.sampling_rate
         )
 
     print("Frequencies used:", np.sort(frequencies))
@@ -234,7 +240,7 @@ def generate_and_plot_signal(args):
     noisy_signal = None
     if args.snr is not None:
         if args.noise_type == "white":
-            noisy_signal = add_white_noise(signal, args.snr)
+            noisy_signal = add_white_noise(signal, args.snr, seed=args.noise_seed)
         elif args.noise_type == "colored":
             noisy_signal = add_colored_noise(
                 signal, args.snr, args.slope, args.sampling_rate
