@@ -37,7 +37,8 @@ def main():
         (frequency-dependent noise that increases linearly). Default is 'white'. Ignored if `snr` is not provided.
     slope : float, optional
         Spectral slope for colored noise. Controls how noise power increases with frequency. Default is 0.5.
-        Ignored if `snr` is not provided or if `noise_type` is 'white'.
+        Ignored if `snr` is not provided or if `noise_type` is 'white'. If `noise_type` is 'white' and `slope` is specified,
+        an error will be raised.
     freq_seed : int, optional
         Random seed for frequency generation. If provided, ensures the same frequencies are generated
         on each execution. If not set, frequencies will vary randomly.
@@ -52,8 +53,9 @@ def main():
         
     Notes
     -----
-    - If `--snr` is not provided, noise-related arguments such as `--noise_type`, `--slope`, and `--noise_seed`
-      cannot be specified. This validation is done within the `main()` function.
+    - If `--snr` is not provided, noise-related arguments such as `--noise_type`, `--slope`, and `--noise_seed` 
+      should not be specified. If they are provided, a warning message will be displayed.
+    - If `--noise_type` is 'white' and `--slope` is specified, an error will be raised.
 
     Returns
     -------
@@ -63,13 +65,20 @@ def main():
     parser = argparse.ArgumentParser(
         description="Generate and plot a periodic signal with optional noise."
     )
-
-    parser.add_argument(
+    # Mutually exclusive group for num_components and frequencies
+    group = parser.add_mutually_exclusive_group(required=False)
+    group.add_argument(
         "--num_components",
         type=int,
         default=5,
-        help="Number of signal components (default: 5). Ignored if --frequencies is provided.",
+        help="Number of signal components (default: 5). Cannot be specified with --frequencies.",
     )
+    group.add_argument(
+        "--frequencies",
+        type=str,
+        help="Comma-separated list of frequencies in Hz (e.g., '10,20,30'). Cannot be specified with --num_components.",
+    )
+
     parser.add_argument(
         "--duration",
         type=float,
@@ -93,11 +102,7 @@ def main():
         action="store_true",
         help="If set, the generated signal will be plotted.",
     )
-    parser.add_argument(
-        "--frequencies",
-        type=str,
-        help="Comma-separated list of frequencies in Hz (e.g., '10,20,30'). If provided, --num_components is ignored.",
-    )
+
     parser.add_argument(
         "--snr",
         type=float,
@@ -120,7 +125,7 @@ def main():
         help=( 
             "Slope of the colored noise spectrum. Controls how noise power increases "
             "with frequency. Default is 0.5. Ignored if --snr is not provided or if "
-            "noise type is 'white'."
+            "noise type is 'white'. If --noise_type is 'white' and --slope is specified, an error will be raised."
         ),
     )
     
@@ -144,16 +149,16 @@ def main():
         help="Path to save the signal and time data as a CSV file. If no path is provided, the file will be saved in the current directory.",
     )
     
-
-
     args = parser.parse_args()
-
-    # Validate that no noise-related arguments are present if --snr is not provided
+    
     if args.snr is None:
-        if args.noise_type or args.slope or args.noise_seed:
-            parser.error("If --snr is not provided, noise-related arguments (such as --noise_type, --slope, --noise_seed) cannot be specified."
-            )
-    generate_and_plot_signal(args)
+        if args.noise_type != "white" or args.slope is not None or args.noise_seed is not None:
+            print("Warning: If --snr is not provided, noise-related arguments (such as --noise_type, --slope, --noise_seed) have no effect.")
+    
+    if args.noise_type == "white" and args.slope is not None:
+        parser.error("The --slope argument cannot be used when --noise_type is 'white'.")
 
+    generate_and_plot_signal(args)
+    
 if __name__ == "__main__":
     main()

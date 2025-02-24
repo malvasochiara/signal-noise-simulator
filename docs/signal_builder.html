@@ -103,7 +103,8 @@ to a CSV file.</p>
 <li><p><strong>noise_type</strong> (<em>{'white'</em><em>, </em><em>'colored'}</em><em>, </em><em>optional</em>) – Type of noise to add when <cite>snr</cite> is specified. Choices are ‘white’ (Gaussian white noise) or ‘colored’
 (frequency-dependent noise that increases linearly). Default is ‘white’. Ignored if <cite>snr</cite> is not provided.</p></li>
 <li><p><strong>slope</strong> (<em>float</em><em>, </em><em>optional</em>) – Spectral slope for colored noise. Controls how noise power increases with frequency. Default is 0.5.
-Ignored if <cite>snr</cite> is not provided or if <cite>noise_type</cite> is ‘white’.</p></li>
+Ignored if <cite>snr</cite> is not provided or if <cite>noise_type</cite> is ‘white’. If <cite>noise_type</cite> is ‘white’ and <cite>slope</cite> is specified,
+an error will be raised.</p></li>
 <li><p><strong>freq_seed</strong> (<em>int</em><em>, </em><em>optional</em>) – Random seed for frequency generation. If provided, ensures the same frequencies are generated
 on each execution. If not set, frequencies will vary randomly.</p></li>
 <li><p><strong>noise_seed</strong> (<em>int</em><em>, </em><em>optional</em>) – Random seed for noise generation. If provided, ensures the same noise is added to the signal
@@ -117,7 +118,8 @@ the current directory.</p></li>
 <p class="rubric">Notes</p>
 <ul class="simple">
 <li><p>If <cite>–snr</cite> is not provided, noise-related arguments such as <cite>–noise_type</cite>, <cite>–slope</cite>, and <cite>–noise_seed</cite>
-cannot be specified. This validation is done within the <cite>main()</cite> function.</p></li>
+should not be specified. If they are provided, a warning message will be displayed.</p></li>
+<li><p>If <cite>–noise_type</cite> is ‘white’ and <cite>–slope</cite> is specified, an error will be raised.</p></li>
 </ul>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>

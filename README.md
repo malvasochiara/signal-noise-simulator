@@ -100,6 +100,7 @@ Generates periodic signals by combining sinusoidal or square waves with either r
 
 The user can choose to save the generated signal and time data to a CSV file, with the filename automatically reflecting key parameters such as waveform type, sampling rate, noise type, and SNR. The filename also includes a timestamp to ensure uniqueness. The save location can be specified, or the file will be stored in the current directory by default.
 
+⚠️ Warning: Some parameters cannot be used together. For example, manually specified frequencies and the number of signal components exclude each other, and certain noise-related parameters are valid only under specific conditions. Additionally, the spectral slope of the noise (slope) is applicable only to colored noise and cannot be used with white noise. To avoid errors or unexpected behavior, it is recommended to consult the command `--help` or the documentation for further details on allowed combinations.
 
 ## Usage  
 
