@@ -140,8 +140,8 @@ def save_signal_to_csv(
     - The filename follows the format:
       `signal_<waveform_type>_<sampling_rate>Hz[_<noise_type>_<snr>db]_d-m-Y_H-M-S.csv`
     """
-    if not os.path.exists(save_path):
-        os.makedirs(save_path)
+    os.makedirs(save_path, exist_ok=True)
+
         
     timestamp = datetime.now().strftime("%d-%m-%Y_%H-%M-%S")
 
