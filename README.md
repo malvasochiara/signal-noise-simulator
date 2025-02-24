@@ -94,11 +94,11 @@ Provides utility functions for plotting and saving signals. It includes tools fo
 
 ##### `signal_builder.py`
 
-Generates periodic signals by combining sinusoidal or square waves with either random or user-defined frequencies. The signal can be customized through command-line arguments, allowing users to control parameters such as duration, sampling rate, and waveform type. The generated signal can be visualized with an optional plot and saved to a CSV file. Noise can be added to the signal by specifying a signal-to-noise ratio (SNR). The script supports two types of noise: *white noise* (Gaussian) and *colored noise*, where the spectral slope can be adjusted to control how noise power increases with frequency.
+Generates periodic signals by combining sinusoidal or square waves with either random or user-defined frequencies. The signal can be customized through command-line arguments, allowing users to control parameters such as duration, sampling rate, and waveform type. The generated signal can be visualized with an optional plot and saved to a CSV file. Noise can be added to the signal by specifying a signal-to-noise ratio (SNR). The script supports two types of noise: *white noise* (Gaussian) and *colored noise*, where the spectral slope can be adjusted to control how noise power increases with frequency. For reproducibility, the user can independently set a seed for frequency generation and a separate seed for noise generation.
 
 ⚠️ When using colored noise, the resulting signal is inherently complex-valued. Ignoring the imaginary part and considering only the real component may alter the spectral characteristics, potentially distorting the expected linear frequency dependence of the noise.
 
-The user can choose to save the generated signal and time data to a CSV file, with the filename automatically reflecting key parameters such as waveform type, sampling rate, noise type, and SNR. The save location can be specified, or the file will be stored in the current directory by default.
+The user can choose to save the generated signal and time data to a CSV file, with the filename automatically reflecting key parameters such as waveform type, sampling rate, noise type, and SNR. The filename also includes a timestamp to ensure uniqueness. The save location can be specified, or the file will be stored in the current directory by default.
 
 
 ## Usage  
