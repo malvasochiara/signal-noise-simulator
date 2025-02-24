@@ -225,11 +225,12 @@ def compute_white_noise_std(signal, snr_db):
     return signal_rms / (10 ** (snr_db / 10))
 
 
-def generate_white_noise(signal, snr_db):
+def generate_white_noise(signal, snr_db, seed=None):
     """Generate white Gaussian noise with a specified SNR relative to a given signal.
 
     This function generates white Gaussian noise with the correct standard deviation
-    to achieve the specified SNR, based on the input signal.
+    to achieve the specified SNR, based on the input signal. An optional random seed
+    can be provided to ensure reproducibility.
 
     Parameters
     ----------
@@ -239,22 +240,34 @@ def generate_white_noise(signal, snr_db):
         its length determines the length of the generated noise.
     snr_db : float
         The desired signal-to-noise ratio (SNR) in decibels (dB).
+    seed : int, optional
+        Random seed for reproducibility. If None, no seed is set.
 
     Returns
     -------
     numpy.ndarray
         White Gaussian noise with the computed standard deviation needed to achieve the given SNR.
+        
+    Raises
+    ------
+    TypeError
+        If `seed` is not an integer.
+    ValueError
+        If `seed` is not in the allowed range (0, 2**32 -1)
     """
     # Check if signal is a scalar and convert to array if so
     if np.isscalar(signal):
         signal = np.array([signal])
+        
+    if seed:
+        np.random.seed(seed)
 
     noise_std = compute_white_noise_std(signal, snr_db)
     noise = np.random.normal(0, noise_std, len(signal))
     return noise
 
 
-def add_white_noise(signal, snr_db):
+def add_white_noise(signal, snr_db, seed = None):
     """Add white Gaussian noise to a given signal with a specified SNR.
 
     This function adds white Gaussian noise to a signal in order to achieve the specified SNR.
@@ -266,14 +279,16 @@ def add_white_noise(signal, snr_db):
         is provided, it is treated as an array of length 1.
     snr_db : float
         The desired signal-to-noise ratio (SNR) in decibels (dB).
-
+    seed : int, optional
+        Random seed for reproducibility. If None, no seed is set.
+        
     Returns
     -------
     numpy.ndarray
         The input signal with added white Gaussian noise.
     """
 
-    noisy_signal = signal + generate_white_noise(signal, snr_db)
+    noisy_signal = signal + generate_white_noise(signal, snr_db, seed)
     return noisy_signal
 
 

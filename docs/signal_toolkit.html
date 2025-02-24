@@ -128,7 +128,7 @@ of real values.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="signal_toolkit.add_white_noise">
-<span class="sig-prename descclassname"><span class="pre">signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">add_white_noise</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">snr_db</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/signal_toolkit.html#add_white_noise"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#signal_toolkit.add_white_noise" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">add_white_noise</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">snr_db</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/signal_toolkit.html#add_white_noise"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#signal_toolkit.add_white_noise" title="Link to this definition"></a></dt>
 <dd><p>Add white Gaussian noise to a given signal with a specified SNR.</p>
 <p>This function adds white Gaussian noise to a signal in order to achieve the specified SNR.</p>
 <dl class="field-list simple">
@@ -137,6 +137,7 @@ of real values.</p>
 <li><p><strong>signal</strong> (<em>numpy.ndarray</em><em> or </em><em>int</em>) – The input signal to which noise will be added. If a scalar (int or float)
 is provided, it is treated as an array of length 1.</p></li>
 <li><p><strong>snr_db</strong> (<em>float</em>) – The desired signal-to-noise ratio (SNR) in decibels (dB).</p></li>
+<li><p><strong>seed</strong> (<em>int</em><em>, </em><em>optional</em>) – Random seed for reproducibility. If None, no seed is set.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -355,10 +356,11 @@ the results will be different on each call unless explicitly set.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="signal_toolkit.generate_white_noise">
-<span class="sig-prename descclassname"><span class="pre">signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">generate_white_noise</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">snr_db</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/signal_toolkit.html#generate_white_noise"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#signal_toolkit.generate_white_noise" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">generate_white_noise</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">snr_db</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/signal_toolkit.html#generate_white_noise"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#signal_toolkit.generate_white_noise" title="Link to this definition"></a></dt>
 <dd><p>Generate white Gaussian noise with a specified SNR relative to a given signal.</p>
 <p>This function generates white Gaussian noise with the correct standard deviation
-to achieve the specified SNR, based on the input signal.</p>
+to achieve the specified SNR, based on the input signal. An optional random seed
+can be provided to ensure reproducibility.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -366,6 +368,7 @@ to achieve the specified SNR, based on the input signal.</p>
 provided, it is treated as an array of length 1. If an array is provided,
 its length determines the length of the generated noise.</p></li>
 <li><p><strong>snr_db</strong> (<em>float</em>) – The desired signal-to-noise ratio (SNR) in decibels (dB).</p></li>
+<li><p><strong>seed</strong> (<em>int</em><em>, </em><em>optional</em>) – Random seed for reproducibility. If None, no seed is set.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -373,6 +376,12 @@ its length determines the length of the generated noise.</p></li>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>TypeError</strong> – If <cite>seed</cite> is not an integer.</p></li>
+<li><p><strong>ValueError</strong> – If <cite>seed</cite> is not in the allowed range (0, 2**32 -1)</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>

@@ -113,9 +113,12 @@
 <li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_generate_periodic_signal_zero_duration"><code class="docutils literal notranslate"><span class="pre">test_generate_periodic_signal_zero_duration()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_generate_white_noise_constant_signal"><code class="docutils literal notranslate"><span class="pre">test_generate_white_noise_constant_signal()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_generate_white_noise_high_snr"><code class="docutils literal notranslate"><span class="pre">test_generate_white_noise_high_snr()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_generate_white_noise_invalid_seed_type"><code class="docutils literal notranslate"><span class="pre">test_generate_white_noise_invalid_seed_type()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_generate_white_noise_invalid_seed_value"><code class="docutils literal notranslate"><span class="pre">test_generate_white_noise_invalid_seed_value()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_generate_white_noise_length"><code class="docutils literal notranslate"><span class="pre">test_generate_white_noise_length()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_generate_white_noise_negative_snr"><code class="docutils literal notranslate"><span class="pre">test_generate_white_noise_negative_snr()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_generate_white_noise_noise_std"><code class="docutils literal notranslate"><span class="pre">test_generate_white_noise_noise_std()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_generate_white_noise_same_seed"><code class="docutils literal notranslate"><span class="pre">test_generate_white_noise_same_seed()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_generate_white_noise_scalar_signal"><code class="docutils literal notranslate"><span class="pre">test_generate_white_noise_scalar_signal()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_generate_white_noise_scalar_signal_float"><code class="docutils literal notranslate"><span class="pre">test_generate_white_noise_scalar_signal_float()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_generate_white_noise_zero_mean"><code class="docutils literal notranslate"><span class="pre">test_generate_white_noise_zero_mean()</span></code></a></li>
@@ -837,7 +840,7 @@ duration = 0 s.</p>
 <span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_generate_white_noise_constant_signal</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_generate_white_noise_constant_signal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_generate_white_noise_constant_signal" title="Link to this definition"></a></dt>
 <dd><p>Test that generate_white_noise generates noise even when the input signal is
 constant.</p>
-<p>GIVEN: A constant signal and a valid SNR.</p>
+<p>GIVEN: A constant signal, a valid SNR and fixed seed.</p>
 <p>WHEN: The generate_white_noise function is called with these parameters.</p>
 <p>THEN: The generated noise is not all zeros.</p>
 </dd></dl>
@@ -846,9 +849,29 @@ constant.</p>
 <dt class="sig sig-object py" id="test_signal_toolkit.test_generate_white_noise_high_snr">
 <span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_generate_white_noise_high_snr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_generate_white_noise_high_snr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_generate_white_noise_high_snr" title="Link to this definition"></a></dt>
 <dd><p>Test that generate_white_noise returns near-zero noise for a very high SNR.</p>
-<p>GIVEN: A very high signal-to-noise ratio (SNR) and a valid input signal.</p>
+<p>GIVEN: A very high signal-to-noise ratio (SNR), a valid input signal and fixed seed.</p>
 <p>WHEN: The generate_white_noise function is called with these parameters.</p>
 <p>THEN: The generated noise should be close to zero for all elements.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_generate_white_noise_invalid_seed_type">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_generate_white_noise_invalid_seed_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_generate_white_noise_invalid_seed_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_generate_white_noise_invalid_seed_type" title="Link to this definition"></a></dt>
+<dd><p>Test that the generate_white_noise raises an error when a non-integer
+seed is provided.</p>
+<p>GIVEN: A valid signal and SNR, floating seed.</p>
+<p>WHEN: The generate_white_noise function is called with these parameters.</p>
+<p>THEN: A TypeError is raised.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_generate_white_noise_invalid_seed_value">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_generate_white_noise_invalid_seed_value</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_generate_white_noise_invalid_seed_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_generate_white_noise_invalid_seed_value" title="Link to this definition"></a></dt>
+<dd><p>Test that the generate_white_noise raises an error when a negative
+seed is provided.</p>
+<p>GIVEN: A valid signal and SNR, negative seed.</p>
+<p>WHEN: The generate_white_noise function is called with these parameters.</p>
+<p>THEN: A ValueError is raised.</p>
 </dd></dl>
 
 <dl class="py function">
@@ -856,7 +879,7 @@ constant.</p>
 <span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_generate_white_noise_length</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_generate_white_noise_length"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_generate_white_noise_length" title="Link to this definition"></a></dt>
 <dd><p>Test that generate_white_noise generates noise of the same length as the input
 signal.</p>
-<p>GIVEN: A valid SNR and a valid input signal.</p>
+<p>GIVEN: A valid SNR a valid input signal and fixed seed.</p>
 <p>WHEN: The generate_white_noise function is called with these parameters.</p>
 <p>THEN: The return value has the same length as the input signal.</p>
 </dd></dl>
@@ -865,7 +888,7 @@ signal.</p>
 <dt class="sig sig-object py" id="test_signal_toolkit.test_generate_white_noise_negative_snr">
 <span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_generate_white_noise_negative_snr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_generate_white_noise_negative_snr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_generate_white_noise_negative_snr" title="Link to this definition"></a></dt>
 <dd><p>Test that generate_white_noise generates high-amplitude noise for negative SNR.</p>
-<p>GIVEN: A valid signal and a negative SNR.</p>
+<p>GIVEN: A valid signal, a negative SNR and fixed seed.</p>
 <p>WHEN: The generate_white_noise function is called with these parameters.</p>
 <p>THEN: The noise standard deviation is larger than the signal’s standard deviation.</p>
 </dd></dl>
@@ -874,7 +897,7 @@ signal.</p>
 <dt class="sig sig-object py" id="test_signal_toolkit.test_generate_white_noise_noise_std">
 <span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_generate_white_noise_noise_std</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_generate_white_noise_noise_std"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_generate_white_noise_noise_std" title="Link to this definition"></a></dt>
 <dd><p>Test the standard deviation of noise generated by generate_white_noise.</p>
-<p>GIVEN: A valid signal and a specified signal-to-noise ratio (SNR) in dB.</p>
+<p>GIVEN: A valid signal, a specified signal-to-noise ratio (SNR) in dB and fixed seed.</p>
 <p>WHEN: The generate_white_noise function is called with these parameters.</p>
 <dl class="simple">
 <dt>THEN: The standard deviation of the generated noise matches the expected value</dt><dd><p>within a small numerical tolerance.</p>
@@ -883,10 +906,22 @@ signal.</p>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_generate_white_noise_same_seed">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_generate_white_noise_same_seed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_generate_white_noise_same_seed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_generate_white_noise_same_seed" title="Link to this definition"></a></dt>
+<dd><dl class="simple">
+<dt>Test that generate_white_noise return the same array when called two times</dt><dd><p>withe the same seed</p>
+</dd>
+</dl>
+<p>GIVEN: Valid signal, SNR and seed.</p>
+<p>WHEN: The generate_white_noise function is called two times with these parameters.</p>
+<p>THEN: The returned noise arrays are the same.</p>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="test_signal_toolkit.test_generate_white_noise_scalar_signal">
 <span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_generate_white_noise_scalar_signal</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_generate_white_noise_scalar_signal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_generate_white_noise_scalar_signal" title="Link to this definition"></a></dt>
 <dd><p>Test that generate_white_noise generates noise for a scalar signal.</p>
-<p>GIVEN: A valid SNR and a scalar signal (single value).</p>
+<p>GIVEN: A valid SNR, a scalar signal (single value) and fixed seed.</p>
 <p>WHEN: The generate_white_noise function is called with these parameters.</p>
 <p>THEN: The return value is an array of length 1.</p>
 </dd></dl>
@@ -896,7 +931,7 @@ signal.</p>
 <span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_generate_white_noise_scalar_signal_float</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_generate_white_noise_scalar_signal_float"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_generate_white_noise_scalar_signal_float" title="Link to this definition"></a></dt>
 <dd><p>Test that generate_white_noise works when the signal is a single floating-point
 number.</p>
-<p>GIVEN: A scalar float as signal.</p>
+<p>GIVEN: A scalar float as signal and fixed seed.</p>
 <p>WHEN: The generate_white_noise function is called with these parameters.</p>
 <p>THEN: The return value is an array of length 1.</p>
 </dd></dl>
@@ -905,7 +940,7 @@ number.</p>
 <dt class="sig sig-object py" id="test_signal_toolkit.test_generate_white_noise_zero_mean">
 <span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_generate_white_noise_zero_mean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_generate_white_noise_zero_mean"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_generate_white_noise_zero_mean" title="Link to this definition"></a></dt>
 <dd><p>Test that generate_white_noise generates noise with zero mean within a tolerance.</p>
-<p>GIVEN: A valid SNR and a valid input signal.</p>
+<p>GIVEN: A valid SNR, a valid input signal and fixed seed.</p>
 <p>WHEN: The generate_white_noise function is called with these parameters.</p>
 <p>THEN: The return value has a mean of 0 within the tolerance of one standard deviation of the noise.</p>
 </dd></dl>
@@ -915,7 +950,7 @@ number.</p>
 <span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_generate_white_noise_zero_signal</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_generate_white_noise_zero_signal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_generate_white_noise_zero_signal" title="Link to this definition"></a></dt>
 <dd><p>Test that generate_white_noise returns all zeros when the input signal is all
 zeros.</p>
-<p>GIVEN: A zero signal and a valid SNR.</p>
+<p>GIVEN: A zero signal, a valid SNR and fixed seed.</p>
 <p>WHEN: The generate_white_noise function is called with these parameters.</p>
 <p>THEN: The generated noise is an array of zeros.</p>
 </dd></dl>
