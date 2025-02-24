@@ -243,7 +243,7 @@ def generate_and_plot_signal(args):
             noisy_signal = add_white_noise(signal, args.snr, seed=args.noise_seed)
         elif args.noise_type == "colored":
             noisy_signal = add_colored_noise(
-                signal, args.snr, args.slope, args.sampling_rate
+                signal, args.snr, args.slope, args.sampling_rate, seed=args.noise_seed
             )
         plot_noisy_signal(time, signal, noisy_signal, args.snr)
     elif args.plot:

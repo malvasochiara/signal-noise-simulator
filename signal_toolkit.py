@@ -413,7 +413,7 @@ def apply_spectral_slope(signal, slope, sampling_rate=250):
     return fft_coefficients + slope * frequency_bins
 
 
-def add_colored_noise(signal, snr_db, slope, sampling_rate):
+def add_colored_noise(signal, snr_db, slope, sampling_rate, seed = None):
     """Add colored noise to a signal based on a given spectral slope.
 
     This function generates white noise at a specified signal-to-noise ratio (SNR),
@@ -435,6 +435,8 @@ def add_colored_noise(signal, snr_db, slope, sampling_rate):
         Slope value that defines the spectral modification applied to the noise.
     sampling_rate : int, optional
         Sampling rate of the signal in Hz (default is 250 Hz).
+    seed : int, optional
+        Random seed for reproducibility. If None, no seed is set.
 
     Returns
     -------
@@ -449,7 +451,7 @@ def add_colored_noise(signal, snr_db, slope, sampling_rate):
     ValueError
         If `signal` is empty or `slope` is not a valid number.
     """
-    white_noise = generate_white_noise(signal, snr_db)
+    white_noise = generate_white_noise(signal, snr_db, seed)
     colored_noise_spectrum = apply_spectral_slope(white_noise, slope)
     colored_noise = compute_ifft(colored_noise_spectrum)
     return signal + colored_noise

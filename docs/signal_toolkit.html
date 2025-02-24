@@ -92,7 +92,7 @@
 Date: February 2025</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="signal_toolkit.add_colored_noise">
-<span class="sig-prename descclassname"><span class="pre">signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">add_colored_noise</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">snr_db</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">slope</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sampling_rate</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/signal_toolkit.html#add_colored_noise"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#signal_toolkit.add_colored_noise" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">add_colored_noise</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">snr_db</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">slope</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sampling_rate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/signal_toolkit.html#add_colored_noise"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#signal_toolkit.add_colored_noise" title="Link to this definition"></a></dt>
 <dd><p>Add colored noise to a signal based on a given spectral slope.</p>
 <p>This function generates white noise at a specified signal-to-noise ratio (SNR),
 applies a spectral slope to shape its frequency content, and then adds the
@@ -108,6 +108,7 @@ Discarding the imaginary part can alter the spectral characteristics of the nois
 level of the noise relative to the signal.</p></li>
 <li><p><strong>slope</strong> (<em>float</em>) – Slope value that defines the spectral modification applied to the noise.</p></li>
 <li><p><strong>sampling_rate</strong> (<em>int</em><em>, </em><em>optional</em>) – Sampling rate of the signal in Hz (default is 250 Hz).</p></li>
+<li><p><strong>seed</strong> (<em>int</em><em>, </em><em>optional</em>) – Random seed for reproducibility. If None, no seed is set.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
