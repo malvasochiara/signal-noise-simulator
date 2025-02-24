@@ -124,9 +124,12 @@
 <li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_invalid_numcomponents_value"><code class="docutils literal notranslate"><span class="pre">test_invalid_numcomponents_value()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_invalid_sampling_rate_type_random_frequencies"><code class="docutils literal notranslate"><span class="pre">test_invalid_sampling_rate_type_random_frequencies()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_invalid_sampling_rate_value_random_frequencies"><code class="docutils literal notranslate"><span class="pre">test_invalid_sampling_rate_value_random_frequencies()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_invalid_seed_type"><code class="docutils literal notranslate"><span class="pre">test_invalid_seed_type()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_invalid_seed_value"><code class="docutils literal notranslate"><span class="pre">test_invalid_seed_value()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_large_number_of_components"><code class="docutils literal notranslate"><span class="pre">test_large_number_of_components()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_minimal_valid_numcomponent"><code class="docutils literal notranslate"><span class="pre">test_minimal_valid_numcomponent()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_minimal_valid_sampling_rate"><code class="docutils literal notranslate"><span class="pre">test_minimal_valid_sampling_rate()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_same_seed"><code class="docutils literal notranslate"><span class="pre">test_same_seed()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#test_signal_toolkit.test_zero_numcomponents"><code class="docutils literal notranslate"><span class="pre">test_zero_numcomponents()</span></code></a></li>
 </ul>
 </li>
@@ -526,20 +529,20 @@ invalid SNR type.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="test_signal_toolkit.test_frequencies_length_with_default_sampling_rate">
 <span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_frequencies_length_with_default_sampling_rate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_frequencies_length_with_default_sampling_rate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_frequencies_length_with_default_sampling_rate" title="Link to this definition"></a></dt>
-<dd><p>Test that the generate_random_frequencies        returns an array of frequencies
+<dd><p>Test that the generate_random_frequencies returns an array of frequencies
 with the appropriate length, when called with the default parameter.</p>
-<p>GIVEN: A valid num_components and the default value for sampling_rate.</p>
-<p>WHEN: The generate_random_frequencies        function is called with these parameters.</p>
+<p>GIVEN: A valid num_components, fixed random seed and default value for sampling_rate.</p>
+<p>WHEN: The generate_random_frequencies function is called with these parameters.</p>
 <p>THEN: frequencies is an array of length equal to num_components.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="test_signal_toolkit.test_frequencies_length_with_valid_sampling_rate">
 <span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_frequencies_length_with_valid_sampling_rate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_frequencies_length_with_valid_sampling_rate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_frequencies_length_with_valid_sampling_rate" title="Link to this definition"></a></dt>
-<dd><p>Test that the generate_random_frequencies        returns an array of frequencies
+<dd><p>Test that the generate_random_frequencies returns an array of frequencies
 with the appropriate length, when called with a valid sampling_rate.</p>
-<p>GIVEN: A valid num_components and sampling_rate.</p>
-<p>WHEN: The generate_random_frequencies        function is called with these parameters.</p>
+<p>GIVEN: A valid num_components, fixed random seed and valid sampling_rate.</p>
+<p>WHEN: The generate_random_frequencies function is called with these parameters.</p>
 <p>THEN: frequencies is an array of length equal to num_components.</p>
 </dd></dl>
 
@@ -549,19 +552,19 @@ with the appropriate length, when called with a valid sampling_rate.</p>
 <dd><p>Test that the generate_random_frequencies returns an array of frequencies within
 the appropriate range, from 1 to the Nyquist’s frequency, when called with the
 default parameter.</p>
-<p>GIVEN: A valid num_components and the default value for sampling_rate.</p>
-<p>WHEN: The generate_random_frequencies        function is called with these parameters.</p>
+<p>GIVEN: A valid num_components, fixed random seed and default value for sampling_rate.</p>
+<p>WHEN: The generate_random_frequencies function is called with these parameters.</p>
 <p>THEN: frequencies are all greater than or equal to 1 and smaller than 125.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="test_signal_toolkit.test_frequencies_range_with_valid_sampling_rate">
 <span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_frequencies_range_with_valid_sampling_rate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_frequencies_range_with_valid_sampling_rate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_frequencies_range_with_valid_sampling_rate" title="Link to this definition"></a></dt>
-<dd><p>Test that the generate_random_frequencies        returns an array of frequencies
+<dd><p>Test that the generate_random_frequencies returns an array of frequencies
 within the appropriate range, from 1 to the Nyquist’s frequency, when called with a
 valid sampling_rate.</p>
-<p>GIVEN: A valid num_components and sampling_rate.</p>
-<p>WHEN: The generate_random_frequencies        function is called with these parameters.</p>
+<p>GIVEN: A valid num_components, fixed random seed and sampling_rate.</p>
+<p>WHEN: The generate_random_frequencies function is called with these parameters.</p>
 <p>THEN: frequencies are all greater than or equal to 1 and smaller than sampling_rate/2.</p>
 </dd></dl>
 
@@ -578,39 +581,39 @@ an empty array.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="test_signal_toolkit.test_generate_periodic_signal_invalid_duration_type">
 <span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_generate_periodic_signal_invalid_duration_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_generate_periodic_signal_invalid_duration_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_generate_periodic_signal_invalid_duration_type" title="Link to this definition"></a></dt>
-<dd><p>Test that the generate_periodic_signal         raises an error when a not float
+<dd><p>Test that the generate_periodic_signal   raises an error when a not float
 duration is provided.</p>
 <dl class="simple">
 <dt>GIVEN: A valid array of frequencies, non-float signal duration, a valid</dt><dd><p>sampling rate and default waveform_type.</p>
 </dd>
 </dl>
-<p>WHEN: The generate_periodic_signal         function is called with these parameters.</p>
+<p>WHEN: The generate_periodic_signal function is called with these parameters.</p>
 <p>THEN: A TypeError is raised with the appropriate message.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="test_signal_toolkit.test_generate_periodic_signal_invalid_duration_value">
 <span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_generate_periodic_signal_invalid_duration_value</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_generate_periodic_signal_invalid_duration_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_generate_periodic_signal_invalid_duration_value" title="Link to this definition"></a></dt>
-<dd><p>Test that the generate_periodic_signal         raises an error when a negative
+<dd><p>Test that the generate_periodic_signal   raises an error when a negative
 duration is provided.</p>
 <dl class="simple">
 <dt>GIVEN: A valid array of frequencies, a negative signal duration, a valid</dt><dd><p>sampling rate and default waveform_type.</p>
 </dd>
 </dl>
-<p>WHEN: The generate_periodic_signal         function is called with these parameters.</p>
+<p>WHEN: The generate_periodic_signal function is called with these parameters.</p>
 <p>THEN: A ValueError is raised with the appropriate message.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="test_signal_toolkit.test_generate_periodic_signal_invalid_frequencies_type">
 <span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_generate_periodic_signal_invalid_frequencies_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_generate_periodic_signal_invalid_frequencies_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_generate_periodic_signal_invalid_frequencies_type" title="Link to this definition"></a></dt>
-<dd><p>Test that the generate_periodic_signal         raises an error when a not integer
+<dd><p>Test that the generate_periodic_signal   raises an error when a not integer
 frequency is provided in the frequencies array.</p>
 <dl class="simple">
 <dt>GIVEN: An array of frequencies containing at least a non-integer value, valid signal duration and</dt><dd><p>sampling rate, default waveform_type.</p>
 </dd>
 </dl>
-<p>WHEN: The generate_periodic_signal         function is called with these parameters.</p>
+<p>WHEN: The generate_periodic_signal function is called with these parameters.</p>
 <p>THEN: A TypeError is raised with the appropriate message.</p>
 </dd></dl>
 
@@ -623,33 +626,33 @@ than or equal to Nyquist’s frequency’ is provided in the frequencies array.<
 <dt>GIVEN: An array of frequencies containing at least a wrong value, valid signal duration and</dt><dd><p>sampling rate, default waveform_type.</p>
 </dd>
 </dl>
-<p>WHEN: The generate_periodic_signal         function is called with these parameters.</p>
+<p>WHEN: The generate_periodic_signal function is called with these parameters.</p>
 <p>THEN: A ValueError is raised with the appropriate message.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="test_signal_toolkit.test_generate_periodic_signal_invalid_sampling_rate_type">
 <span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_generate_periodic_signal_invalid_sampling_rate_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_generate_periodic_signal_invalid_sampling_rate_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_generate_periodic_signal_invalid_sampling_rate_type" title="Link to this definition"></a></dt>
-<dd><p>Test that the generate_periodic_signal         raises an error when a not float
+<dd><p>Test that the generate_periodic_signal   raises an error when a not float
 or integer sampling rate is provided.</p>
 <dl class="simple">
 <dt>GIVEN: A valid array of frequencies and duration, a non float or integer</dt><dd><p>sampling rate, default waveform_type.</p>
 </dd>
 </dl>
-<p>WHEN: The generate_periodic_signal         function is called with these parameters.</p>
+<p>WHEN: The generate_periodic_signal function is called with these parameters.</p>
 <p>THEN: A TypeError is raised with the appropriate message.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="test_signal_toolkit.test_generate_periodic_signal_invalid_sampling_rate_value">
 <span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_generate_periodic_signal_invalid_sampling_rate_value</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_generate_periodic_signal_invalid_sampling_rate_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_generate_periodic_signal_invalid_sampling_rate_value" title="Link to this definition"></a></dt>
-<dd><p>Test that the generate_periodic_signal         raises an error when a negative
+<dd><p>Test that the generate_periodic_signal   raises an error when a negative
 sampling rate is provided.</p>
 <dl class="simple">
 <dt>GIVEN: A valid array of frequencies and duration, a negative</dt><dd><p>sampling rate and default waveform_type.</p>
 </dd>
 </dl>
-<p>WHEN: The generate_periodic_signal         function is called with these parameters.</p>
+<p>WHEN: The generate_periodic_signal function is called with these parameters.</p>
 <p>THEN: A ValueError is raised with the appropriate message.</p>
 </dd></dl>
 
@@ -688,7 +691,7 @@ than or equal to zero is provided in the frequencies array.</p>
 <dt>GIVEN: An array of frequencies containing at least a wrong value, valid signal duration and</dt><dd><p>sampling rate, default waveform_type.</p>
 </dd>
 </dl>
-<p>WHEN: The generate_periodic_signal         function is called with these parameters.</p>
+<p>WHEN: The generate_periodic_signal function is called with these parameters.</p>
 <p>THEN: A ValueError is raised with the appropriate message.</p>
 </dd></dl>
 
@@ -700,7 +703,7 @@ than or equal to zero is provided in the frequencies array.</p>
 <dt>GIVEN: A valid array of frequencies, signal duration,</dt><dd><p>sampling rate, and default waveform_type.</p>
 </dd>
 </dl>
-<p>WHEN: The generate_periodic_signal         function is called with these parameters.</p>
+<p>WHEN: The generate_periodic_signal function is called with these parameters.</p>
 <p>THEN: The signal has non-zero amplitude.</p>
 </dd></dl>
 
@@ -712,7 +715,7 @@ than or equal to zero is provided in the frequencies array.</p>
 <dt>GIVEN: A valid array of frequencies, signal duration,</dt><dd><p>sampling rate, and default waveform_type.</p>
 </dd>
 </dl>
-<p>WHEN: The generate_periodic_signal         function is called with these parameters.</p>
+<p>WHEN: The generate_periodic_signal function is called with these parameters.</p>
 <p>THEN: The ‘signal’ variable is of type numpy.ndarray.</p>
 </dd></dl>
 
@@ -725,7 +728,7 @@ duration * sampling_rate.</p>
 <dt>GIVEN: A valid array of frequencies, signal duration, and</dt><dd><p>sampling rate, default waveform_type.</p>
 </dd>
 </dl>
-<p>WHEN: The generate_periodic_signal         function is called with these parameters.</p>
+<p>WHEN: The generate_periodic_signal function is called with these parameters.</p>
 <p>THEN: The length of the signal is correct (duration * sampling_rate).</p>
 </dd></dl>
 
@@ -737,7 +740,7 @@ duration * sampling_rate.</p>
 <dt>GIVEN: A valid array of frequencies, signal duration,</dt><dd><p>sampling rate, and waveform_type = square.</p>
 </dd>
 </dl>
-<p>WHEN: The generate_periodic_signal         function is called with these parameters.</p>
+<p>WHEN: The generate_periodic_signal function is called with these parameters.</p>
 <p>THEN: The signal has non-zero amplitude.</p>
 </dd></dl>
 
@@ -762,7 +765,7 @@ duration * sampling_rate when selecting square waves.</p>
 <dt>GIVEN: A valid array of frequencies containing just one value, a valid signal duration and</dt><dd><p>sampling rate, default waveform_type.</p>
 </dd>
 </dl>
-<p>WHEN: The generate_periodic_signal         function is called with these parameters.</p>
+<p>WHEN: The generate_periodic_signal function is called with these parameters.</p>
 <p>THEN: The generated signal is the expected sinusoidal wave.</p>
 </dd></dl>
 
@@ -775,7 +778,7 @@ waves.</p>
 <dt>GIVEN: A valid array of frequencies, signal duration,</dt><dd><p>sampling rate, and waveform_type = square.</p>
 </dd>
 </dl>
-<p>WHEN: The generate_periodic_signal         function is called with these parameters.</p>
+<p>WHEN: The generate_periodic_signal function is called with these parameters.</p>
 <p>THEN: The ‘signal’ variable is of type numpy.ndarray.</p>
 </dd></dl>
 
@@ -788,7 +791,7 @@ waves.</p>
 <dt>GIVEN: A valid array of frequencies, signal duration,</dt><dd><p>sampling rate and waveform_type = square.</p>
 </dd>
 </dl>
-<p>WHEN: The generate_periodic_signal         function is called with these parameters.</p>
+<p>WHEN: The generate_periodic_signal function is called with these parameters.</p>
 <p>THEN: The ‘time’ variable is of type numpy.ndarray.</p>
 </dd></dl>
 
@@ -800,7 +803,7 @@ waves.</p>
 <dt>GIVEN: A valid array of frequencies, signal duration,</dt><dd><p>sampling rate and default waveform_type.</p>
 </dd>
 </dl>
-<p>WHEN: The generate_periodic_signal         function is called with these parameters.</p>
+<p>WHEN: The generate_periodic_signal function is called with these parameters.</p>
 <p>THEN: The time array contains the correct points.</p>
 </dd></dl>
 
@@ -812,20 +815,20 @@ waves.</p>
 <dt>GIVEN: A valid array of frequencies, signal duration,</dt><dd><p>sampling rate and default waveform_type.</p>
 </dd>
 </dl>
-<p>WHEN: The generate_periodic_signal         function is called with these parameters.</p>
+<p>WHEN: The generate_periodic_signal function is called with these parameters.</p>
 <p>THEN: The ‘time’ variable is of type numpy.ndarray.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="test_signal_toolkit.test_generate_periodic_signal_zero_duration">
 <span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_generate_periodic_signal_zero_duration</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_generate_periodic_signal_zero_duration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_generate_periodic_signal_zero_duration" title="Link to this definition"></a></dt>
-<dd><p>Test that the generate_periodic_signal         returns an empty array when
+<dd><p>Test that the generate_periodic_signal returns an empty array when
 duration = 0 s.</p>
 <dl class="simple">
 <dt>GIVEN: A valid array of frequencies, signal duration = 0, a valid</dt><dd><p>sampling rate and default waveform_type.</p>
 </dd>
 </dl>
-<p>WHEN: The generate_periodic_signal         function is called with these parameters.</p>
+<p>WHEN: The generate_periodic_signal function is called with these parameters.</p>
 <p>THEN: signal is an empty array.</p>
 </dd></dl>
 
@@ -922,8 +925,8 @@ zeros.</p>
 <span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_invalid_numcomponents_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_invalid_numcomponents_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_invalid_numcomponents_type" title="Link to this definition"></a></dt>
 <dd><p>Test that the generate_random_frequencies raises an error when a not integer
 number of components is provided.</p>
-<p>GIVEN: An invalid number of components, default sampling_rate</p>
-<p>WHEN: The generate_random_frequencies        function is called with these parameters.</p>
+<p>GIVEN: An invalid number of components, fixed random seed and default sampling_rate</p>
+<p>WHEN: The generate_random_frequencies function is called with these parameters.</p>
 <p>THEN: A TypeError is raised with the appropriate message.</p>
 </dd></dl>
 
@@ -932,68 +935,100 @@ number of components is provided.</p>
 <span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_invalid_numcomponents_value</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_invalid_numcomponents_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_invalid_numcomponents_value" title="Link to this definition"></a></dt>
 <dd><p>Test that the generate_random_frequencies raises an error when a negative number
 of components is provided.</p>
-<p>GIVEN: A negative number of components, default sampling_rate</p>
-<p>WHEN: The generate_random_frequencies        function is called with these parameters.</p>
+<p>GIVEN: A negative number of components, fixed random seed and default sampling_rate</p>
+<p>WHEN: The generate_random_frequencies function is called with these parameters.</p>
 <p>THEN: A ValueError is raised.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="test_signal_toolkit.test_invalid_sampling_rate_type_random_frequencies">
 <span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_invalid_sampling_rate_type_random_frequencies</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_invalid_sampling_rate_type_random_frequencies"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_invalid_sampling_rate_type_random_frequencies" title="Link to this definition"></a></dt>
-<dd><p>Test that the generate_random_frequencies        raises an error when a not
+<dd><p>Test that the generate_random_frequencies raises an error when a not
 integer sampling rate is provided.</p>
-<p>GIVEN: A valid number of components, invalid sampling_rate</p>
-<p>WHEN: The generate_random_frequencies        function is called with these parameters.</p>
+<p>GIVEN: A valid number of components, fixed random seed and invalid sampling_rate</p>
+<p>WHEN: The generate_random_frequencies function is called with these parameters.</p>
 <p>THEN: A TypeError is raised with the appropriate message.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="test_signal_toolkit.test_invalid_sampling_rate_value_random_frequencies">
 <span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_invalid_sampling_rate_value_random_frequencies</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_invalid_sampling_rate_value_random_frequencies"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_invalid_sampling_rate_value_random_frequencies" title="Link to this definition"></a></dt>
-<dd><p>Test that the generate_random_frequencies        raises an error when a negative
+<dd><p>Test that the generate_random_frequencies raises an error when a negative
 sampling rate is provided.</p>
-<p>GIVEN: A valid number of components, a sampling_rate smaller than or equal to 0.</p>
-<p>WHEN: The generate_random_frequencies        function is called with these parameters.</p>
+<p>GIVEN: A valid number of components, fixed random seed, a sampling_rate smaller than or equal to 0.</p>
+<p>WHEN: The generate_random_frequencies function is called with these parameters.</p>
+<p>THEN: A ValueError is raised.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_invalid_seed_type">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_invalid_seed_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_invalid_seed_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_invalid_seed_type" title="Link to this definition"></a></dt>
+<dd><p>Test that the generate_random_frequencies raises an error when a non-integer
+seed is provided.</p>
+<p>GIVEN: A valid number of components, default sampling_rate and floating seed.</p>
+<p>WHEN: The generate_random_frequencies function is called with these parameters.</p>
+<p>THEN: A TypeError is raised.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_invalid_seed_value">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_invalid_seed_value</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_invalid_seed_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_invalid_seed_value" title="Link to this definition"></a></dt>
+<dd><p>Test that the generate_random_frequencies raises an error when a negative
+seed is provided.</p>
+<p>GIVEN: A valid number of components, default sampling_rate and negative seed.</p>
+<p>WHEN: The generate_random_frequencies function is called with these parameters.</p>
 <p>THEN: A ValueError is raised.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="test_signal_toolkit.test_large_number_of_components">
 <span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_large_number_of_components</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_large_number_of_components"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_large_number_of_components" title="Link to this definition"></a></dt>
-<dd><p>Test that generate_random_frequencies    can handle large input sizes
+<dd><p>Test that generate_random_frequencies can handle large input sizes
 efficiently.</p>
-<p>GIVEN: num_components = 10^8, a valid sampling_rate.</p>
-<p>WHEN: The generate_random_frequencies        function is called with these parameters.</p>
+<p>GIVEN: num_components = 10^8, fixed random seed, a valid sampling_rate.</p>
+<p>WHEN: The generate_random_frequencies function is called with these parameters.</p>
 <p>THEN: Frequencies is an array of length 10^8</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="test_signal_toolkit.test_minimal_valid_numcomponent">
 <span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_minimal_valid_numcomponent</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_minimal_valid_numcomponent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_minimal_valid_numcomponent" title="Link to this definition"></a></dt>
-<dd><p>Test that generate_random_frequencies    works when num_components is the minimum
+<dd><p>Test that generate_random_frequencies works when num_components is the minimum
 allowed value.</p>
-<p>GIVEN: num_components = 1, a valid sampling_rate.</p>
-<p>WHEN: The generate_random_frequencies        function is called with these parameters.</p>
+<p>GIVEN: num_components = 1,fixed random seed, a valid sampling_rate.</p>
+<p>WHEN: The generate_random_frequencies function is called with these parameters.</p>
 <p>THEN: Frequencies is an array of length 1</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="test_signal_toolkit.test_minimal_valid_sampling_rate">
 <span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_minimal_valid_sampling_rate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_minimal_valid_sampling_rate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_minimal_valid_sampling_rate" title="Link to this definition"></a></dt>
-<dd><p>Test that generate_random_frequencies    works correctly when sampling_rate is
+<dd><p>Test that generate_random_frequencies works correctly when sampling_rate is
 the minimum allowed value.</p>
-<p>GIVEN: A valid number of components, sampling_rate = 4.</p>
-<p>WHEN: The generate_random_frequencies        function is called with these parameters.</p>
+<p>GIVEN: A valid number of components, fixed random seed, sampling_rate = 4.</p>
+<p>WHEN: The generate_random_frequencies function is called with these parameters.</p>
 <p>THEN: Frequencies is an array with only 1 and 2</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test_signal_toolkit.test_same_seed">
+<span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_same_seed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_same_seed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_same_seed" title="Link to this definition"></a></dt>
+<dd><dl class="simple">
+<dt>Test that the generate_random_frequencies return the same array when called two times</dt><dd><p>withe the same seed</p>
+</dd>
+</dl>
+<p>GIVEN: A valid number of components, default sampling_rate and valid seed.</p>
+<p>WHEN: The generate_random_frequencies function is called two times with these parameters.</p>
+<p>THEN: The returned frequencies array are the same.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="test_signal_toolkit.test_zero_numcomponents">
 <span class="sig-prename descclassname"><span class="pre">test_signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">test_zero_numcomponents</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test_signal_toolkit.html#test_zero_numcomponents"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test_signal_toolkit.test_zero_numcomponents" title="Link to this definition"></a></dt>
-<dd><p>Test that the generate_random_frequencies        returns an empty array when 0
+<dd><p>Test that the generate_random_frequencies returns an empty array when 0
 number of components is provided.</p>
-<p>GIVEN: A negative number of components, default sampling_rate.</p>
-<p>WHEN: The generate_random_frequencies        function is called with these parameters.</p>
+<p>GIVEN: A negative number of components, fixed random seed and default sampling_rate.</p>
+<p>WHEN: The generate_random_frequencies function is called with these parameters.</p>
 <p>THEN: An empty array is returned.</p>
 </dd></dl>
 

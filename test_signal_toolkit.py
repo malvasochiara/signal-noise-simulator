@@ -27,76 +27,76 @@ def test_frequencies_range_with_default_sampling_rate():
     the appropriate range, from 1 to the Nyquist's frequency, when called with the
     default parameter.
 
-    GIVEN: A valid num_components and the default value for sampling_rate.
+    GIVEN: A valid num_components, fixed random seed and default value for sampling_rate.
 
-    WHEN: The generate_random_frequencies        function is called with these parameters.
+    WHEN: The generate_random_frequencies function is called with these parameters.
 
     THEN: frequencies are all greater than or equal to 1 and smaller than 125.
     """
-    np.random.seed(42)
+    random_seed = 42
 
     num_components = 10
-    frequencies = generate_random_frequencies(num_components)
+    frequencies = generate_random_frequencies(num_components,random_seed)
     assert np.all(
         (frequencies >= 1) & (frequencies < 125)
     ), "Frequencies should be between 1 and 125 (for sampling_rate=250)"
 
 
 def test_frequencies_length_with_default_sampling_rate():
-    """Test that the generate_random_frequencies        returns an array of frequencies
+    """Test that the generate_random_frequencies returns an array of frequencies
     with the appropriate length, when called with the default parameter.
 
-    GIVEN: A valid num_components and the default value for sampling_rate.
+    GIVEN: A valid num_components, fixed random seed and default value for sampling_rate.
 
-    WHEN: The generate_random_frequencies        function is called with these parameters.
+    WHEN: The generate_random_frequencies function is called with these parameters.
 
     THEN: frequencies is an array of length equal to num_components.
     """
-    np.random.seed(42)
+    random_seed = 42
 
     num_components = 10
-    frequencies = generate_random_frequencies(num_components)
+    frequencies = generate_random_frequencies(num_components, random_seed)
     assert (
         len(frequencies) == num_components
     ), f"Expected {num_components} frequencies, but got {len(frequencies)}."
 
 
 def test_frequencies_range_with_valid_sampling_rate():
-    """Test that the generate_random_frequencies        returns an array of frequencies
+    """Test that the generate_random_frequencies returns an array of frequencies
     within the appropriate range, from 1 to the Nyquist's frequency, when called with a
     valid sampling_rate.
 
-    GIVEN: A valid num_components and sampling_rate.
+    GIVEN: A valid num_components, fixed random seed and sampling_rate.
     
-    WHEN: The generate_random_frequencies        function is called with these parameters.
+    WHEN: The generate_random_frequencies function is called with these parameters.
     
     THEN: frequencies are all greater than or equal to 1 and smaller than sampling_rate/2.
     """
-    np.random.seed(42)
+    random_seed = 42
 
     num_components = 10
     sampling_rate = 350
-    frequencies = generate_random_frequencies(num_components)
+    frequencies = generate_random_frequencies(num_components, random_seed)
     assert np.all(
         (frequencies >= 1) & (frequencies < sampling_rate / 2)
     ), "Frequencies should be between 1 and Nyquist's frequency"
 
 
 def test_frequencies_length_with_valid_sampling_rate():
-    """Test that the generate_random_frequencies        returns an array of frequencies
+    """Test that the generate_random_frequencies returns an array of frequencies
     with the appropriate length, when called with a valid sampling_rate.
 
-    GIVEN: A valid num_components and sampling_rate.
+    GIVEN: A valid num_components, fixed random seed and valid sampling_rate.
     
-    WHEN: The generate_random_frequencies        function is called with these parameters.
+    WHEN: The generate_random_frequencies function is called with these parameters.
     
     THEN: frequencies is an array of length equal to num_components.
     """
-    np.random.seed(42)
+    random_seed = 42
 
     num_components = 10
     sampling_rate = 350
-    frequencies = generate_random_frequencies(num_components, sampling_rate)
+    frequencies = generate_random_frequencies(num_components, sampling_rate, random_seed)
     assert (
         len(frequencies) == num_components
     ), f"Expected {num_components} frequencies, but got {len(frequencies)}."
@@ -106,142 +106,187 @@ def test_invalid_numcomponents_type():
     """Test that the generate_random_frequencies raises an error when a not integer
     number of components is provided.
 
-    GIVEN: An invalid number of components, default sampling_rate
+    GIVEN: An invalid number of components, fixed random seed and default sampling_rate
     
-    WHEN: The generate_random_frequencies        function is called with these parameters.
+    WHEN: The generate_random_frequencies function is called with these parameters.
     
     THEN: A TypeError is raised with the appropriate message.
     """
-    np.random.seed(42)
+    random_seed = 42
 
     with pytest.raises(
         TypeError,
         match="num_components should be an integer number",
     ):
-        generate_random_frequencies("cinque")
+        generate_random_frequencies("cinque", random_seed)
 
 
 def test_invalid_numcomponents_value():
     """Test that the generate_random_frequencies raises an error when a negative number
     of components is provided.
 
-    GIVEN: A negative number of components, default sampling_rate
+    GIVEN: A negative number of components, fixed random seed and default sampling_rate
     
-    WHEN: The generate_random_frequencies        function is called with these parameters.
+    WHEN: The generate_random_frequencies function is called with these parameters.
     
     THEN: A ValueError is raised.
     """
-    np.random.seed(42)
+    random_seed = 42
 
     with pytest.raises(ValueError):
-        generate_random_frequencies(-8)
+        generate_random_frequencies(-8, random_seed)
 
 
 def test_zero_numcomponents():
-    """Test that the generate_random_frequencies        returns an empty array when 0
+    """Test that the generate_random_frequencies returns an empty array when 0
     number of components is provided.
 
-    GIVEN: A negative number of components, default sampling_rate.
+    GIVEN: A negative number of components, fixed random seed and default sampling_rate.
     
-    WHEN: The generate_random_frequencies        function is called with these parameters.
+    WHEN: The generate_random_frequencies function is called with these parameters.
     
     THEN: An empty array is returned.
     """
-    np.random.seed(42)
+    random_seed = 42
 
-    frequencies = generate_random_frequencies(0)
+    frequencies = generate_random_frequencies(0, random_seed)
     assert (
         len(frequencies) == 0
     ), f"Expected an empty frequencies array, but got {len(frequencies)}."
 
 
 def test_invalid_sampling_rate_type_random_frequencies():
-    """Test that the generate_random_frequencies        raises an error when a not
+    """Test that the generate_random_frequencies raises an error when a not
     integer sampling rate is provided.
 
-    GIVEN: A valid number of components, invalid sampling_rate
+    GIVEN: A valid number of components, fixed random seed and invalid sampling_rate
     
-    WHEN: The generate_random_frequencies        function is called with these parameters.
+    WHEN: The generate_random_frequencies function is called with these parameters.
     
     THEN: A TypeError is raised with the appropriate message.
     """
-    np.random.seed(42)
+    random_seed = 42
 
     with pytest.raises(
         TypeError,
         match="sampling_rate should be an integer number",
     ):
-        generate_random_frequencies(5, "duecentocinquanta")
+        generate_random_frequencies(5,random_seed, "duecentocinquanta")
 
 
 def test_invalid_sampling_rate_value_random_frequencies():
-    """Test that the generate_random_frequencies        raises an error when a negative
+    """Test that the generate_random_frequencies raises an error when a negative
     sampling rate is provided.
 
-    GIVEN: A valid number of components, a sampling_rate smaller than or equal to 0.
+    GIVEN: A valid number of components, fixed random seed, a sampling_rate smaller than or equal to 0.
     
-    WHEN: The generate_random_frequencies        function is called with these parameters.
+    WHEN: The generate_random_frequencies function is called with these parameters.
     
     THEN: A ValueError is raised.
     """
-    np.random.seed(42)
+    random_seed = 42
 
     with pytest.raises(
         ValueError,
         match="sampling_rate should be greater than or equal to 4",
     ):
-        generate_random_frequencies(5, -17)
+        generate_random_frequencies(5, random_seed, -17)
 
 
 def test_minimal_valid_sampling_rate():
-    """Test that generate_random_frequencies    works correctly when sampling_rate is
+    """Test that generate_random_frequencies works correctly when sampling_rate is
     the minimum allowed value.
 
-    GIVEN: A valid number of components, sampling_rate = 4.
+    GIVEN: A valid number of components, fixed random seed, sampling_rate = 4.
     
-    WHEN: The generate_random_frequencies        function is called with these parameters.
+    WHEN: The generate_random_frequencies function is called with these parameters.
     
     THEN: Frequencies is an array with only 1 and 2
     """
-    np.random.seed(42)
-    frequencies = generate_random_frequencies(50, 4)
+    random_seed = 42
+    frequencies = generate_random_frequencies(50, random_seed, 4)
     assert np.all(
         np.isin(frequencies, [1, 2])
     ), "Expected frequency to be 1 or 2 when sampling_rate is 4."
 
 
 def test_minimal_valid_numcomponent():
-    """Test that generate_random_frequencies    works when num_components is the minimum
+    """Test that generate_random_frequencies works when num_components is the minimum
     allowed value.
 
-    GIVEN: num_components = 1, a valid sampling_rate.
+    GIVEN: num_components = 1,fixed random seed, a valid sampling_rate.
     
-    WHEN: The generate_random_frequencies        function is called with these parameters.
+    WHEN: The generate_random_frequencies function is called with these parameters.
     
     THEN: Frequencies is an array of length 1
     """
-    np.random.seed(42)
-    frequencies = generate_random_frequencies(1, 100)
+    random_seed = 42
+    frequencies = generate_random_frequencies(1, random_seed, 100)
     assert len(frequencies) == 1, "Expected a single frequency."
 
 
 def test_large_number_of_components():
-    """Test that generate_random_frequencies    can handle large input sizes
+    """Test that generate_random_frequencies can handle large input sizes
     efficiently.
 
-    GIVEN: num_components = 10^8, a valid sampling_rate.
+    GIVEN: num_components = 10^8, fixed random seed, a valid sampling_rate.
     
-    WHEN: The generate_random_frequencies        function is called with these parameters.
+    WHEN: The generate_random_frequencies function is called with these parameters.
     
     THEN: Frequencies is an array of length 10^8
     """
-    np.random.seed(42)
-    frequencies = generate_random_frequencies(10**8, 500)
+    random_seed = 42
+    frequencies = generate_random_frequencies(10**8,random_seed, 500)
     assert (
         len(frequencies) == 10**8
     ), f"Expected 10^8 frequencies, but got {len(frequencies)}"
 
 
+def test_invalid_seed_type ():
+    """Test that the generate_random_frequencies raises an error when a non-integer 
+    seed is provided.
+
+    GIVEN: A valid number of components, default sampling_rate and floating seed.
+    
+    WHEN: The generate_random_frequencies function is called with these parameters.
+    
+    THEN: A TypeError is raised.
+    """
+
+    with pytest.raises(TypeError):
+        generate_random_frequencies(10, 250, 1.3)
+        
+        
+def test_invalid_seed_value ():
+    """Test that the generate_random_frequencies raises an error when a negative 
+    seed is provided.
+
+    GIVEN: A valid number of components, default sampling_rate and negative seed.
+    
+    WHEN: The generate_random_frequencies function is called with these parameters.
+    
+    THEN: A ValueError is raised.
+    """
+
+    with pytest.raises(ValueError):
+        generate_random_frequencies(10, 250, -15)
+        
+        
+def test_same_seed():
+    """Test that the generate_random_frequencies return the same array when called two times
+        withe the same seed
+        
+    GIVEN: A valid number of components, default sampling_rate and valid seed.
+    
+    WHEN: The generate_random_frequencies function is called two times with these parameters.
+    
+    THEN: The returned frequencies array are the same.
+    """
+
+    frequencies_1 = generate_random_frequencies(10, 250, 15)
+    frequencies_2 = generate_random_frequencies(10, 250, 15)
+    assert np.array_equal(frequencies_1, frequencies_2), f"Arrays are not equal: {frequencies_1} != {frequencies_2}"
+    
 # Tests for generate_periodic_signal
 
 
@@ -251,7 +296,7 @@ def test_generate_periodic_signal_single_frequency():
     GIVEN: A valid array of frequencies containing just one value, a valid signal duration and
            sampling rate, default waveform_type.
            
-    WHEN: The generate_periodic_signal         function is called with these parameters.
+    WHEN: The generate_periodic_signal function is called with these parameters.
     
     THEN: The generated signal is the expected sinusoidal wave.
     """
@@ -274,7 +319,7 @@ def test_generate_periodic_signal_signal_length():
     GIVEN: A valid array of frequencies, signal duration, and
            sampling rate, default waveform_type.
            
-    WHEN: The generate_periodic_signal         function is called with these parameters.
+    WHEN: The generate_periodic_signal function is called with these parameters.
     
     THEN: The length of the signal is correct (duration * sampling_rate).
     """
@@ -294,7 +339,7 @@ def test_generate_periodic_signal_signal_amplitude():
     GIVEN: A valid array of frequencies, signal duration,
            sampling rate, and default waveform_type.
            
-    WHEN: The generate_periodic_signal         function is called with these parameters.
+    WHEN: The generate_periodic_signal function is called with these parameters.
     
     THEN: The signal has non-zero amplitude.
     """
@@ -311,7 +356,7 @@ def test_generate_periodic_signal_signal_is_ndarray():
     GIVEN: A valid array of frequencies, signal duration,
            sampling rate, and default waveform_type.
            
-    WHEN: The generate_periodic_signal         function is called with these parameters.
+    WHEN: The generate_periodic_signal function is called with these parameters.
     
     THEN: The 'signal' variable is of type numpy.ndarray.
     """
@@ -329,7 +374,7 @@ def test_generate_periodic_signal_time_is_ndarray():
     GIVEN: A valid array of frequencies, signal duration,
            sampling rate and default waveform_type.
            
-    WHEN: The generate_periodic_signal         function is called with these parameters.
+    WHEN: The generate_periodic_signal function is called with these parameters.
     
     THEN: The 'time' variable is of type numpy.ndarray.
     """
@@ -347,7 +392,7 @@ def test_generate_periodic_signal_time_array():
     GIVEN: A valid array of frequencies, signal duration,
            sampling rate and default waveform_type.
            
-    WHEN: The generate_periodic_signal         function is called with these parameters.
+    WHEN: The generate_periodic_signal function is called with these parameters.
     
     THEN: The time array contains the correct points.
     """
@@ -368,7 +413,7 @@ def test_generate_periodic_signal_negative_frequencies_value():
     GIVEN: An array of frequencies containing at least a wrong value, valid signal duration and
            sampling rate, default waveform_type.
            
-    WHEN: The generate_periodic_signal         function is called with these parameters.
+    WHEN: The generate_periodic_signal function is called with these parameters.
     
     THEN: A ValueError is raised with the appropriate message.
     """
@@ -387,7 +432,7 @@ def test_generate_periodic_signal_invalid_frequencies_value():
     GIVEN: An array of frequencies containing at least a wrong value, valid signal duration and
            sampling rate, default waveform_type.
            
-    WHEN: The generate_periodic_signal         function is called with these parameters.
+    WHEN: The generate_periodic_signal function is called with these parameters.
     
     THEN: A ValueError is raised with the appropriate message.
     """
@@ -401,13 +446,13 @@ def test_generate_periodic_signal_invalid_frequencies_value():
 
 
 def test_generate_periodic_signal_invalid_frequencies_type():
-    """Test that the generate_periodic_signal         raises an error when a not integer
+    """Test that the generate_periodic_signal   raises an error when a not integer
     frequency is provided in the frequencies array.
 
     GIVEN: An array of frequencies containing at least a non-integer value, valid signal duration and
            sampling rate, default waveform_type.
            
-    WHEN: The generate_periodic_signal         function is called with these parameters.
+    WHEN: The generate_periodic_signal function is called with these parameters.
     
     THEN: A TypeError is raised with the appropriate message.
     """
@@ -418,13 +463,13 @@ def test_generate_periodic_signal_invalid_frequencies_type():
 
 
 def test_generate_periodic_signal_invalid_duration_type():
-    """Test that the generate_periodic_signal         raises an error when a not float
+    """Test that the generate_periodic_signal   raises an error when a not float
     duration is provided.
 
     GIVEN: A valid array of frequencies, non-float signal duration, a valid
            sampling rate and default waveform_type.
            
-    WHEN: The generate_periodic_signal         function is called with these parameters.
+    WHEN: The generate_periodic_signal function is called with these parameters.
     
     THEN: A TypeError is raised with the appropriate message.
     """
@@ -437,13 +482,13 @@ def test_generate_periodic_signal_invalid_duration_type():
 
 
 def test_generate_periodic_signal_invalid_duration_value():
-    """Test that the generate_periodic_signal         raises an error when a negative
+    """Test that the generate_periodic_signal   raises an error when a negative
     duration is provided.
 
     GIVEN: A valid array of frequencies, a negative signal duration, a valid
            sampling rate and default waveform_type.
            
-    WHEN: The generate_periodic_signal         function is called with these parameters.
+    WHEN: The generate_periodic_signal function is called with these parameters.
     
     THEN: A ValueError is raised with the appropriate message.
     """
@@ -456,13 +501,13 @@ def test_generate_periodic_signal_invalid_duration_value():
 
 
 def test_generate_periodic_signal_zero_duration():
-    """Test that the generate_periodic_signal         returns an empty array when
+    """Test that the generate_periodic_signal returns an empty array when
     duration = 0 s.
 
     GIVEN: A valid array of frequencies, signal duration = 0, a valid
            sampling rate and default waveform_type.
            
-    WHEN: The generate_periodic_signal         function is called with these parameters.
+    WHEN: The generate_periodic_signal function is called with these parameters.
     
     THEN: signal is an empty array.
     """
@@ -475,13 +520,13 @@ def test_generate_periodic_signal_zero_duration():
 
 
 def test_generate_periodic_signal_invalid_sampling_rate_type():
-    """Test that the generate_periodic_signal         raises an error when a not float
+    """Test that the generate_periodic_signal   raises an error when a not float
     or integer sampling rate is provided.
 
     GIVEN: A valid array of frequencies and duration, a non float or integer
            sampling rate, default waveform_type.
            
-    WHEN: The generate_periodic_signal         function is called with these parameters.
+    WHEN: The generate_periodic_signal function is called with these parameters.
     
     THEN: A TypeError is raised with the appropriate message.
     """
@@ -495,13 +540,13 @@ def test_generate_periodic_signal_invalid_sampling_rate_type():
 
 
 def test_generate_periodic_signal_invalid_sampling_rate_value():
-    """Test that the generate_periodic_signal         raises an error when a negative
+    """Test that the generate_periodic_signal   raises an error when a negative
     sampling rate is provided.
 
     GIVEN: A valid array of frequencies and duration, a negative
            sampling rate and default waveform_type.
            
-    WHEN: The generate_periodic_signal         function is called with these parameters.
+    WHEN: The generate_periodic_signal function is called with these parameters.
     
     THEN: A ValueError is raised with the appropriate message.
     """
@@ -608,7 +653,7 @@ def test_generate_periodic_signal_signal_square_amplitude():
     GIVEN: A valid array of frequencies, signal duration,
            sampling rate, and waveform_type = square.
            
-    WHEN: The generate_periodic_signal         function is called with these parameters.
+    WHEN: The generate_periodic_signal function is called with these parameters.
     
     THEN: The signal has non-zero amplitude.
     """
@@ -629,7 +674,7 @@ def test_generate_periodic_signal_square_signal_is_ndarray():
     GIVEN: A valid array of frequencies, signal duration,
            sampling rate, and waveform_type = square.
            
-    WHEN: The generate_periodic_signal         function is called with these parameters.
+    WHEN: The generate_periodic_signal function is called with these parameters.
     
     THEN: The 'signal' variable is of type numpy.ndarray.
     """
@@ -651,7 +696,7 @@ def test_generate_periodic_signal_square_time_is_ndarray():
     GIVEN: A valid array of frequencies, signal duration,
            sampling rate and waveform_type = square.
            
-    WHEN: The generate_periodic_signal         function is called with these parameters.
+    WHEN: The generate_periodic_signal function is called with these parameters.
     
     THEN: The 'time' variable is of type numpy.ndarray.
     """

@@ -323,7 +323,7 @@ default is ‘sin’).</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="signal_toolkit.generate_random_frequencies">
-<span class="sig-prename descclassname"><span class="pre">signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">generate_random_frequencies</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_components</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sampling_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">250</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/signal_toolkit.html#generate_random_frequencies"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#signal_toolkit.generate_random_frequencies" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">signal_toolkit.</span></span><span class="sig-name descname"><span class="pre">generate_random_frequencies</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_components</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sampling_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">250</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/signal_toolkit.html#generate_random_frequencies"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#signal_toolkit.generate_random_frequencies" title="Link to this definition"></a></dt>
 <dd><p>Generate random frequencies within the proper range to avoid aliasing.</p>
 <p>This function generates an array of random integer frequencies that are
 within the appropriate range, taking into account the Nyquist frequency
@@ -332,6 +332,8 @@ within the appropriate range, taking into account the Nyquist frequency
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>num_components</strong> (<em>int</em>) – Number of signal components (i.e., number of random frequencies to generate).</p></li>
+<li><p><strong>seed</strong> (<em>int</em><em>, </em><em>optional</em>) – The seed for the random number generator. If not specified, the random seed is not fixed, meaning
+the results will be different on each call unless explicitly set.</p></li>
 <li><p><strong>sampling_rate</strong> (<em>int</em><em>, </em><em>optional</em>) – The sampling rate in Hz. Must be at least 4 Hz. Default is 250 Hz.</p></li>
 </ul>
 </dd>
@@ -343,8 +345,9 @@ within the appropriate range, taking into account the Nyquist frequency
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>TypeError</strong> – If <cite>num_components</cite> or <cite>sampling_rate</cite> is not an integer.</p></li>
-<li><p><strong>ValueError</strong> – If <cite>sampling_rate</cite> is less than 4 or if <cite>num_components</cite> is negative.</p></li>
+<li><p><strong>TypeError</strong> – If <cite>num_components</cite>, <cite>sampling_rate</cite> or <cite>seed</cite> is not an integer.</p></li>
+<li><p><strong>ValueError</strong> – If <cite>sampling_rate</cite> is less than 4 or if <cite>num_components</cite> is negative
+    or if <cite>seed</cite> is not in the allowed range (0, 2**32 -1)</p></li>
 </ul>
 </dd>
 </dl>

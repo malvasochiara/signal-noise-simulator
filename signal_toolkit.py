@@ -8,7 +8,7 @@ import numpy as np
 import math
 
 
-def generate_random_frequencies(num_components, sampling_rate=250):
+def generate_random_frequencies(num_components, seed = None, sampling_rate=250):
     """Generate random frequencies within the proper range to avoid aliasing.
 
     This function generates an array of random integer frequencies that are
@@ -19,6 +19,9 @@ def generate_random_frequencies(num_components, sampling_rate=250):
     ----------
     num_components : int
         Number of signal components (i.e., number of random frequencies to generate).
+    seed : int, optional
+        The seed for the random number generator. If not specified, the random seed is not fixed, meaning 
+        the results will be different on each call unless explicitly set.
     sampling_rate : int, optional
         The sampling rate in Hz. Must be at least 4 Hz. Default is 250 Hz.
 
@@ -30,9 +33,10 @@ def generate_random_frequencies(num_components, sampling_rate=250):
     Raises
     ------
     TypeError
-        If `num_components` or `sampling_rate` is not an integer.
+        If `num_components`, `sampling_rate` or `seed` is not an integer.
     ValueError
-        If `sampling_rate` is less than 4 or if `num_components` is negative.
+        If `sampling_rate` is less than 4 or if `num_components` is negative
+        or if `seed` is not in the allowed range (0, 2**32 -1)
     """
     if not isinstance(num_components, (int, np.integer)) or isinstance(
         num_components, bool
@@ -46,6 +50,10 @@ def generate_random_frequencies(num_components, sampling_rate=250):
 
     if sampling_rate <= 3:
         raise ValueError("sampling_rate should be greater than or equal to 4")
+        
+    if seed:
+        np.random.seed(seed)
+        
     # Set the maximum value of frequencies to the Nyquist's frequency to avoid aliasing
     frequencies = np.random.randint(
         1, math.floor(sampling_rate / 2), size=num_components
