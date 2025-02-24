@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import os
 import csv
+from datetime import datetime
 from signal_toolkit import (
     generate_random_frequencies,
     generate_periodic_signal,
@@ -137,15 +138,18 @@ def save_signal_to_csv(
     -----
     - If the directory specified in `save_path` does not exist, it will be created.
     - The filename follows the format:
-      `signal_<waveform_type>_<sampling_rate>Hz[_<noise_type>_<snr>db].csv`
+      `signal_<waveform_type>_<sampling_rate>Hz[_<noise_type>_<snr>db]_d-m-Y_H-M-S.csv`
     """
     if not os.path.exists(save_path):
         os.makedirs(save_path)
+        
+    timestamp = datetime.now().strftime("%d-%m-%Y_%H-%M-%S")
 
     filename = f"signal_{waveform_type}_{sampling_rate}Hz"
     if snr is not None:
         filename += f"_{noise_type}_{snr}db"
-    filename += ".csv"
+        
+    filename += f"_{timestamp}.csv"
 
     with open(os.path.join(save_path, filename), mode="w", newline="") as file:
         writer = csv.writer(file)
