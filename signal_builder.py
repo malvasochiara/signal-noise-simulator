@@ -49,6 +49,11 @@ def main():
     save : str, optional
         Path to save the signal and time data as a CSV file. If no path is provided, the file will be saved in
         the current directory.
+        
+    Notes
+    -----
+    - If `--snr` is not provided, noise-related arguments such as `--noise_type`, `--slope`, and `--noise_seed`
+      cannot be specified. This validation is done within the `main()` function.
 
     Returns
     -------
@@ -143,6 +148,11 @@ def main():
 
     args = parser.parse_args()
 
+    # Validate that no noise-related arguments are present if --snr is not provided
+    if args.snr is None:
+        if args.noise_type or args.slope or args.noise_seed:
+            parser.error("If --snr is not provided, noise-related arguments (such as --noise_type, --slope, --noise_seed) cannot be specified."
+            )
     generate_and_plot_signal(args)
 
 if __name__ == "__main__":
