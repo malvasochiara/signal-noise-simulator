@@ -5,23 +5,27 @@ Date: February 2025
 '''
 
 import argparse
-from utils import generate_and_plot_signal
+import sys
+from utils import generate_and_plot_signal, parse_config_file
+
 
 def main():
-    """Main function to parse command-line arguments and generate a periodic signal.
+    """
+    Main function to parse command-line arguments and configuration file,
+    then generate a periodic signal.
 
-    This script uses the argparse library to collect parameters from the command line,
-    such as signal components, duration, sampling rate, waveform type, and optional
-    noise settings (SNR, noise type, slope). It then calls the `generate_and_plot_signal`
-    function to generate and optionally plot the periodic signal and/or save the signal data
-    to a CSV file.
+    This script uses argparse for command-line arguments and configparser for
+    reading settings from a configuration file. Command-line arguments take
+    precedence over configuration file values.
 
-    Command-line arguments include:
+    Command-line arguments and config.ini settings include:
 
     Parameters
     ----------
+    config : str, optional
+        Path to a configuration file (config.ini). If provided, parameters will be loaded from it.
     num_components : int, optional
-        Number of signal components (default is 5). Ignored if `frequencies` is provided.
+        Number of signal components. Cannot be used with `frequencies`.
     duration : float, optional
         Signal duration in seconds (default is 1.0).
     sampling_rate : int, optional
@@ -29,56 +33,50 @@ def main():
     waveform_type : {'sin', 'square'}, optional
         Type of waveform ('sin' for sinusoidal wave, 'square' for square wave; default is 'sin').
     frequencies : str, optional
-        Comma-separated list of frequencies in Hz (e.g., '10,20,30'). If provided, `num_components` is ignored.
+        Comma-separated list of frequencies in Hz (e.g., '10,20,30'). Cannot be used with `num_components`.
     snr : float, optional
         Signal-to-noise ratio in dB. If provided, noise will be added to the signal.
     noise_type : {'white', 'colored'}, optional
-        Type of noise to add when `snr` is specified. Choices are 'white' (Gaussian white noise) or 'colored'
-        (frequency-dependent noise that increases linearly). Default is 'white'. Ignored if `snr` is not provided.
+        Type of noise to add when `snr` is specified. Default is 'white'.
     slope : float, optional
-        Spectral slope for colored noise. Controls how noise power increases with frequency. Default is 0.5.
-        Ignored if `snr` is not provided or if `noise_type` is 'white'. If `noise_type` is 'white' and `slope` is specified,
-        an error will be raised.
+        Spectral slope for colored noise (default is 0.5). Ignored if `snr` is not provided or `noise_type` is 'white'.
     freq_seed : int, optional
-        Random seed for frequency generation. If provided, ensures the same frequencies are generated
-        on each execution. If not set, frequencies will vary randomly.
+        Random seed for frequency generation.
     noise_seed : int, optional
-        Random seed for noise generation. If provided, ensures the same noise is added to the signal
-        on each execution. If not set, noise will vary randomly.
+        Random seed for noise generation.
     plot : bool, optional
         If set, the generated signal will be plotted.
     save : str, optional
-        Path to save the signal and time data as a CSV file. If no path is provided, the file will be saved in
-        the current directory.
-        
-    Notes
-    -----
-    - If `--snr` is not provided, noise-related arguments such as `--noise_type`, `--slope`, and `--noise_seed` 
-      should not be specified. If they are provided, a warning message will be displayed.
-    - If `--noise_type` is 'white' and `--slope` is specified, an error will be raised.
+        Path to save the signal as a CSV file.
 
     Returns
     -------
     None
         The function does not return any value.
+
+    Raises
+    ------
+    argparse.ArgumentError
+        If `num_components` and `frequencies` are both specified.
     """
     parser = argparse.ArgumentParser(
         description="Generate and plot a periodic signal with optional noise."
     )
-    # Mutually exclusive group for num_components and frequencies
-    group = parser.add_mutually_exclusive_group(required=False)
-    group.add_argument(
+    parser.add_argument(
+        "--config",
+        type=str,
+        help="Path to configuration file (config.ini). Command-line arguments override config file values."
+    )
+    parser.add_argument(
         "--num_components",
         type=int,
-        default=5,
-        help="Number of signal components (default: 5). Cannot be specified with --frequencies.",
+        help="Number of signal components. Cannot be specified with --frequencies.",
     )
-    group.add_argument(
+    parser.add_argument(
         "--frequencies",
         type=str,
         help="Comma-separated list of frequencies in Hz (e.g., '10,20,30'). Cannot be specified with --num_components.",
     )
-
     parser.add_argument(
         "--duration",
         type=float,
@@ -102,7 +100,6 @@ def main():
         action="store_true",
         help="If set, the generated signal will be plotted.",
     )
-
     parser.add_argument(
         "--snr",
         type=float,
@@ -121,26 +118,22 @@ def main():
     parser.add_argument(
         "--slope",
         type=float,
-        default=0.5,
         help=( 
             "Slope of the colored noise spectrum. Controls how noise power increases "
-            "with frequency. Default is 0.5. Ignored if --snr is not provided or if "
-            "noise type is 'white'. If --noise_type is 'white' and --slope is specified, an error will be raised."
+            "with frequency. Ignored if --snr is not provided."
+            "If --noise_type is 'white' and --slope is specified, an error will be raised."
         ),
     )
-    
     parser.add_argument(
-    "--freq_seed",
-    type=int,
-    help="Random seed for frequency generation. If not provided, results will be different on each run.",
+        "--freq_seed",
+        type=int,
+        help="Random seed for frequency generation. If not provided, results will be different on each run.",
     )
-    
     parser.add_argument(
         "--noise_seed",
         type=int,
         help="Random seed for noise generation. If not provided, results will be different on each run.",
     )
-
     parser.add_argument(
         "--save",
         nargs="?",
@@ -149,7 +142,30 @@ def main():
         help="Path to save the signal and time data as a CSV file. If no path is provided, the file will be saved in the current directory.",
     )
     
+    # Parse command-line arguments first
     args = parser.parse_args()
+    
+    # Load values from the configuration file, if provided
+    config_args = {}
+    if args.config:
+        config_args = parse_config_file(args.config)
+    
+    # Override configuration file values only if they are set via command-line
+    for key, value in vars(args).items():
+        if f'--{key}' in sys.argv:  # Override only if the argument was passed via command-line
+            config_args[key] = value
+
+    # Combine default values, configuration file values, and command-line arguments
+    # If a value is not present, keep the default
+    for key, value in config_args.items():
+        if value is None and key in parser._option_string_actions:  # If the value is None, use the default value
+            setattr(args, key, parser.get_default(key))
+        else:
+            setattr(args, key, value)
+    
+    # Check for invalid combinations of arguments
+    if args.num_components is not None and args.frequencies is not None:
+        parser.error("The --num_components and --frequencies arguments cannot be used together.")
     
     if args.snr is None:
         if args.noise_type != "white" or args.slope is not None or args.noise_seed is not None:
@@ -157,6 +173,8 @@ def main():
     
     if args.noise_type == "white" and args.slope is not None:
         parser.error("The --slope argument cannot be used when --noise_type is 'white'.")
+    
+    print(vars(args))
 
     generate_and_plot_signal(args)
     

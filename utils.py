@@ -9,6 +9,7 @@ import numpy as np
 import os
 import csv
 from datetime import datetime
+import configparser
 from signal_toolkit import (
     generate_random_frequencies,
     generate_periodic_signal,
@@ -260,3 +261,42 @@ def generate_and_plot_signal(args):
             args.snr,
             args.noise_type,
         )
+        
+def parse_config_file(config_file):
+    """
+    Parses a configuration file and returns a dictionary of settings.
+
+    Parameters
+    ----------
+    config_file : str
+        Path to the configuration file.
+
+    Returns
+    -------
+    dict
+        Dictionary containing configuration parameters.
+    """
+    config = configparser.ConfigParser()
+    config.read(config_file)
+    
+    config_dict = {}
+    if 'Settings' in config:
+        for key, value in config['Settings'].items():
+            # Convert numerical values where applicable
+            if value.isdigit():
+                config_dict[key] = int(value)
+            else:
+                try:
+                    config_dict[key] = float(value)
+                except ValueError:
+                    config_dict[key] = value
+    
+        
+        if 'plot' in config_dict:
+            config_dict['plot'] = str(config_dict['plot']).lower() in ("yes", "true", "1")
+                
+        if 'save' in config_dict:
+            save_value = config_dict['save'].strip()
+            config_dict['save'] = save_value if save_value else "."
+
+    return config_dict

@@ -84,49 +84,38 @@ Date: February 2025</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="signal_builder.main">
 <span class="sig-prename descclassname"><span class="pre">signal_builder.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/signal_builder.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#signal_builder.main" title="Link to this definition"></a></dt>
-<dd><p>Main function to parse command-line arguments and generate a periodic signal.</p>
-<p>This script uses the argparse library to collect parameters from the command line,
-such as signal components, duration, sampling rate, waveform type, and optional
-noise settings (SNR, noise type, slope). It then calls the <cite>generate_and_plot_signal</cite>
-function to generate and optionally plot the periodic signal and/or save the signal data
-to a CSV file.</p>
-<p>Command-line arguments include:</p>
+<dd><p>Main function to parse command-line arguments and configuration file,
+then generate a periodic signal.</p>
+<p>This script uses argparse for command-line arguments and configparser for
+reading settings from a configuration file. Command-line arguments take
+precedence over configuration file values.</p>
+<p>Command-line arguments and config.ini settings include:</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>num_components</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of signal components (default is 5). Ignored if <cite>frequencies</cite> is provided.</p></li>
+<li><p><strong>config</strong> (<em>str</em><em>, </em><em>optional</em>) – Path to a configuration file (config.ini). If provided, parameters will be loaded from it.</p></li>
+<li><p><strong>num_components</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of signal components. Cannot be used with <cite>frequencies</cite>.</p></li>
 <li><p><strong>duration</strong> (<em>float</em><em>, </em><em>optional</em>) – Signal duration in seconds (default is 1.0).</p></li>
 <li><p><strong>sampling_rate</strong> (<em>int</em><em>, </em><em>optional</em>) – Sampling frequency in Hz (default is 250).</p></li>
 <li><p><strong>waveform_type</strong> (<em>{'sin'</em><em>, </em><em>'square'}</em><em>, </em><em>optional</em>) – Type of waveform (‘sin’ for sinusoidal wave, ‘square’ for square wave; default is ‘sin’).</p></li>
-<li><p><strong>frequencies</strong> (<em>str</em><em>, </em><em>optional</em>) – Comma-separated list of frequencies in Hz (e.g., ‘10,20,30’). If provided, <cite>num_components</cite> is ignored.</p></li>
+<li><p><strong>frequencies</strong> (<em>str</em><em>, </em><em>optional</em>) – Comma-separated list of frequencies in Hz (e.g., ‘10,20,30’). Cannot be used with <cite>num_components</cite>.</p></li>
 <li><p><strong>snr</strong> (<em>float</em><em>, </em><em>optional</em>) – Signal-to-noise ratio in dB. If provided, noise will be added to the signal.</p></li>
-<li><p><strong>noise_type</strong> (<em>{'white'</em><em>, </em><em>'colored'}</em><em>, </em><em>optional</em>) – Type of noise to add when <cite>snr</cite> is specified. Choices are ‘white’ (Gaussian white noise) or ‘colored’
-(frequency-dependent noise that increases linearly). Default is ‘white’. Ignored if <cite>snr</cite> is not provided.</p></li>
-<li><p><strong>slope</strong> (<em>float</em><em>, </em><em>optional</em>) – Spectral slope for colored noise. Controls how noise power increases with frequency. Default is 0.5.
-Ignored if <cite>snr</cite> is not provided or if <cite>noise_type</cite> is ‘white’. If <cite>noise_type</cite> is ‘white’ and <cite>slope</cite> is specified,
-an error will be raised.</p></li>
-<li><p><strong>freq_seed</strong> (<em>int</em><em>, </em><em>optional</em>) – Random seed for frequency generation. If provided, ensures the same frequencies are generated
-on each execution. If not set, frequencies will vary randomly.</p></li>
-<li><p><strong>noise_seed</strong> (<em>int</em><em>, </em><em>optional</em>) – Random seed for noise generation. If provided, ensures the same noise is added to the signal
-on each execution. If not set, noise will vary randomly.</p></li>
+<li><p><strong>noise_type</strong> (<em>{'white'</em><em>, </em><em>'colored'}</em><em>, </em><em>optional</em>) – Type of noise to add when <cite>snr</cite> is specified. Default is ‘white’.</p></li>
+<li><p><strong>slope</strong> (<em>float</em><em>, </em><em>optional</em>) – Spectral slope for colored noise (default is 0.5). Ignored if <cite>snr</cite> is not provided or <cite>noise_type</cite> is ‘white’.</p></li>
+<li><p><strong>freq_seed</strong> (<em>int</em><em>, </em><em>optional</em>) – Random seed for frequency generation.</p></li>
+<li><p><strong>noise_seed</strong> (<em>int</em><em>, </em><em>optional</em>) – Random seed for noise generation.</p></li>
 <li><p><strong>plot</strong> (<em>bool</em><em>, </em><em>optional</em>) – If set, the generated signal will be plotted.</p></li>
-<li><p><strong>save</strong> (<em>str</em><em>, </em><em>optional</em>) – Path to save the signal and time data as a CSV file. If no path is provided, the file will be saved in
-the current directory.</p></li>
+<li><p><strong>save</strong> (<em>str</em><em>, </em><em>optional</em>) – Path to save the signal as a CSV file.</p></li>
 </ul>
 </dd>
-</dl>
-<p class="rubric">Notes</p>
-<ul class="simple">
-<li><p>If <cite>–snr</cite> is not provided, noise-related arguments such as <cite>–noise_type</cite>, <cite>–slope</cite>, and <cite>–noise_seed</cite>
-should not be specified. If they are provided, a warning message will be displayed.</p></li>
-<li><p>If <cite>–noise_type</cite> is ‘white’ and <cite>–slope</cite> is specified, an error will be raised.</p></li>
-</ul>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The function does not return any value.</p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The function does not return any value.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>argparse.ArgumentError</strong> – If <cite>num_components</cite> and <cite>frequencies</cite> are both specified.</p>
 </dd>
 </dl>
 </dd></dl>
